@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.client')
 
 @section('title', 'Employee Details')
 @section('page-title', $employee->first_name . ' ' . $employee->last_name)
@@ -9,7 +9,7 @@
     <div class="bg-white rounded-lg shadow-md p-6">
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center">
-                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-600 to-teal-600 flex items-center justify-center text-white font-bold text-2xl mr-4">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-r from-green-600 to-emerald-600 flex items-center justify-center text-white font-bold text-2xl mr-4">
                     {{ strtoupper(substr($employee->first_name, 0, 1)) }}
                 </div>
                 <div>
@@ -17,7 +17,7 @@
                     <p class="text-gray-500">{{ $employee->email }}</p>
                 </div>
             </div>
-            <a href="{{ route('admin.employees.edit', $employee) }}" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+            <a href="{{ route('client.employees.edit', $employee) }}" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
                 <i class="fas fa-edit mr-2"></i>Edit
             </a>
         </div>
@@ -61,7 +61,7 @@
         <div class="flex items-center justify-between mb-4">
             <h3 class="text-xl font-semibold text-gray-800">Bank Accounts</h3>
             <button onclick="document.getElementById('addBankAccountForm').classList.toggle('hidden')" 
-                class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 text-sm">
+                class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm">
                 <i class="fas fa-plus mr-2"></i>Add Bank Account
             </button>
         </div>
@@ -69,22 +69,22 @@
         <!-- Add Bank Account Form -->
         <div id="addBankAccountForm" class="hidden mb-6 p-4 bg-gray-50 rounded-lg">
             <h4 class="font-semibold text-gray-800 mb-4">Add New Bank Account</h4>
-            <form action="{{ route('admin.employees.bank-accounts.store', $employee) }}" method="POST">
+            <form action="{{ route('client.employees.bank-accounts.store', $employee) }}" method="POST">
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Bank Name *</label>
                         <input type="text" name="bank_name" value="{{ old('bank_name') }}" required
-                            class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Account Holder Name *</label>
                         <input type="text" name="account_holder_name" value="{{ old('account_holder_name') }}" required
-                            class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Account Type *</label>
-                        <select name="account_type" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500">
+                        <select name="account_type" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                             <option value="checking" {{ old('account_type') == 'checking' ? 'selected' : '' }}>Checking</option>
                             <option value="savings" {{ old('account_type') == 'savings' ? 'selected' : '' }}>Savings</option>
                         </select>
@@ -93,12 +93,12 @@
                         <label class="block text-sm font-medium text-gray-700 mb-1">Routing Number *</label>
                         <input type="text" name="routing_number" value="{{ old('routing_number') }}" required maxlength="9"
                             pattern="[0-9]{9}" placeholder="9 digits"
-                            class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">Account Number *</label>
                         <input type="text" name="account_number" value="{{ old('account_number') }}" required
-                            class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500">
+                            class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                     </div>
                     <div class="flex items-center">
                         <label class="flex items-center">
@@ -109,7 +109,7 @@
                     </div>
                 </div>
                 <div class="mt-4 flex items-center space-x-3">
-                    <button type="submit" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700">
+                    <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
                         <i class="fas fa-save mr-2"></i>Add Bank Account
                     </button>
                     <button type="button" onclick="document.getElementById('addBankAccountForm').classList.add('hidden')" 
@@ -149,9 +149,9 @@
                 </div>
                 <div class="flex items-center space-x-2">
                     @if($bankAccount->verification_status != 'verified')
-                        <form action="{{ route('admin.employees.bank-accounts.verify', [$employee, $bankAccount]) }}" method="POST" class="inline">
+                        <form action="{{ route('client.employees.bank-accounts.verify', [$employee, $bankAccount]) }}" method="POST" class="inline">
                             @csrf
-                            <button type="submit" class="px-3 py-1 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm">
+                            <button type="submit" class="px-3 py-1 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm">
                                 <i class="fas fa-check mr-1"></i>Verify
                             </button>
                         </form>

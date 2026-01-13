@@ -40,6 +40,11 @@ class WebAuthController extends Controller
                 return redirect()->intended(route('admin.dashboard'));
             }
             
+            // Redirect clients to client dashboard
+            if (Auth::user()->hasRole('client')) {
+                return redirect()->intended(route('client.dashboard'));
+            }
+            
             return redirect()->intended(route('web.dashboard'));
         }
 
@@ -99,6 +104,12 @@ class WebAuthController extends Controller
                 ->with('success', 'Registration successful! Welcome to PayVault Payroll.');
         }
 
+        // Redirect clients to client dashboard
+        if ($user->hasRole('client')) {
+            return redirect()->route('client.dashboard')
+                ->with('success', 'Registration successful! Welcome to PayVault Payroll.');
+        }
+
         return redirect()->route('web.dashboard')
             ->with('success', 'Registration successful! Welcome to PayVault Payroll.');
     }
@@ -124,6 +135,11 @@ class WebAuthController extends Controller
         // Redirect admins to admin dashboard
         if (Auth::user()->hasRole('admin')) {
             return redirect()->route('admin.dashboard');
+        }
+        
+        // Redirect clients to client dashboard
+        if (Auth::user()->hasRole('client')) {
+            return redirect()->route('client.dashboard');
         }
         
         return view('dashboard');

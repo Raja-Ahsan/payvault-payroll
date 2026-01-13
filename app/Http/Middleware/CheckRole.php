@@ -15,14 +15,20 @@ class CheckRole
      */
     public function handle(Request $request, Closure $next, string ...$roles): Response
     {
-        if (!$request->user()) {
-            return response()->json(['message' => 'Unauthenticated'], 401);
+        if (!auth()->check()) {
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'Unauthenticated'], 401);
+            }
+            return redirect()->route('web.login');
         }
 
-        $userRole = $request->user()->role;
+        $userRole = auth()->user()->role;
 
         if (!$userRole || !in_array($userRole->name, $roles)) {
-            return response()->json(['message' => 'Unauthorized. Required role: ' . implode(', ', $roles)], 403);
+            if ($request->expectsJson()) {
+                return response()->json(['message' => 'Unauthorized. Required role: ' . implode(', ', $roles)], 403);
+            }
+            abort(403, 'Unauthorized. You do not have the required role to access this page.');
         }
 
         return $next($request);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
@@ -8,24 +8,34 @@ use App\Models\Company;
 use App\Models\Employee;
 use App\Services\AchService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
 {
     public function index()
     {
-        $employees = Employee::with(['company', 'user'])->latest()->paginate(15);
-        return view('admin.employees.index', compact('employees'));
+        $userCompanyIds = Company::where('created_by', Auth::id())->pluck('id');
+        $employees = Employee::whereIn('company_id', $userCompanyIds)
+            ->with(['company', 'user'])
+            ->latest()
+            ->paginate(15);
+        return view('client.employees.index', compact('employees'));
     }
 
     public function create()
     {
-        $companies = Company::all();
-        return view('admin.employees.create', compact('companies'));
+        $companies = Company::where('created_by', Auth::id())->get();
+        return view('client.employees.create', compact('companies'));
     }
 
     public function store(Request $request)
     {
+        // Ensure company belongs to user
+        $company = Company::where('id', $request->company_id)
+            ->where('created_by', Auth::id())
+            ->firstOrFail();
+
         $validator = Validator::make($request->all(), [
             'company_id' => 'required|exists:companies,id',
             'first_name' => 'required|string|max:255',
@@ -43,24 +53,49 @@ class EmployeeController extends Controller
 
         Employee::create($request->all());
 
-        return redirect()->route('admin.employees.index')
+        return redirect()->route('client.employees.index')
             ->with('success', 'Employee created successfully!');
     }
 
     public function show(Employee $employee)
     {
+        // Ensure employee belongs to user's company
+        $userCompanyIds = Company::where('created_by', Auth::id())->pluck('id');
+        if (!in_array($employee->company_id, $userCompanyIds->toArray())) {
+            abort(403, 'Unauthorized access.');
+        }
+
         $employee->load(['company', 'user', 'bankAccounts', 'payrollItems']);
-        return view('admin.employees.show', compact('employee'));
+        return view('client.employees.show', compact('employee'));
     }
 
     public function edit(Employee $employee)
     {
-        $companies = Company::all();
-        return view('admin.employees.edit', compact('employee', 'companies'));
+        // Ensure employee belongs to user's company
+        $userCompanyIds = Company::where('created_by', Auth::id())->pluck('id');
+        if (!in_array($employee->company_id, $userCompanyIds->toArray())) {
+            abort(403, 'Unauthorized access.');
+        }
+
+        $companies = Company::where('created_by', Auth::id())->get();
+        return view('client.employees.edit', compact('employee', 'companies'));
     }
 
     public function update(Request $request, Employee $employee)
     {
+        // Ensure employee belongs to user's company
+        $userCompanyIds = Company::where('created_by', Auth::id())->pluck('id');
+        if (!in_array($employee->company_id, $userCompanyIds->toArray())) {
+            abort(403, 'Unauthorized access.');
+        }
+
+        // Ensure new company also belongs to user
+        if ($request->company_id != $employee->company_id) {
+            $company = Company::where('id', $request->company_id)
+                ->where('created_by', Auth::id())
+                ->firstOrFail();
+        }
+
         $validator = Validator::make($request->all(), [
             'company_id' => 'required|exists:companies,id',
             'first_name' => 'required|string|max:255',
@@ -78,19 +113,31 @@ class EmployeeController extends Controller
 
         $employee->update($request->all());
 
-        return redirect()->route('admin.employees.index')
+        return redirect()->route('client.employees.index')
             ->with('success', 'Employee updated successfully!');
     }
 
     public function destroy(Employee $employee)
     {
+        // Ensure employee belongs to user's company
+        $userCompanyIds = Company::where('created_by', Auth::id())->pluck('id');
+        if (!in_array($employee->company_id, $userCompanyIds->toArray())) {
+            abort(403, 'Unauthorized access.');
+        }
+
         $employee->delete();
-        return redirect()->route('admin.employees.index')
+        return redirect()->route('client.employees.index')
             ->with('success', 'Employee deleted successfully!');
     }
 
     public function storeBankAccount(Request $request, Employee $employee)
     {
+        // Ensure employee belongs to user's company
+        $userCompanyIds = Company::where('created_by', Auth::id())->pluck('id');
+        if (!in_array($employee->company_id, $userCompanyIds->toArray())) {
+            abort(403, 'Unauthorized access.');
+        }
+
         $validator = Validator::make($request->all(), [
             'bank_name' => 'required|string|max:255',
             'account_holder_name' => 'required|string|max:255',
@@ -122,12 +169,18 @@ class EmployeeController extends Controller
             'verification_status' => 'pending',
         ]);
 
-        return redirect()->route('admin.employees.show', $employee)
+        return redirect()->route('client.employees.show', $employee)
             ->with('success', 'Bank account added successfully! Please verify it to enable ACH processing.');
     }
 
     public function verifyBankAccount(Employee $employee, BankAccount $bankAccount, AchService $achService)
     {
+        // Ensure employee belongs to user's company
+        $userCompanyIds = Company::where('created_by', Auth::id())->pluck('id');
+        if (!in_array($employee->company_id, $userCompanyIds->toArray())) {
+            abort(403, 'Unauthorized access.');
+        }
+
         // Ensure bank account belongs to employee
         if ($bankAccount->accountable_type !== Employee::class || $bankAccount->accountable_id !== $employee->id) {
             abort(403, 'Unauthorized access.');
@@ -135,7 +188,7 @@ class EmployeeController extends Controller
 
         $achService->verifyBankAccount($bankAccount);
 
-        return redirect()->route('admin.employees.show', $employee)
+        return redirect()->route('client.employees.show', $employee)
             ->with('success', 'Bank account verified successfully!');
     }
 }
