@@ -40,12 +40,17 @@ class WebAuthController extends Controller
                 return redirect()->intended(route('admin.dashboard'));
             }
             
-            // Redirect clients to client dashboard
-            if (Auth::user()->hasRole('client')) {
-                return redirect()->intended(route('client.dashboard'));
-            }
-            
-            return redirect()->intended(route('web.dashboard'));
+        // Redirect clients to client dashboard
+        if (Auth::user()->hasRole('client')) {
+            return redirect()->intended(route('client.dashboard'));
+        }
+        
+        // Redirect employees to employee dashboard
+        if (Auth::user()->hasRole('employee')) {
+            return redirect()->intended(route('employee.dashboard'));
+        }
+        
+        return redirect()->intended(route('web.dashboard'));
         }
 
         return back()->withErrors([
@@ -110,6 +115,12 @@ class WebAuthController extends Controller
                 ->with('success', 'Registration successful! Welcome to PayVault Payroll.');
         }
 
+        // Redirect employees to employee dashboard
+        if ($user->hasRole('employee')) {
+            return redirect()->route('employee.dashboard')
+                ->with('success', 'Registration successful! Welcome to PayVault Payroll.');
+        }
+
         return redirect()->route('web.dashboard')
             ->with('success', 'Registration successful! Welcome to PayVault Payroll.');
     }
@@ -140,6 +151,11 @@ class WebAuthController extends Controller
         // Redirect clients to client dashboard
         if (Auth::user()->hasRole('client')) {
             return redirect()->route('client.dashboard');
+        }
+        
+        // Redirect employees to employee dashboard
+        if (Auth::user()->hasRole('employee')) {
+            return redirect()->route('employee.dashboard');
         }
         
         return view('dashboard');

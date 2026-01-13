@@ -18,6 +18,19 @@ Route::post('/logout', [WebAuthController::class, 'logout'])->name('web.logout')
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [WebAuthController::class, 'dashboard'])->name('web.dashboard');
     
+    // Employee Routes
+    Route::middleware(['role:employee'])->prefix('employee')->name('employee.')->group(function () {
+        Route::get('/dashboard', [\App\Http\Controllers\Employee\DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/payroll', [\App\Http\Controllers\Employee\PayrollController::class, 'index'])->name('payroll.index');
+        Route::get('/payroll/{payrollItem}', [\App\Http\Controllers\Employee\PayrollController::class, 'show'])->name('payroll.show');
+        Route::get('/bank-accounts', [\App\Http\Controllers\Employee\BankAccountController::class, 'index'])->name('bank-accounts.index');
+        Route::post('/bank-accounts', [\App\Http\Controllers\Employee\BankAccountController::class, 'store'])->name('bank-accounts.store');
+        Route::post('/bank-accounts/{bankAccount}/verify', [\App\Http\Controllers\Employee\BankAccountController::class, 'verify'])->name('bank-accounts.verify');
+        Route::get('/profile', [\App\Http\Controllers\Employee\ProfileController::class, 'index'])->name('profile');
+        Route::put('/profile', [\App\Http\Controllers\Employee\ProfileController::class, 'update'])->name('profile.update');
+        Route::put('/profile/password', [\App\Http\Controllers\Employee\ProfileController::class, 'updatePassword'])->name('profile.password');
+    });
+    
     // Client Routes
     Route::middleware(['role:client'])->prefix('client')->name('client.')->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Client\DashboardController::class, 'index'])->name('dashboard');
