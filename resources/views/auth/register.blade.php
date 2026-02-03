@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - PayVault Payroll</title>
+    <title>Register - DIY Payroll</title>
     <style>
         * {
             margin: 0;
@@ -113,7 +113,7 @@
 <body>
     <div class="register-container">
         <div class="logo">
-            <h1>PayVault Payroll</h1>
+            <h1>DIY Payroll</h1>
         </div>
         
         @if($errors->any())

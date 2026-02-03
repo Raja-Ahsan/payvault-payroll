@@ -2,7 +2,7 @@
 
 ## 🎉 Admin Dashboard is Ready!
 
-A complete, advanced admin dashboard with full functionality has been created for the PayVault Payroll system.
+A complete, advanced admin dashboard with full functionality has been created for the DIY Payroll system.
 
 ## 🚀 How to Access
 

@@ -3,8 +3,11 @@
 use App\Http\Controllers\WebAuthController;
 use Illuminate\Support\Facades\Route;
 
+// Route::get('/', function () {
+//     return redirect()->route('web.login');
+// });
 Route::get('/', function () {
-    return redirect()->route('web.login');
+    return view('home');
 });
 
 // Route::get('/', function () {

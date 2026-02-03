@@ -1,4 +1,4 @@
-# How to Access PayVault Payroll Web Portal
+# How to Access DIY Payroll Web Portal
 
 ## Problem
 If you're seeing a 404 error or a different website, you're likely accessing XAMPP's Apache server instead of Laravel's development server.

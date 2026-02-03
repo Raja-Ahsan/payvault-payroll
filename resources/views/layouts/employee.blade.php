@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Employee Dashboard') - PayVault Payroll</title>
+    <title>@yield('title', 'Employee Dashboard') - DIY Payroll</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
@@ -30,9 +30,7 @@
             <div class="flex flex-col h-full">
                 <!-- Logo -->
                 <div class="p-6 border-b">
-                    <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
-                        <i class="fas fa-vault mr-2"></i>PayVault
-                    </h1>
+                    <img src="{{ asset('images/logo.png') }}" alt="PayVault" class="" style="max-width: 160px;">
                     <p class="text-xs text-gray-500 mt-1">Employee Portal</p>
                 </div>
 

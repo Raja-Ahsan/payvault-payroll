@@ -106,23 +106,23 @@ class WebAuthController extends Controller
         // Redirect admins to admin dashboard
         if ($user->hasRole('admin')) {
             return redirect()->route('admin.dashboard')
-                ->with('success', 'Registration successful! Welcome to PayVault Payroll.');
+                ->with('success', 'Registration successful! Welcome to DIY Payroll.');
         }
 
         // Redirect clients to client dashboard
         if ($user->hasRole('client')) {
             return redirect()->route('client.dashboard')
-                ->with('success', 'Registration successful! Welcome to PayVault Payroll.');
+                ->with('success', 'Registration successful! Welcome to DIY Payroll.');
         }
 
         // Redirect employees to employee dashboard
         if ($user->hasRole('employee')) {
             return redirect()->route('employee.dashboard')
-                ->with('success', 'Registration successful! Welcome to PayVault Payroll.');
+                ->with('success', 'Registration successful! Welcome to DIY Payroll.');
         }
 
         return redirect()->route('web.dashboard')
-            ->with('success', 'Registration successful! Welcome to PayVault Payroll.');
+            ->with('success', 'Registration successful! Welcome to DIY Payroll.');
     }
 
     /**

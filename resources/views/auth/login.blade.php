@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - PayVault Payroll</title>
+    <title>Login - DIY Payroll</title>
     <style>
         * {
             margin: 0;
@@ -110,7 +110,7 @@
 <body>
     <div class="login-container">
         <div class="logo">
-            <h1>PayVault Payroll</h1>
+            <h1>DIY Payroll</h1>
         </div>
         
         @if(session('error'))

@@ -1,4 +1,4 @@
-# PayVault Payroll Web Application
+# DIY Payroll Web Application
 
 A comprehensive payroll management system built with Laravel and MySQL, featuring multi-company support, employee management, payroll processing, and ACH payment integration.
 

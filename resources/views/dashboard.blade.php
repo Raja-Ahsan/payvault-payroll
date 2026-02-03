@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - PayVault Payroll</title>
+    <title>Dashboard - DIY Payroll</title>
     <style>
         * {
             margin: 0;
@@ -111,7 +111,7 @@
 </head>
 <body>
     <div class="header">
-        <h1>PayVault Payroll</h1>
+        <h1>DIY Payroll</h1>
         <div class="user-info">
             <span>{{ Auth::user()->name }} ({{ Auth::user()->role ? Auth::user()->role->name : 'No Role' }})</span>
             <form method="POST" action="{{ route('web.logout') }}" style="display: inline;">
@@ -123,7 +123,7 @@
     
     <div class="container">
         <div class="welcome-card">
-            <h2>Welcome to PayVault Payroll!</h2>
+            <h2>Welcome to DIY Payroll!</h2>
             <p>You have successfully logged in. This is a basic dashboard. The full application functionality is available through the REST API endpoints.</p>
         </div>
         
