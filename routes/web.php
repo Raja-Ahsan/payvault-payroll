@@ -7,6 +7,10 @@ Route::get('/', function () {
     return redirect()->route('web.login');
 });
 
+// Route::get('/', function () {
+//     return view('');
+// });
+
 // Authentication Routes
 Route::get('/login', [WebAuthController::class, 'showLoginForm'])->name('web.login');
 Route::post('/login', [WebAuthController::class, 'login']);

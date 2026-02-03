@@ -31,7 +31,8 @@
                 <!-- Logo -->
                 <div class="p-6 border-b">
                     <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                        <i class="fas fa-vault mr-2"></i>PayVault
+                        {{-- <i class="fas fa-vault mr-2"></i>PayVault --}}
+                        <img src="{{ asset('images/logo.png') }}" alt="PayVault" class="" style="max-width: 160px;">
                     </h1>
                     <p class="text-xs text-gray-500 mt-1">Payroll System</p>
                 </div>
