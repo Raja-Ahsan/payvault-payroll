@@ -10,6 +10,26 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::get('/how-it-work', function () {
+    return view('inner-pages.how-it-work');
+})->name('how-it-work');
+
+Route::get('/features', function () {
+    return view('inner-pages.features');
+})->name('features');
+
+Route::get('/security', function () {
+    return view('inner-pages.security');
+})->name('security');
+
+Route::get('/about', function () {
+    return view('inner-pages.about');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('inner-pages.contact');
+})->name('contact');
+
 // Route::get('/', function () {
 //     return view('');
 // });

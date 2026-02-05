@@ -13,9 +13,9 @@
             <div>
                 <span class="footer-title">Product</span>
                 <ul class="space-y-2">
-                    <li><a href="#" class="footer-link">How It Works</a></li>
-                    <li><a href="#" class="footer-link">Features</a></li>
-                    <li><a href="#" class="footer-link">Security & Compliance</a></li>
+                    <li><a href="/how-it-work" class="footer-link">How It Works</a></li>
+                    <li><a href="/features" class="footer-link">Features</a></li>
+                    <li><a href="/security" class="footer-link">Security & Compliance</a></li>
                     <li><a href="#" class="footer-link">Employee Portal</a></li>
                 </ul>
             </div>
@@ -24,10 +24,10 @@
             <div>
                 <span class="footer-title">Company</span>
                 <ul class="space-y-2">
-                    <li><a href="#" class="footer-link">About Us</a></li>
-                    <li><a href="#" class="footer-link">Contact</a></li>
+                    <li><a href="/about" class="footer-link">About Us</a></li>
+                    <li><a href="/contact" class="footer-link">Contact</a></li>
                     <li><a href="#" class="footer-link">Request a Demo</a></li>
-                    <li><a href="#" class="footer-link">Login</a></li>
+                    <li><a href="/login" class="footer-link">Login</a></li>
                 </ul>
             </div>
 

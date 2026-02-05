@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Home')
+@section('title', 'Home | DIY Payroll')
 @section('content')
     <main>
         <!-- hero section -->

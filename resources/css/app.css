@@ -56,6 +56,7 @@ h1, h2, h3, h4, .font-bold, .font-extrabold {
 body{
     background-color: var(--bg-color);
     font-family: 'Sofia-Pro-Regular', sans-serif !important;
+    overflow-x: hidden;
 }
 .primary-btn{
   @apply bg-linear-to-r from-[#1D5C24] to-[#348C31] text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-green-900/20 hover:scale-105 transition-all;
@@ -63,7 +64,7 @@ body{
 }
 
 .destop-nav-links{
-    @apply text-[var(--text-secondary-color)]  text-[18px] font-normal hover:text-green-700 transition-colors
+    @apply text-[var(--text-secondary-color)]  text-[18px] font-normal hover:text-[#348C31] transition-colors
 }
 
 .mobile-nav-links{
@@ -75,7 +76,7 @@ body{
 }
 
 .footer-link {
-    @apply text-[var(--text-color)] transition-all text-[18px] font-normal mb-3 block;
+    @apply text-[var(--text-color)] transition-all hover:text-[#348C31] text-[18px] font-normal mb-3 block;
 }
 
 .payroll-heading{
@@ -187,6 +188,82 @@ body{
 .hero-section {
     @apply relative bg-cover bg-right md:bg-center  rounded-[30px] md:rounded-[20px] overflow-hidden py-[66px] md:py-[316px]
 }
+.inner-hero {
+    @apply relative bg-cover bg-center rounded-[30px] md:rounded-[20px] overflow-hidden py-16 md:py-32 mb-10 md:mb-20 bg-[#0B270B];
+}
+.inner-title {
+    @apply text-white text-[32px] md:text-[56px] font-bold leading-tight text-center;
+}
+.inner-text {
+    @apply text-white/80 text-[18px] md:text-[20px] font-normal text-center max-w-3xl mx-auto mt-4;
+}
+.section-heading {
+    @apply text-[var(--text-secondary-color)] text-[32px] md:text-[48px] font-bold leading-tight;
+}
+.section-spacing {
+    @apply py-12 md:py-24;
+}
+.feature-card {
+    @apply bg-white p-8 md:p-12 rounded-[32px] border border-black/5 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.1)] h-full flex flex-col items-start text-left;
+}
+.feature-icon-wrapper {
+    @apply mb-8;
+}
+.feature-icon-wrapper img {
+    @apply w-20 h-20 object-contain;
+}
+.feature-card-heading {
+    @apply text-[var(--text-secondary-color)] text-[24px] md:text-[30px] font-bold mb-5 leading-tight tracking-tight;
+}
+.feature-card-text {
+    @apply text-[var(--text-secondary-color)] opacity-60 text-[17px] md:text-[19px] leading-relaxed font-normal;
+}
 .container {
     @apply mx-auto px-4 md:px-10;
 }
+/* about page */
+.stats-container {
+    @apply bg-[#0B270B] rounded-[32px] py-16 md:py-24 px-8 md:px-16;
+}
+.stat-item {
+    @apply text-center p-8;
+}
+.stat-number {
+    @apply text-white text-[38px] md:text-[54px] font-bold leading-none mb-4 block;
+}
+.stat-label {
+    @apply text-white/70 text-[18px] md:text-[20px] font-normal;
+}
+.value-card {
+    @apply bg-white p-10 rounded-[32px] border border-black/5 hover:shadow-xl transition-all duration-300;
+}
+
+/* contact page */
+.contact-info-card {
+    @apply bg-white p-8 rounded-[32px] border border-black/5 hover:shadow-xl transition-all duration-300 flex items-start space-x-6;
+}
+.contact-icon-box {
+    @apply w-14 h-14 bg-[#E1EFDF] rounded-2xl flex items-center justify-center shrink-0;
+}
+.contact-label {
+    @apply text-[#666666] text-[16px] font-normal mb-1 block;
+}
+.contact-value {
+    @apply text-[var(--text-secondary-color)] text-[18px] md:text-[20px] font-bold;
+}
+.contact-form-box {
+    @apply bg-white p-8 md:p-12 rounded-[32px] border border-black/5 shadow-sm;
+}
+.form-group {
+    @apply mb-6;
+}
+.form-label {
+    @apply block text-[var(--text-secondary-color)] text-[16px] font-bold mb-3;
+}
+.form-input {
+    @apply w-full bg-gray-50 border border-gray-100 rounded-xl px-5 py-4 text-[16px] focus:outline-hidden focus:border-green-500/30 focus:bg-white transition-all;
+}
+.form-textarea {
+    @apply w-full bg-gray-50 border border-gray-100 rounded-xl px-5 py-4 text-[16px] focus:outline-hidden focus:border-green-500/30 focus:bg-white transition-all min-h-[150px] resize-none;
+}
+
