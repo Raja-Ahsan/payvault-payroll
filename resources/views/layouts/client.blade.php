@@ -23,6 +23,9 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
+        .btn-gradient {
+            background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
+        }
     </style>
     @stack('styles')
 </head>

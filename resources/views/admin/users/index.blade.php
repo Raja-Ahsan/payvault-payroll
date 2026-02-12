@@ -8,7 +8,7 @@
 <div class="bg-white rounded-lg shadow-md p-6">
     <div class="flex items-center justify-between mb-6">
         <h3 class="text-xl font-semibold text-gray-800">All Users</h3>
-        <a href="{{ route('admin.users.create') }}" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition">
+        <a href="{{ route('admin.users.create') }}" class="btn-gradient text-white px-4 py-2 rounded-lg transition">
             <i class="fas fa-plus mr-2"></i>Add New User
         </a>
     </div>
@@ -29,7 +29,7 @@
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center justify-center text-white font-bold mr-3">
+                            <div class="w-10 h-10 rounded-full linear-gradient-bg flex items-center justify-center text-white font-bold mr-3">
                                 {{ strtoupper(substr($user->name, 0, 1)) }}
                             </div>
                             <div class="text-sm font-medium text-gray-900">{{ $user->name }}</div>

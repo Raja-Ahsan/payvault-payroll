@@ -12,7 +12,7 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -32,7 +32,7 @@
             margin-bottom: 30px;
         }
         .logo h1 {
-            color: #667eea;
+            color: #1D5C24;
             font-size: 28px;
             font-weight: 700;
         }
@@ -57,12 +57,12 @@
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1D5C24;
         }
         .btn {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -89,7 +89,7 @@
             color: #666;
         }
         .login-link a {
-            color: #667eea;
+            color: #1D5C24;
             text-decoration: none;
             font-weight: 500;
         }
@@ -152,7 +152,7 @@
                 <label for="role">Role</label>
                 <select id="role" name="role" required>
                     <option value="">Select a role</option>
-                    <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                    {{-- <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Admin</option> --}}
                     <option value="client" {{ old('role') == 'client' ? 'selected' : '' }}>Client</option>
                     <option value="employee" {{ old('role') == 'employee' ? 'selected' : '' }}>Employee</option>
                 </select>

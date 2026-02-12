@@ -8,7 +8,7 @@
 <div class="bg-white rounded-lg shadow-md p-6">
     <div class="flex items-center justify-between mb-6">
         <h3 class="text-xl font-semibold text-gray-800">All Employees</h3>
-        <a href="{{ route('admin.employees.create') }}" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition">
+        <a href="{{ route('admin.employees.create') }}" class="btn-gradient text-white px-4 py-2 rounded-lg transition">
             <i class="fas fa-plus mr-2"></i>Add New Employee
         </a>
     </div>

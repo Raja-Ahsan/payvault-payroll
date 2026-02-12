@@ -13,12 +13,15 @@
             transition: all 0.3s ease;
         }
         .active-menu {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
             color: white;
         }
         .hover-effect:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
         }
     </style>
     @stack('styles')
@@ -30,7 +33,7 @@
             <div class="flex flex-col h-full">
                 <!-- Logo -->
                 <div class="p-6 border-b">
-                    <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
+                    <h1 class="text-2xl font-bold linear-gradient-bg bg-clip-text text-transparent">
                         <img src="{{ asset('images/logo.png') }}" alt="PayVault" class="" style="max-width: 160px;">
                     </h1>
                     <p class="text-xs text-gray-500 mt-1">Payroll System</p>
@@ -87,7 +90,7 @@
                 <!-- User Info -->
                 <div class="p-4 border-t">
                     <div class="flex items-center mb-3">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 flex items-center justify-center text-white font-bold">
+                        <div class="w-10 h-10 rounded-full linear-gradient-bg flex items-center justify-center text-white font-bold">
                             {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                         </div>
                         <div class="ml-3 flex-1">

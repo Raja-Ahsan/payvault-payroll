@@ -55,7 +55,7 @@
             <a href="{{ route('admin.payroll.index') }}" class="px-6 py-2 border rounded-lg text-gray-700 hover:bg-gray-50">
                 Cancel
             </a>
-            <button type="submit" class="px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 transition">
+            <button type="submit" class="px-6 py-2 btn-gradient text-white rounded-lg transition">
                 <i class="fas fa-save mr-2"></i>Create Payroll Run
             </button>
         </div>

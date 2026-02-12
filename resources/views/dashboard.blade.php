@@ -15,7 +15,7 @@
             background: #f5f5f5;
         }
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
             color: white;
             padding: 20px 40px;
             display: flex;
@@ -81,7 +81,7 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         .info-card h3 {
-            color: #667eea;
+            color: #1D5C24;
             margin-bottom: 10px;
             font-size: 18px;
         }

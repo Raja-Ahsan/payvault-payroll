@@ -17,8 +17,8 @@
 
         <!-- Auth Buttons -->
         <div class="hidden lg:flex items-center space-x-6">
-            <a href="/" class="text-[var(--text-secondary-color)] font-regular text-[18px] underline decoration-1 underline-offset-4 hover:text-green-800 transition-all">Login</a>
-            <a href="" class="primary-btn">
+            <a href="{{ route('web.login') }}" class="text-[var(--text-secondary-color)] font-regular text-[18px] underline decoration-1 underline-offset-4 hover:text-green-800 transition-all">Login</a>
+            <a href="{{ route('web.register') }}" class="primary-btn">
                 Register
             </a>
         </div>

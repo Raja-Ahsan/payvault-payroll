@@ -190,3 +190,15 @@ body{
 .container {
     @apply mx-auto px-4 md:px-10;
 }
+.linear-gradient-bg {
+    background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
+}
+
+/* Reusable gradient button/link classes (Tailwind v4 doesn't support arbitrary bg values) */
+.btn-gradient {
+    background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
+}
+
+.btn-gradient:hover {
+    background: linear-gradient(135deg, #16471C 0%, #2A7028 100%);
+}

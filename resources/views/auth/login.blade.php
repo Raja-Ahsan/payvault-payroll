@@ -12,7 +12,9 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
+            /* from-[#1D5C24] to-[#348C31] */
+            
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -32,7 +34,7 @@
             margin-bottom: 30px;
         }
         .logo h1 {
-            color: #667eea;
+            color: #1D5C24;
             font-size: 28px;
             font-weight: 700;
         }
@@ -55,12 +57,12 @@
         }
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1D5C24;
         }
         .btn {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
             color: white;
             border: none;
             border-radius: 8px;
@@ -98,7 +100,7 @@
             color: #666;
         }
         .register-link a {
-            color: #667eea;
+            color: #1D5C24;
             text-decoration: none;
             font-weight: 500;
         }
@@ -110,7 +112,7 @@
 <body>
     <div class="login-container">
         <div class="logo">
-            <h1>DIY Payroll</h1>
+            <img src="{{ asset('images/logo.png') }}" alt="PayVault" class="" style="max-width: 160px;">
         </div>
         
         @if(session('error'))

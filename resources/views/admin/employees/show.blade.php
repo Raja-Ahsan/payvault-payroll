@@ -61,7 +61,7 @@
         <div class="flex items-center justify-between mb-4">
             <h3 class="text-xl font-semibold text-gray-800">Bank Accounts</h3>
             <button onclick="document.getElementById('addBankAccountForm').classList.toggle('hidden')" 
-                class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700 text-sm">
+                class="px-4 py-2 btn-gradient text-white rounded-lg text-sm">
                 <i class="fas fa-plus mr-2"></i>Add Bank Account
             </button>
         </div>
@@ -109,7 +109,7 @@
                     </div>
                 </div>
                 <div class="mt-4 flex items-center space-x-3">
-                    <button type="submit" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg hover:from-purple-700 hover:to-indigo-700">
+                    <button type="submit" class="px-4 py-2 btn-gradient text-white rounded-lg">
                         <i class="fas fa-save mr-2"></i>Add Bank Account
                     </button>
                     <button type="button" onclick="document.getElementById('addBankAccountForm').classList.add('hidden')" 
