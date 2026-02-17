@@ -52,7 +52,7 @@
             <a href="{{ route('client.payroll.show', $payroll) }}" class="px-6 py-2 border rounded-lg text-gray-700 hover:bg-gray-50">
                 Cancel
             </a>
-            <button type="submit" class="px-6 py-2 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition">
+            <button type="submit" class="px-6 py-2 btn-gradient text-white rounded-lg hover:from-green-700 hover:to-emerald-700 transition">
                 <i class="fas fa-save mr-2"></i>Update Payroll Run
             </button>
         </div>

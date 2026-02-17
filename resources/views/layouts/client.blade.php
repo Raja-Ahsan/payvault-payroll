@@ -15,7 +15,8 @@
         }
 
         .active-menu {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            /* background: linear-gradient(135deg, #10b981 0%, #059669 100%); */
+            background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
             color: white;
         }
 
@@ -93,7 +94,7 @@
                 <div class="p-4 border-t">
                     <div class="flex items-center mb-3">
                         <div
-                            class="w-10 h-10 rounded-full bg-gradient-to-r from-green-600 to-emerald-600 flex items-center justify-center text-white font-bold">
+                            class="w-10 h-10 rounded-full btn-gradient flex items-center justify-center text-white font-bold">
                             {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                         </div>
                         <div class="ml-3 flex-1">

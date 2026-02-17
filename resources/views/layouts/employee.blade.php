@@ -13,7 +13,8 @@
             transition: all 0.3s ease;
         }
         .active-menu {
-            background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
+
             color: white;
         }
         .hover-effect:hover {

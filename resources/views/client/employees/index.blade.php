@@ -8,7 +8,7 @@
 <div class="bg-white rounded-lg shadow-md p-6">
     <div class="flex items-center justify-between mb-6">
         <h3 class="text-xl font-semibold text-gray-800">All Employees</h3>
-        <a href="{{ route('client.employees.create') }}" class="bg-gradient-to-r from-green-600 to-emerald-600 text-white px-4 py-2 rounded-lg hover:from-green-700 hover:to-emerald-700 transition">
+        <a href="{{ route('client.employees.create') }}" class="btn-gradient text-white px-4 py-2 rounded-lg hover:from-green-700 hover:to-emerald-700 transition">
             <i class="fas fa-plus mr-2"></i>Add New Employee
         </a>
     </div>
@@ -31,7 +31,7 @@
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full bg-gradient-to-r from-green-600 to-emerald-600 flex items-center justify-center text-white font-bold mr-3">
+                            <div class="w-10 h-10 rounded-full btn-gradient flex items-center justify-center text-white font-bold mr-3">
                                 {{ strtoupper(substr($employee->first_name, 0, 1)) }}
                             </div>
                             <div class="text-sm font-medium text-gray-900">{{ $employee->first_name }} {{ $employee->last_name }}</div>

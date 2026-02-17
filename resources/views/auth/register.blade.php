@@ -113,7 +113,7 @@
 <body>
     <div class="register-container">
         <div class="logo">
-            <h1>DIY Payroll</h1>
+            <img src="{{ asset('images/logo.png') }}" alt="PayVault" class="" style="max-width: 160px;">
         </div>
         
         @if($errors->any())

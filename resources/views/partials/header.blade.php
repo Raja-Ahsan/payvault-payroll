@@ -8,19 +8,23 @@
         <!-- Desktop Navigation -->
         <div class="hidden lg:flex items-center space-x-8">
             <a href="/" class="destop-nav-links">Home</a>
-            <a href="#" class="destop-nav-links">How It Works</a>
-            <a href="#" class="destop-nav-links">Features</a>
-            <a href="#" class="destop-nav-links">Security</a>
-            <a href="#" class="destop-nav-links">About</a>
-            <a href="#" class="destop-nav-links">Contact</a>
+            <a href="{{ route('how-it-work') }}" class="destop-nav-links">How It Works</a>
+            <a href="{{ route('features') }}" class="destop-nav-links">Features</a>
+            <a href="{{ route('security') }}" class="destop-nav-links">Security</a>
+            <a href="{{ route('about') }}" class="destop-nav-links">About</a>
+            <a href="{{ route('contact') }}" class="destop-nav-links">Contact</a>
         </div>
 
         <!-- Auth Buttons -->
         <div class="hidden lg:flex items-center space-x-6">
+            @if(!auth()->user())
             <a href="{{ route('web.login') }}" class="text-[var(--text-secondary-color)] font-regular text-[18px] underline decoration-1 underline-offset-4 hover:text-green-800 transition-all">Login</a>
             <a href="{{ route('web.register') }}" class="primary-btn">
                 Register
             </a>
+            @else
+            <a href="{{ route('web.dashboard') }}" class="primary-btn">Dashboard</a>
+            @endif
         </div>
 
         <!-- Mobile Menu Button -->
@@ -40,11 +44,11 @@
     <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-gray-100 absolute w-full left-0 shadow-xl animate-in slide-in-from-top duration-300">
         <div class="px-6 py-6 flex flex-col space-y-4">
             <a href="/" class="mobile-nav-links">Home</a>
-            <a href="#" class="mobile-nav-links">How It Works</a>
-            <a href="#" class="mobile-nav-links">Features</a>
-            <a href="#" class="mobile-nav-links">Security</a>
-            <a href="#" class="mobile-nav-links">About</a>
-            <a href="#" class="mobile-nav-links">Contact</a>
+            <a href="{{ route('how-it-work') }}" class="mobile-nav-links">How It Works</a>
+            <a href="{{ route('features') }}" class="mobile-nav-links">Features</a>
+            <a href="{{ route('security') }}" class="mobile-nav-links">Security</a>
+            <a href="{{ route('about') }}" class="mobile-nav-links">About</a>
+            <a href="{{ route('contact') }}" class="mobile-nav-links">Contact</a>
             <hr class="border-gray-100">
             <div class="flex flex-col space-y-4 pt-2">
                 <a href="/" class="text-[var(--text-secondary-color)] font-semibold text-center py-2 border border-gray-200 rounded-lg">Login</a>
