@@ -252,13 +252,13 @@
                     <!-- DIY Card -->
                     <div class="pricing-card group">
                         <div class="pricing-card-top">
-                            <h3 class="pricing-title">Do-It-Yourself Payroll</h3>
+                            <h3 class="pricing-title">Simple Payroll, Direct Deposit</h3>
                             <p class="pricing-subtitle">Best for small businesses</p>
                             <div class="mb-10">
-                                <span class="pricing-price-val">$109</span>
-                                <span class="pricing-price-unit">/Month</span>
+                                <span class="pricing-price-val">$350</span>
+                                <span class="pricing-price-unit">/Flat yearly Fee</span>
                             </div>
-                            <a href="#" class="pricing-card-btn text-white">Get Started</a>
+                            <a href="{{ route('web.login') }}" class="pricing-card-btn text-white">Start Today</a>
                         </div>
 
                         <div class="pricing-divider"></div>
@@ -268,23 +268,15 @@
                             <ul class="space-y-4">
                                 <li class="flex items-start space-x-3">
                                     <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Employee onboarding & management</span>
+                                    <span class="feature-text">No per-employee fees</span>
                                 </li>
                                 <li class="flex items-start space-x-3">
                                     <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Payroll calculations</span>
+                                    <span class="feature-text">Unlimited runs. Perfect for up to 15 employees</span>
                                 </li>
                                 <li class="flex items-start space-x-3">
                                     <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Payroll approval workflow</span>
-                                </li>
-                                <li class="flex items-start space-x-3">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Employee self-service portal</span>
-                                </li>
-                                <li class="flex items-start space-x-3">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="w-5 h-5 mt-1">
-                                    <span class="feature-text">Secure payroll records</span>
+                                    <span class="feature-text">Secure ACH direct deposits every payday</span>
                                 </li>
                             </ul>
                         </div>

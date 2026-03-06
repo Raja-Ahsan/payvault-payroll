@@ -48,8 +48,8 @@
                     <div class="">
                         <img src="{{ asset('images/footer-mail-icon.png') }}" alt="Mail" class="w-10 h-10">
                     </div>
-                    <a href="mailto:info@yourcompany.com" class="text-white font-medium hover:text-[#348C31] transition-colors">
-                        info@yourcompany.com
+                    <a href="mailto:support@diypayrollsolutions.com" class="text-white font-medium hover:text-[#348C31] transition-colors">
+                        support@diypayrollsolutions.com
                     </a>
                 </div>
             </div>
