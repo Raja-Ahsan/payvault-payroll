@@ -67,8 +67,8 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="bg-white rounded-lg shadow-md p-6">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">States Without Withholding</h3>
-            <p class="text-sm text-gray-600 mb-4">These states generally do not withhold state income tax from payroll.</p>
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">States Without Withholding</h3>
+            <!-- <p class="text-sm text-gray-600 mb-4">These states generally do not withhold state income tax from payroll.</p> -->
 
             <div class="flex flex-wrap gap-2">
                 @foreach (['Alaska', 'Florida', 'Nevada', 'New Hampshire', 'South Dakota', 'Tennessee', 'Texas', 'Washington', 'Wyoming'] as $state)
@@ -82,8 +82,8 @@
         </div>
 
         <div class="bg-white rounded-lg shadow-md p-6">
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">States With Withholding Tax</h3>
-            <p class="text-sm text-gray-600 mb-4">Most states require payroll withholding for state income taxes.</p>
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">States With Withholding Tax</h3>
+            <!-- <p class="text-sm text-gray-600 mb-4">Most states require payroll withholding for state income taxes.</p> -->
 
             <p class="text-gray-700 leading-7">
                 Alabama, Arizona, Arkansas, California, Colorado, Connecticut, Delaware, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana, Nebraska, New Jersey, New Mexico, New York, North Carolina, North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina, Utah, Vermont, Virginia, West Virginia, Wisconsin, and Washington, D.C.
@@ -92,9 +92,9 @@
     </div>
 
     <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="text-xl font-semibold text-gray-800 mb-3">Important Links</h3>
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">All states:</h3>
         <p class="text-sm text-gray-700 mb-4">
-            All states require employers to pay state unemployment insurance (SUI), also known as SUTA.
+        Require Employers to pay state unemployment insurance (SUI) tax, also known as SUTA. 
         </p>
 
         <div class="space-y-3">
