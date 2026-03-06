@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\Company;
+use App\Models\Employee;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -94,12 +97,20 @@ class WebAuthController extends Controller
                 ->withInput();
         }
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role_id' => $role->id,
-        ]);
+        $user = DB::transaction(function () use ($request, $role) {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'role_id' => $role->id,
+            ]);
+
+            if ($role->name === 'employee') {
+                $this->createOrLinkEmployee($user, $request->name, $request->email);
+            }
+
+            return $user;
+        });
 
         Auth::login($user);
 
@@ -159,5 +170,55 @@ class WebAuthController extends Controller
         }
         
         return view('dashboard');
+    }
+
+    private function createOrLinkEmployee(User $user, string $name, string $email): void
+    {
+        $employee = Employee::where('email', $email)->first();
+
+        if ($employee) {
+            if (!$employee->user_id) {
+                $employee->update(['user_id' => $user->id]);
+            }
+
+            return;
+        }
+
+        [$firstName, $lastName] = $this->splitName($name);
+        $company = Company::query()->first();
+
+        if (!$company) {
+            $company = Company::create([
+                'name' => "{$firstName} Test Company",
+                'email' => $email,
+            ]);
+        }
+
+        Employee::create([
+            'company_id' => $company->id,
+            'user_id' => $user->id,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $email,
+            'employment_type' => 'full_time',
+            'pay_type' => 'hourly',
+            'hourly_rate' => 0,
+            'is_active' => true,
+        ]);
+    }
+
+    private function splitName(string $name): array
+    {
+        $name = trim($name);
+
+        if ($name === '') {
+            return ['Employee', 'User'];
+        }
+
+        $parts = preg_split('/\s+/', $name) ?: [];
+        $firstName = $parts[0] ?? 'Employee';
+        $lastName = count($parts) > 1 ? implode(' ', array_slice($parts, 1)) : 'User';
+
+        return [$firstName, $lastName];
     }
 }

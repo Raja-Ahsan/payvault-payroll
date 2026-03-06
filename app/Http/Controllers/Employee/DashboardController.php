@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\AchTransaction;
+use App\Models\Company;
 use App\Models\Employee;
 use App\Models\PayrollItem;
 use App\Models\PayrollRun;
@@ -16,29 +17,16 @@ class DashboardController extends Controller
     public function index()
     {
         $user = Auth::user();
-        
-        // Get employee record for this user
+
         $employee = Employee::where('user_id', $user->id)
             ->with(['company', 'bankAccounts'])
             ->first();
-        
-        if (!$employee) {
-            // Try to find employee by email as fallback
-            $employee = Employee::where('email', $user->email)
-                ->with(['company', 'bankAccounts'])
-                ->first();
-            
-            if ($employee && !$employee->user_id) {
-                // Link the employee to this user
-                $employee->update(['user_id' => $user->id]);
-            }
-        }
-        
-        if (!$employee) {
-            return redirect()->route('web.dashboard')
-                ->with('error', 'No employee record found. Please contact your administrator to link your account to an employee record.');
-        }
 
+        if (!$employee) {
+            $employee = $this->resolveEmployeeForUser($user);
+        }
+       
+    
         // Statistics
         $stats = [
             'total_payrolls' => PayrollItem::where('employee_id', $employee->id)
@@ -125,5 +113,61 @@ class DashboardController extends Controller
             'recent_payrolls',
             'recent_ach'
         ));
+    }
+
+    private function resolveEmployeeForUser($user): Employee
+    {
+        $employee = Employee::where('email', $user->email)->first();
+
+        if ($employee) {
+            if (!$employee->user_id) {
+                $employee->update(['user_id' => $user->id]);
+            }
+
+            return Employee::where('id', $employee->id)
+                ->with(['company', 'bankAccounts'])
+                ->firstOrFail();
+        }
+
+        [$firstName, $lastName] = $this->splitName($user->name ?? '');
+        $company = Company::query()->first();
+
+        if (!$company) {
+            $company = Company::create([
+                'name' => "{$firstName} Test Company",
+                'email' => $user->email,
+            ]);
+        }
+
+        $employee = Employee::create([
+            'company_id' => $company->id,
+            'user_id' => $user->id,
+            'first_name' => $firstName,
+            'last_name' => $lastName,
+            'email' => $user->email,
+            'employment_type' => 'full_time',
+            'pay_type' => 'hourly',
+            'hourly_rate' => 0,
+            'is_active' => true,
+        ]);
+
+        return Employee::where('id', $employee->id)
+            ->with(['company', 'bankAccounts'])
+            ->firstOrFail();
+    }
+
+    private function splitName(string $name): array
+    {
+        $name = trim($name);
+
+        if ($name === '') {
+            return ['Employee', 'User'];
+        }
+
+        $parts = preg_split('/\s+/', $name) ?: [];
+        $firstName = $parts[0] ?? 'Employee';
+        $lastName = count($parts) > 1 ? implode(' ', array_slice($parts, 1)) : 'User';
+
+        return [$firstName, $lastName];
     }
 }

@@ -203,6 +203,33 @@ body{
 .section-spacing {
     @apply py-12 md:py-24;
 }
+.contact-info-card {
+    @apply flex items-start gap-4;
+}
+.contact-icon-box {
+    @apply w-10 h-10 rounded-full border border-[#1D5C24]/20 flex items-center justify-center shrink-0;
+}
+.contact-label {
+    @apply block text-[14px] text-[var(--text-secondary-color)]/70 mb-1;
+}
+.contact-value {
+    @apply block text-[18px] text-[var(--text-secondary-color)] leading-relaxed;
+}
+.contact-form-box {
+    @apply bg-white rounded-[20px] border border-black/5 p-6 md:p-8 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.1)];
+}
+.form-group {
+    @apply w-full;
+}
+.form-label {
+    @apply block text-[15px] text-[var(--text-secondary-color)] mb-2 font-semibold;
+}
+.form-input {
+    @apply w-full h-12 rounded-xl border border-[#D9E0D5] bg-white px-4 text-[15px] text-[var(--text-secondary-color)] placeholder:text-[#98A29B] outline-none transition-all focus:border-[#1D5C24] focus:ring-2 focus:ring-[#1D5C24]/15;
+}
+.form-textarea {
+    @apply w-full min-h-32 rounded-xl border border-[#D9E0D5] bg-white px-4 py-3 text-[15px] text-[var(--text-secondary-color)] placeholder:text-[#98A29B] outline-none transition-all resize-y focus:border-[#1D5C24] focus:ring-2 focus:ring-[#1D5C24]/15;
+}
 .feature-card {
     @apply bg-white p-8 md:p-12 rounded-[32px] border border-black/5 shadow-[0_10px_30px_-15px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_-20px_rgba(0,0,0,0.1)] h-full flex flex-col items-start text-left;
 }
