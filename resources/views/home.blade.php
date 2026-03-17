@@ -313,42 +313,40 @@
                             </ul>
                         </div>
                     </div>
-
-                    <!-- Enterprise Card -->
+                    <!-- Business Card -->
                     <div class="pricing-card group">
                         <div class="pricing-card-top">
-                            <h3 class="pricing-title">Enterprise / Custom</h3>
-                            <p class="pricing-subtitle">For larger organizations</p>
-                            <div class="mb-15">
-                                <span class="pricing-price-val">Custom</span>
+                            <h3 class="pricing-title">Simple Payroll, Direct Deposit</h3>
+                            <div class="mb-10">
+                                <span class="pricing-price-val">$900 <span class="pricing-price-unit">/Flat yearly Fee</span></span>
+                                
                             </div>
-                            <a href="#" class="pricing-card-btn text-white">Contact Sales</a>
+                            <a href="{{ route('web.register') }}" class="pricing-card-btn text-white">Start Today</a>
                         </div>
 
                         <div class="pricing-divider"></div>
 
                         <div class="pricing-card-bottom">
-                            <p class="font-bold text-[16px] mb-2 feature-text">Includes:</p>
+                            <p class="font-bold text-[16px] mb-2 feature-text">Includes
+                            </p>
                             <ul class="space-y-4">
                                 <li class="pricing-feature">
                                     <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Customized payroll workflows</span>
+                                    <span class="feature-text">Sign up and Pay your federal payroll taxes online</span>
+                                </li>
+                                <!-- <li class="pricing-feature">
+                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
+                                    <span class="feature-text">Unlimited runs. Perfect for up to 30 employees</span>
                                 </li>
                                 <li class="pricing-feature">
                                     <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Advanced security & compliance support</span>
-                                </li>
-                                <li class="pricing-feature">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Dedicated account manager</span>
-                                </li>
-                                <li class="pricing-feature">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Custom reporting & integrations</span>
-                                </li>
+                                    <span class="feature-text">Secure ACH direct deposits every payday</span>
+                                </li> -->
                             </ul>
                         </div>
                     </div>
+
+               
 
                 </div>
             </div>

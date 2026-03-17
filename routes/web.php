@@ -50,6 +50,9 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Employee\DashboardController::class, 'index'])->name('dashboard');
         Route::get('/payroll', [\App\Http\Controllers\Employee\PayrollController::class, 'index'])->name('payroll.index');
         Route::get('/payroll/{payrollItem}', [\App\Http\Controllers\Employee\PayrollController::class, 'show'])->name('payroll.show');
+        Route::get('/federal-payroll-eftps', function () {
+            return view('employee.federal-payroll-eftps');
+        })->name('federal-payroll-eftps');
         Route::get('/bank-accounts', [\App\Http\Controllers\Employee\BankAccountController::class, 'index'])->name('bank-accounts.index');
         Route::post('/bank-accounts', [\App\Http\Controllers\Employee\BankAccountController::class, 'store'])->name('bank-accounts.store');
         Route::post('/bank-accounts/{bankAccount}/verify', [\App\Http\Controllers\Employee\BankAccountController::class, 'verify'])->name('bank-accounts.verify');
