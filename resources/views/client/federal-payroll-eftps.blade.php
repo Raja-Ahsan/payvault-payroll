@@ -1,4 +1,4 @@
-@extends('layouts.employee')
+@extends('layouts.client')
 
 @section('title', 'Federal Payroll / EFTPS')
 @section('page-title', 'Federal Payroll / EFTPS')
@@ -13,6 +13,32 @@
             https://www.eftps.gov/eftps/
             <i class="fas fa-up-right-from-square ml-2 text-xs"></i>
         </a>
+    </div>
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h3 class="text-xl font-semibold text-gray-800 mb-3">All states:</h3>
+        <p class="text-sm text-gray-700 mb-4">
+        Require Employers to pay state unemployment insurance (SUI) tax, also known as SUTA. 
+        </p>
+
+        <div class="space-y-3">
+            <div>
+                <p class="text-sm font-semibold text-gray-700 mb-1">Federal payment link</p>
+                <a href="https://www.eftps.gov/eftps/" target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium underline">
+                    Welcome To EFTPS - Login
+                    <i class="fas fa-up-right-from-square ml-2 text-xs"></i>
+                </a>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-gray-700 mb-1">States website link</p>
+                <a href="https://www.irs.gov/businesses/small-businesses-self-employed/state-government-websites"
+                    target="_blank" rel="noopener noreferrer"
+                    class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium underline break-all">
+                    https://www.irs.gov/businesses/small-businesses-self-employed/state-government-websites
+                    <i class="fas fa-up-right-from-square ml-2 text-xs"></i>
+                </a>
+            </div>
+        </div>
     </div>
 
     <div class="bg-white rounded-lg shadow-md p-6">
@@ -91,31 +117,6 @@
         </div>
     </div>
 
-    <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="text-xl font-semibold text-gray-800 mb-3">All states:</h3>
-        <p class="text-sm text-gray-700 mb-4">
-        Require Employers to pay state unemployment insurance (SUI) tax, also known as SUTA. 
-        </p>
-
-        <div class="space-y-3">
-            <div>
-                <p class="text-sm font-semibold text-gray-700 mb-1">Federal payment link</p>
-                <a href="https://www.eftps.gov/eftps/" target="_blank" rel="noopener noreferrer"
-                    class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium underline">
-                    Welcome To EFTPS - Login
-                    <i class="fas fa-up-right-from-square ml-2 text-xs"></i>
-                </a>
-            </div>
-            <div>
-                <p class="text-sm font-semibold text-gray-700 mb-1">States website link</p>
-                <a href="https://www.irs.gov/businesses/small-businesses-self-employed/state-government-websites"
-                    target="_blank" rel="noopener noreferrer"
-                    class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium underline break-all">
-                    https://www.irs.gov/businesses/small-businesses-self-employed/state-government-websites
-                    <i class="fas fa-up-right-from-square ml-2 text-xs"></i>
-                </a>
-            </div>
-        </div>
-    </div>
+    
 </div>
 @endsection

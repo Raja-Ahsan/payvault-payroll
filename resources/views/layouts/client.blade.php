@@ -53,6 +53,12 @@
                             </a>
                         </li>
                         <li>
+                            <a href="{{ route('client.federal-payroll-eftps') }}" class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('client.federal-payroll-eftps') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
+                                <i class="fas fa-landmark w-5 mr-3"></i>
+                                <span>Federal Payroll / EFTPS</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="{{ route('client.companies.index') }}"
                                 class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('client.companies.*') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
                                 <i class="fas fa-building w-5 mr-3"></i>

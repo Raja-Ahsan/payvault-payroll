@@ -54,12 +54,6 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('employee.federal-payroll-eftps') }}" class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('employee.federal-payroll-eftps') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
-                                <i class="fas fa-landmark w-5 mr-3"></i>
-                                <span>Federal Payroll / EFTPS</span>
-                            </a>
-                        </li>
-                        <li>
                             <a href="{{ route('employee.bank-accounts.index') }}" class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('employee.bank-accounts.*') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
                                 <i class="fas fa-university w-5 mr-3"></i>
                                 <span>Bank Accounts</span>
