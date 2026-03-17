@@ -253,12 +253,11 @@
                     <div class="pricing-card group">
                         <div class="pricing-card-top">
                             <h3 class="pricing-title">Simple Payroll, Direct Deposit</h3>
-                            <p class="pricing-subtitle">Best for small businesses</p>
                             <div class="mb-10">
-                                <span class="pricing-price-val">$350</span>
-                                <span class="pricing-price-unit">/Flat yearly Fee</span>
+                                <span class="pricing-price-val">$350 <span class="pricing-price-unit">/Flat yearly Fee</span></span>
+                                <span class="pricing-price-unit"></span>
                             </div>
-                            <a href="{{ route('web.login') }}" class="pricing-card-btn text-white">Start Today</a>
+                            <a href="{{ route('web.register') }}" class="pricing-card-btn text-white">Start Today</a>
                         </div>
 
                         <div class="pricing-divider"></div>
@@ -285,40 +284,31 @@
                     <!-- Business Card -->
                     <div class="pricing-card group">
                         <div class="pricing-card-top">
-                            <h3 class="pricing-title">Business Payroll</h3>
-                            <p class="pricing-subtitle">Best for growing companies</p>
+                            <h3 class="pricing-title">Simple Payroll, Direct Deposit</h3>
                             <div class="mb-10">
-                                <span class="pricing-price-val">$149</span>
-                                <span class="pricing-price-unit">/Month</span>
+                                <span class="pricing-price-val">$500 <span class="pricing-price-unit">/Flat yearly Fee</span></span>
+                                
                             </div>
-                            <a href="#" class="pricing-card-btn text-white">Request a Demo</a>
+                            <a href="{{ route('web.register') }}" class="pricing-card-btn text-white">Start Today</a>
                         </div>
 
                         <div class="pricing-divider"></div>
 
                         <div class="pricing-card-bottom">
-                            <p class="font-bold text-[16px] mb-2 feature-text">Includes everything in DIY Payroll, plus:
+                            <p class="font-bold text-[16px] mb-2 feature-text">Includes
                             </p>
                             <ul class="space-y-4">
                                 <li class="pricing-feature">
                                     <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Multi-company management</span>
+                                    <span class="feature-text">No per-employee fees</span>
                                 </li>
                                 <li class="pricing-feature">
                                     <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Advanced payroll approvals</span>
+                                    <span class="feature-text">Unlimited runs. Perfect for up to 30 employees</span>
                                 </li>
                                 <li class="pricing-feature">
                                     <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Payroll reports & exports</span>
-                                </li>
-                                <li class="pricing-feature">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Audit logs for payroll actions</span>
-                                </li>
-                                <li class="pricing-feature">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Priority support</span>
+                                    <span class="feature-text">Secure ACH direct deposits every payday</span>
                                 </li>
                             </ul>
                         </div>
