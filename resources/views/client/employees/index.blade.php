@@ -18,10 +18,7 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Company</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Pay Type</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Rate/Salary</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
                 </tr>
@@ -34,19 +31,17 @@
                             <div class="w-10 h-10 rounded-full btn-gradient flex items-center justify-center text-white font-bold mr-3">
                                 {{ strtoupper(substr($employee->first_name, 0, 1)) }}
                             </div>
-                            <div class="text-sm font-medium text-gray-900">{{ $employee->first_name }} {{ $employee->last_name }}</div>
+                            <div class="text-sm font-medium text-gray-900">{{ $employee->name }}</div>
                         </div>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $employee->email }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $employee->company->name ?? 'N/A' }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm">{{ ucfirst($employee->pay_type) }}</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                    {{-- <td class="px-6 py-4 whitespace-nowrap text-sm">
                         @if($employee->pay_type == 'hourly')
                             ${{ number_format($employee->hourly_rate ?? 0, 2) }}/hr
                         @else
                             ${{ number_format($employee->salary ?? 0, 2) }}
                         @endif
-                    </td>
+                    </td> --}}
                     <td class="px-6 py-4 whitespace-nowrap">
                         <span class="px-2 py-1 text-xs font-semibold rounded-full {{ $employee->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                             {{ $employee->is_active ? 'Active' : 'Inactive' }}

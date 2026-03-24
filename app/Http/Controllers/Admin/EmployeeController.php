@@ -20,6 +20,7 @@ class EmployeeController extends Controller
 
     public function create()
     {
+        
         $companies = Company::all();
         return view('admin.employees.create', compact('companies'));
     }

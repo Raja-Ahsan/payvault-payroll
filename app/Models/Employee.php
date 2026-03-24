@@ -13,32 +13,38 @@ class Employee extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'company_id',
-        'user_id',
-        'employee_number',
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'date_of_birth',
-        'ssn',
-        'address',
-        'city',
-        'state',
-        'zip_code',
-        'employment_type',
-        'hire_date',
-        'termination_date',
-        'pay_type',
-        'salary',
-        'hourly_rate',
-        'standard_hours_per_week',
-        'filing_status',
-        'federal_allowances',
-        'tax_information',
-        'is_active',
-    ];
+    protected $guarded = ['id'];
+
+    protected static function booted(): void
+    {
+        static::saving(function (Employee $employee) {
+            $key = '401_k_contrib_percent';
+            if (! $employee->isDirty($key)) {
+                return;
+            }
+            $raw = (float) $employee->getAttribute($key);
+            if ($raw > 100) {
+                $employee->setAttribute($key, (int) round(min($raw / 100, 100)));
+            }
+        });
+    }
+
+    /**
+     * 401(k) rate is stored as a percentage of gross (e.g. 3 = 3%).
+     * If someone entered Excel-style 300 meaning 3%, normalize once: 300 → 3.
+     */
+    public function effective401kContributionPercent(): float
+    {
+        $raw = (float) ($this->getAttribute('401_k_contrib_percent') ?? 0);
+        if ($raw <= 0) {
+            return 0.0;
+        }
+        if ($raw > 100) {
+            $raw /= 100;
+        }
+
+        return min($raw, 100.0);
+    }
 
     protected function casts(): array
     {

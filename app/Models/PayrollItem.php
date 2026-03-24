@@ -11,45 +11,8 @@ class PayrollItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'payroll_run_id',
-        'employee_id',
-        'hours_worked',
-        'regular_hours',
-        'overtime_hours',
-        'regular_rate',
-        'overtime_rate',
-        'gross_pay',
-        'federal_tax',
-        'state_tax',
-        'local_tax',
-        'social_security',
-        'medicare',
-        'total_taxes',
-        'total_deductions',
-        'net_pay',
-        'notes',
-    ];
+   protected $guarded = ['id'];
 
-    protected function casts(): array
-    {
-        return [
-            'hours_worked' => 'decimal:2',
-            'regular_hours' => 'decimal:2',
-            'overtime_hours' => 'decimal:2',
-            'regular_rate' => 'decimal:2',
-            'overtime_rate' => 'decimal:2',
-            'gross_pay' => 'decimal:2',
-            'federal_tax' => 'decimal:2',
-            'state_tax' => 'decimal:2',
-            'local_tax' => 'decimal:2',
-            'social_security' => 'decimal:2',
-            'medicare' => 'decimal:2',
-            'total_taxes' => 'decimal:2',
-            'total_deductions' => 'decimal:2',
-            'net_pay' => 'decimal:2',
-        ];
-    }
 
     /**
      * Get the payroll run that owns the payroll item.

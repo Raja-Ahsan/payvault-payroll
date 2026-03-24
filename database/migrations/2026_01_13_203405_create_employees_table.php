@@ -15,27 +15,19 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained('companies')->cascadeOnDelete();
             $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
-            $table->string('employee_number')->nullable();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->date('date_of_birth')->nullable();
-            $table->string('ssn')->nullable(); // Encrypted
+            $table->string('name')->nullable();
+            $table->string('employee_id')->nullable();
             $table->text('address')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('zip_code')->nullable();
-            $table->enum('employment_type', ['full_time', 'part_time', 'contractor'])->default('full_time');
+            $table->string('gender')->nullable();
+            $table->string('occupation')->nullable();
             $table->date('hire_date')->nullable();
-            $table->date('termination_date')->nullable();
-            $table->enum('pay_type', ['salary', 'hourly'])->default('hourly');
-            $table->decimal('salary', 10, 2)->nullable();
-            $table->decimal('hourly_rate', 8, 2)->nullable();
-            $table->integer('standard_hours_per_week')->default(40);
-            $table->string('filing_status')->nullable(); // single, married, etc.
+            $table->decimal('annual_salary', 10, 2)->nullable();
+            $table->decimal('regular_hourly_rate', 8, 2)->nullable();
+            $table->decimal('overtime_hourly_rate', 8, 2)->nullable();
             $table->integer('federal_allowances')->default(0);
-            $table->text('tax_information')->nullable(); // JSON for additional tax info
+            $table->integer('401_k_contrib_percent')->default(0);
+            $table->decimal('insurance_deduction', 10, 2)->nullable();
+            $table->decimal('other_deductions', 10, 2)->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
             $table->softDeletes();

@@ -27,6 +27,16 @@
         .btn-gradient {
             background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
         }
+
+        .sidebar-payroll details > summary {
+            list-style: none;
+        }
+        .sidebar-payroll details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .sidebar-payroll details[open] .payroll-chevron {
+            transform: rotate(180deg);
+        }
     </style>
     @stack('styles')
 </head>
@@ -72,20 +82,49 @@
                                 <span>Employees</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('client.payroll.index') }}"
-                                class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('client.payroll.*') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
-                                <i class="fas fa-money-check-alt w-5 mr-3"></i>
-                                <span>Payroll Runs</span>
+                        {{-- <li>
+                            <a href=""
+                                class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('client.payroll_register.*') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
+                                <i class="fas fa-users w-5 mr-3"></i>
+                                <span>Payroll Register</span>
                             </a>
+                        </li> --}}
+
+                        <li class="sidebar-payroll">
+                            <details
+                                class="rounded-lg"
+                                @if (request()->routeIs('client.payroll.register', 'client.payroll.request')) open @endif>
+                                <summary
+                                    class="flex items-center px-4 py-3 rounded-lg cursor-pointer select-none {{ request()->routeIs('client.payroll.register', 'client.payroll.request') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
+                                    <i class="fas fa-money-check-alt w-5 mr-3"></i>
+                                    <span class="flex-1 text-left">Payroll</span>
+                                    <i class="fas fa-chevron-down text-xs payroll-chevron transition-transform duration-200"></i>
+                                </summary>
+                                <ul class="mt-1 ml-2 pl-3 border-l-2 border-gray-200 space-y-1 pb-1">
+                                    <li>
+                                        <a href="{{ route('client.payroll.register') }}"
+                                            class="flex items-center px-4 py-2 rounded-lg text-sm {{ request()->routeIs('client.payroll.register') ? 'active-menu' : 'text-gray-600 hover:bg-gray-100' }}">
+                                            <i class="fas fa-table w-4 mr-2 opacity-70"></i>
+                                            Register payroll
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('client.payroll.request') }}"
+                                            class="flex items-center px-4 py-2 rounded-lg text-sm {{ request()->routeIs('client.payroll.request') ? 'active-menu' : 'text-gray-600 hover:bg-gray-100' }}">
+                                            <i class="fas fa-paper-plane w-4 mr-2 opacity-70"></i>
+                                            Request payroll
+                                        </a>
+                                    </li>
+                                </ul>
+                            </details>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('client.ach.index') }}"
                                 class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('client.ach.*') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
                                 <i class="fas fa-exchange-alt w-5 mr-3"></i>
                                 <span>ACH Transactions</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li>
                             <a href="{{ route('client.reports') }}"
                                 class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('client.reports') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
