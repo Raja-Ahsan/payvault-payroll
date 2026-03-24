@@ -28,7 +28,7 @@
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full btn-gradient flex items-center justify-center text-white font-bold mr-3">
+                            <div class=" text-white font-bold">
                                 {{ strtoupper(substr($employee->first_name, 0, 1)) }}
                             </div>
                             <div class="text-sm font-medium text-gray-900">{{ $employee->name }}</div>

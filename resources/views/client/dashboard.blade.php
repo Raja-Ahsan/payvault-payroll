@@ -41,7 +41,7 @@
         </div>
 
         <!-- Payroll Runs This Month -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover-effect">
+        {{-- <div class="bg-white rounded-lg shadow-md p-6 hover-effect">
             <div class="flex items-center justify-between">
                 <div>
                     <p class="text-sm font-medium text-gray-600">Payroll Runs (Month)</p>
@@ -54,7 +54,7 @@
                     <i class="fas fa-money-check-alt text-emerald-600 text-2xl"></i>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Total Processed -->
         <div class="bg-white rounded-lg shadow-md p-6 hover-effect">
@@ -93,7 +93,7 @@
     </div>
 
     <!-- Recent Activity -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    {{-- <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Recent Payroll Runs -->
         <div class="bg-white rounded-lg shadow-md p-6">
             <div class="flex items-center justify-between mb-4">
@@ -123,10 +123,10 @@
                 <p class="text-gray-500 text-center py-8">No recent payroll runs</p>
                 @endforelse
             </div>
-        </div>
+        </div> --}}
 
         <!-- Recent ACH Transactions -->
-        <div class="bg-white rounded-lg shadow-md p-6">
+        {{-- <div class="bg-white rounded-lg shadow-md p-6">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg font-semibold text-gray-800">Recent ACH Transactions</h3>
                 <a href="{{ route('client.ach.index') }}" class="text-sm text-green-600 hover:text-green-800">View All</a>
@@ -154,7 +154,7 @@
                 <p class="text-gray-500 text-center py-8">No recent ACH transactions</p>
                 @endforelse
             </div>
-        </div>
+        </div> --}}
     </div>
 </div>
 

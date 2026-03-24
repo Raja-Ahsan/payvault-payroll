@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\PayrollItem;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -91,6 +92,9 @@ class PayrollRegisterController extends Controller
     {
         $userCompanyIds = Company::where('created_by', Auth::id())->pluck('id');
 
+        $from = Carbon::parse($validated['from_date'])->toDateString();
+        $to = Carbon::parse($validated['to_date'])->toDateString();
+
         return PayrollItem::query()
             ->whereHas('employee', function ($q) use ($userCompanyIds) {
                 $q->whereIn('company_id', $userCompanyIds);
@@ -99,7 +103,25 @@ class PayrollRegisterController extends Controller
                 'employee.company',
                 'employee.bankAccounts' => fn ($q) => $q->where('is_active', true)->orderByDesc('is_primary')->orderBy('id'),
             ])
-            ->whereBetween('pay_date', [$validated['from_date'], $validated['to_date']])
+            ->where(function ($query) use ($from, $to) {
+                $query
+                    ->where(function ($q) use ($from, $to) {
+                        $q->whereNotNull('pay_date')
+                            ->where('pay_date', '>=', $from)
+                            ->where('pay_date', '<=', $to);
+                    })
+                    ->orWhere(function ($q) use ($from, $to) {
+                        // Pay period like "2026-03-25 - 2026-04-05": overlap with [from, to] if period_start <= to AND period_end >= from
+                        $q->whereNotNull('pay_period')
+                            ->whereRaw(
+                                "TRIM(SUBSTRING_INDEX(pay_period, ' - ', 1)) <= ?
+                                 AND TRIM(SUBSTRING_INDEX(pay_period, ' - ', -1)) >= ?
+                                 AND TRIM(SUBSTRING_INDEX(pay_period, ' - ', 1)) REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'
+                                 AND TRIM(SUBSTRING_INDEX(pay_period, ' - ', -1)) REGEXP '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'",
+                                [$to, $from]
+                            );
+                    });
+            })
             ->orderByDesc('pay_date')
             ->orderByDesc('id');
     }
