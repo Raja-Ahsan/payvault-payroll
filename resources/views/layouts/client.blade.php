@@ -8,6 +8,7 @@
     <title>@yield('title', 'Client Dashboard') - DIY Payroll</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
     <style>
         .sidebar-transition {
@@ -24,16 +25,19 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
+
         .btn-gradient {
             background: linear-gradient(135deg, #1D5C24 0%, #348C31 100%);
         }
 
-        .sidebar-payroll details > summary {
+        .sidebar-payroll details>summary {
             list-style: none;
         }
-        .sidebar-payroll details > summary::-webkit-details-marker {
+
+        .sidebar-payroll details>summary::-webkit-details-marker {
             display: none;
         }
+
         .sidebar-payroll details[open] .payroll-chevron {
             transform: rotate(180deg);
         }
@@ -63,7 +67,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('client.federal-payroll-eftps') }}" class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('client.federal-payroll-eftps') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
+                            <a href="{{ route('client.federal-payroll-eftps') }}"
+                                class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('client.federal-payroll-eftps') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
                                 <i class="fas fa-landmark w-5 mr-3"></i>
                                 <span>Federal Payroll / EFTPS</span>
                             </a>
@@ -91,14 +96,13 @@
                         </li> --}}
 
                         <li class="sidebar-payroll">
-                            <details
-                                class="rounded-lg"
-                                @if (request()->routeIs('client.payroll.register', 'client.payroll.request')) open @endif>
+                            <details class="rounded-lg" @if (request()->routeIs('client.payroll.register', 'client.payroll.request')) open @endif>
                                 <summary
                                     class="flex items-center px-4 py-3 rounded-lg cursor-pointer select-none {{ request()->routeIs('client.payroll.register', 'client.payroll.request') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
                                     <i class="fas fa-money-check-alt w-5 mr-3"></i>
                                     <span class="flex-1 text-left">Payroll</span>
-                                    <i class="fas fa-chevron-down text-xs payroll-chevron transition-transform duration-200"></i>
+                                    <i
+                                        class="fas fa-chevron-down text-xs payroll-chevron transition-transform duration-200"></i>
                                 </summary>
                                 <ul class="mt-1 ml-2 pl-3 border-l-2 border-gray-200 space-y-1 pb-1">
                                     <li>
@@ -227,8 +231,17 @@
             </main>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/jquery"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script>
+        $(function() {
+            $('#pay_period').daterangepicker({
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
+            });
+        });
         // Simple AJAX helper
         function makeRequest(url, method = 'GET', data = null) {
             return fetch(url, {

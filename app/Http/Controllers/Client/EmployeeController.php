@@ -176,8 +176,19 @@ class EmployeeController extends Controller
             abort(403, 'Unauthorized access.');
         }
 
-        $employee->load(['company', 'user', 'bankAccounts', 'payrollItems']);
-        return view('client.employees.show', compact('employee'));
+        $employee->load(['company', 'user']);
+
+        $payrollItems = $employee->payrollItems()
+            ->orderByDesc('pay_date')
+            ->orderByDesc('id')
+            ->paginate(10, ['*'], 'payroll_page');
+
+        $bankAccounts = $employee->bankAccounts()
+            ->orderByDesc('is_primary')
+            ->orderBy('id')
+            ->paginate(10, ['*'], 'bank_page');
+
+        return view('client.employees.show', compact('employee', 'payrollItems', 'bankAccounts'));
     }
 
     public function edit(Employee $employee)

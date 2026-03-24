@@ -92,6 +92,23 @@ class Employee extends Model
     }
 
     /**
+     * Primary bank account for payroll tables (primary first, then first active).
+     * When `bankAccounts` is eager-loaded ordered by is_primary desc, id, uses the first row.
+     */
+    public function primaryBankAccountForPayroll(): ?BankAccount
+    {
+        if ($this->relationLoaded('bankAccounts')) {
+            return $this->bankAccounts->first();
+        }
+
+        return $this->bankAccounts()
+            ->where('is_active', true)
+            ->orderByDesc('is_primary')
+            ->orderBy('id')
+            ->first();
+    }
+
+    /**
      * Get the employee's full name.
      */
     public function getFullNameAttribute(): string

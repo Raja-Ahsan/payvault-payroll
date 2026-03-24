@@ -70,6 +70,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/employees/{employee}/bank-accounts/{bankAccount}/verify', [\App\Http\Controllers\Client\EmployeeController::class, 'verifyBankAccount'])->name('employees.bank-accounts.verify');
         Route::get('/payroll/register', [\App\Http\Controllers\Client\PayrollRegisterController::class, 'register'])->name('payroll.register');
         Route::get('/payroll/request', [\App\Http\Controllers\Client\PayrollRegisterController::class, 'requestPayroll'])->name('payroll.request');
+        Route::get('/payroll/request/pdf', [\App\Http\Controllers\Client\PayrollRegisterController::class, 'requestPayrollPdf'])->name('payroll.request.pdf');
         Route::resource('payroll', \App\Http\Controllers\Client\PayrollController::class);
         Route::get('/ach', [\App\Http\Controllers\Client\AchController::class, 'index'])->name('ach.index');
         Route::post('/payroll/{payrollRun}/process-ach', [\App\Http\Controllers\Client\AchController::class, 'processPayroll'])->name('payroll.process-ach');

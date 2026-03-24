@@ -40,7 +40,7 @@
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Pay period *</label>
-                    <input type="text" name="pay_period" value="{{ old('pay_period', $payrollItem->pay_period) }}" required placeholder="e.g. 7/5/16 - 7/18/16"
+                    <input type="text" name="pay_period" id="pay_period" value="{{ old('pay_period', $payrollItem->pay_period) }}" required placeholder="e.g. 7/5/16 - 7/18/16"
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500 @error('pay_period') border-red-500 @enderror">
                     @error('pay_period')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>

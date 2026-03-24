@@ -18,7 +18,19 @@
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pay date</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Pay period</th>
-                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Gross</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">REGULAR PAY RATE</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">REGULAR HOURS</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">OverTime Rate</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">OverTime Hours</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Gross Pay</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">401(k)</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Federal Tax</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">State Tax</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">local Tax</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">social security</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">medicare</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">insurance</th>
+                        <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">other</th>
                         <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Net pay</th>
                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                     </tr>
@@ -44,8 +56,45 @@
                             <td class="px-6 py-4 text-sm text-gray-600 max-w-xs truncate" title="{{ $item->pay_period }}">
                                 {{ $item->pay_period ?? '—' }}
                             </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">
+                                ${{ number_format((float) $emp->regular_hourly_rate, 2) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">
+                                {{ number_format((float) $item->regular_hours) }}
+                            </td>
+                            
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">
+                                ${{ number_format((float) $emp->overtime_hourly_rate) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600 font-mono">
+                                {{ number_format((float) $item->overtime_hours) }}
+                            </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">
                                 ${{ number_format((float) $item->gross_pay, 2) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">
+                                ${{ number_format((float) $item->k401_amount, 2) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">
+                                ${{ number_format((float) $item->fed_tax, 2) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">
+                                ${{ number_format((float) $item->state_tax, 2) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">
+                                ${{ number_format((float) $item->local_tax, 2) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">
+                                ${{ number_format((float) $item->social_security, 2) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">
+                                ${{ number_format((float) $item->medi_care, 2) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">
+                                ${{ number_format((float) $item->insurance_deduction, 2) }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">
+                                ${{ number_format((float) $item->other_deductions, 2) }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-mono">
                                 ${{ number_format((float) $item->net_pay, 2) }}
@@ -59,7 +108,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="px-6 py-12 text-center text-sm text-gray-500">
+                            <td colspan="20" class="px-6 py-12 text-center text-sm text-gray-500">
                                 No payroll records yet. Open an employee and use <strong>Register Payroll</strong> to add one.
                             </td>
                         </tr>

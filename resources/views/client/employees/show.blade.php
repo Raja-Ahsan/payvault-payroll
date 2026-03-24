@@ -31,23 +31,52 @@
                     <p class="text-gray-800 mt-1">{{ $employee->company->name ?? 'N/A' }}</p>
                 </div>
                 <div>
-                    <label class="text-sm font-medium text-gray-500">Phone</label>
-                    <p class="text-gray-800 mt-1">{{ $employee->phone ?? 'N/A' }}</p>
+                    <label class="text-sm font-medium text-gray-500">Employee Name</label>
+                    <p class="text-gray-800 mt-1">{{ $employee->name ?? 'N/A' }}</p>
                 </div>
                 <div>
-                    <label class="text-sm font-medium text-gray-500">Pay Type</label>
-                    <p class="text-gray-800 mt-1">{{ ucfirst($employee->pay_type) }}</p>
+                    <label class="text-sm font-medium text-gray-500">Employee ID</label>
+                    <p class="text-gray-800 mt-1">{{ $employee->employee_id ?? 'N/A' }}</p>
                 </div>
                 <div>
-                    <label class="text-sm font-medium text-gray-500">Rate/Salary</label>
+                    <label class="text-sm font-medium text-gray-500">Gender</label>
+                    <p class="text-gray-800 mt-1">{{ $employee->gender ?? 'N/A' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Occupation</label>
+                    <p class="text-gray-800 mt-1">{{ $employee->occupation ?? 'N/A' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Hire Date</label>
+                    <p class="text-gray-800 mt-1">{{ $employee->hire_date ? \Illuminate\Support\Carbon::parse($employee->hire_date)->format('M j, Y') : 'N/A' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Annual Salary</label>
+                    <p class="text-gray-800 mt-1">{{ $employee->annual_salary ?? 'N/A' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Regular Hourly Rate</label>
+                    <p class="text-gray-800 mt-1">{{ $employee->regular_hourly_rate ?? 'N/A' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Overtime Hourly Rate</label>
+                    <p class="text-gray-800 mt-1">{{ $employee->overtime_hourly_rate ?? 'N/A' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">Federal Allowances</label>
+                    <p class="text-gray-800 mt-1">{{ $employee->federal_allowances ?? 'N/A' }}</p>
+                </div>
+                <div>
+                    <label class="text-sm font-medium text-gray-500">401(k) Contribution Percent</label>
                     <p class="text-gray-800 mt-1">
-                        @if ($employee->pay_type == 'hourly')
-                            ${{ number_format($employee->hourly_rate ?? 0, 2) }}/hr
-                        @else
-                            ${{ number_format($employee->salary ?? 0, 2) }}/year
-                        @endif
+                        @php
+                            $k401 = $employee->effective401kContributionPercent();
+                        @endphp
+                        {{ $k401 > 0 ? rtrim(rtrim(number_format($k401, 2), '0'), '.') . '%' : '—' }}
                     </p>
                 </div>
+
+
                 <div>
                     <label class="text-sm font-medium text-gray-500">Status</label>
                     <p class="mt-1">
@@ -82,7 +111,7 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                        @forelse ($employee->payrollItems->sortByDesc('pay_date') as $payrollItem)
+                        @forelse ($payrollItems as $payrollItem)
                             <tr class="hover:bg-gray-50">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     {{ $employee->name }}
@@ -122,6 +151,11 @@
                     </tbody>
                 </table>
             </div>
+            @if ($payrollItems->hasPages())
+                <div class="mt-4 pt-4 border-t border-gray-200 px-1">
+                    {{ $payrollItems->links() }}
+                </div>
+            @endif
         </div>
         <div class="bg-white rounded-lg shadow-md p-6">
             <div class="flex items-center justify-between mb-4">
@@ -192,7 +226,7 @@
 
             <!-- Bank Accounts List -->
             <div class="space-y-3">
-                @forelse($employee->bankAccounts as $bankAccount)
+                @forelse($bankAccounts as $bankAccount)
                     <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                         <div class="flex-1">
                             <div class="flex items-center space-x-3">
@@ -242,6 +276,11 @@
                     </div>
                 @endforelse
             </div>
+            @if ($bankAccounts->hasPages())
+                <div class="mt-4 pt-4 border-t border-gray-200 px-1">
+                    {{ $bankAccounts->links() }}
+                </div>
+            @endif
         </div>
     </div>
 @endsection
