@@ -18,6 +18,7 @@
             <thead class="bg-gray-50">
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Company</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
@@ -37,6 +38,7 @@
                             <div class="text-sm font-medium text-gray-900">{{ $employee->name }}</div>
                         </div>
                     </td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $employee->email }}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $employee->company->name ?? 'N/A' }}</td>
                     {{-- <td class="px-6 py-4 whitespace-nowrap text-sm">
                         @if($employee->pay_type == 'hourly')

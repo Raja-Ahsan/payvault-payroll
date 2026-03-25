@@ -42,10 +42,9 @@
                 <span class="text-xs font-medium text-gray-500">Add image</span>
             </div>
         </div>
-
         {{-- Camera FAB: top-right, pointer-events-none so clicks go to the <label for> --}}
         <span
-            class="absolute -top-0.5 -right-0.5 z-10 flex h-10 w-10 items-center justify-center rounded-full btn-gradient text-white shadow-lg ring-4 ring-white transition hover:opacity-95 focus-within:ring-green-200 pointer-events-none"
+            class="absolute -top-0.5 -right-0.5 z-10 flex h-8 w-8 items-center justify-center rounded-full btn-gradient text-white shadow-lg ring-4 ring-white transition hover:opacity-95 focus-within:ring-green-200 pointer-events-none"
             aria-hidden="true">
             <i class="fas fa-camera text-sm"></i>
         </span>

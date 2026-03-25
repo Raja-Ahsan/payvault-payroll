@@ -7,11 +7,15 @@ use App\Models\BankAccount;
 use App\Models\Company;
 use App\Models\Employee;
 use App\Models\PayrollItem;
+use App\Models\Role;
+use App\Models\User;
 use App\Services\AchService;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Container\Attributes\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class EmployeeController extends Controller
@@ -75,7 +79,7 @@ class EmployeeController extends Controller
         $pdf = Pdf::loadView('client.employees.show.payroll_pdf', compact('employee', 'payrollItem'))
             ->setPaper('letter', 'portrait');
 
-        $filename = 'paystub-'.preg_replace('/[^a-zA-Z0-9_-]/', '', (string) ($employee->employee_id ?? $employee->id)).'-'.$payrollItem->id.'.pdf';
+        $filename = 'paystub-' . preg_replace('/[^a-zA-Z0-9_-]/', '', (string) ($employee->employee_id ?? $employee->id)) . '-' . $payrollItem->id . '.pdf';
 
         return $pdf->download($filename);
     }
@@ -145,6 +149,7 @@ class EmployeeController extends Controller
         $validator = Validator::make($request->all(), [
             'company_id' => 'required|exists:companies,id',
             'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:employees,email',
             'employee_id' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'gender' => 'required|in:male,female',
@@ -158,37 +163,70 @@ class EmployeeController extends Controller
             'insurance_deduction' => 'required|numeric|min:0',
             'other_deductions' => 'required|numeric|min:0',
             'profile_image' => 'nullable|image|mimes:jpg,png,jpeg',
+            'password' => 'required|string|min:8',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $data = $request->only([
-            'company_id',
-            'name',
-            'employee_id',
-            'address',
-            'gender',
-            'occupation',
-            'hire_date',
-            'annual_salary',
-            'regular_hourly_rate',
-            'overtime_hourly_rate',
-            'federal_allowances',
-            '401_k_contrib_percent',
-            'insurance_deduction',
-            'other_deductions',
-        ]);
+        DB::beginTransaction();
 
-        if ($request->hasFile('profile_image')) {
-            $data['profile_image'] = $request->file('profile_image')->store('profiles', 'public');
+        try {
+
+            $employeeRole = Role::where('name', 'employee')->firstOrFail();
+
+            // ✅ 1. USER CREATE
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => $request->password,
+                'company_id' => $request->company_id,
+                'role_id' => $employeeRole->id,
+            ]);
+
+            // ✅ 3. Employee data
+            $data = $request->only([
+                'company_id',
+                'name',
+                'employee_id',
+                'address',
+                'gender',
+                'occupation',
+                'hire_date',
+                'annual_salary',
+                'regular_hourly_rate',
+                'overtime_hourly_rate',
+                'federal_allowances',
+                '401_k_contrib_percent',
+                'insurance_deduction',
+                'other_deductions',
+                'email',
+                'password',
+            ]);
+
+            // link user
+            $data['user_id'] = $user->id;
+
+            // image upload
+            if ($request->hasFile('profile_image')) {
+                $data['profile_image'] = $request->file('profile_image')
+                    ->store('profiles', 'public');
+            }
+
+            // ✅ 4. employee create
+            Employee::create($data);
+
+            DB::commit();
+
+            return redirect()->route('client.employees.index')
+                ->with('success', 'Employee created successfully!');
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            return back()->with('error', $e->getMessage());
         }
-
-        Employee::create($data);
-
-        return redirect()->route('client.employees.index')
-            ->with('success', 'Employee created successfully!');
     }
 
     public function show(Employee $employee)
@@ -244,6 +282,7 @@ class EmployeeController extends Controller
         $validator = Validator::make($request->all(), [
             'company_id' => 'required|exists:companies,id',
             'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:employees,email,' . $employee->id,
             'employee_id' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'gender' => 'required|in:male,female',
@@ -278,6 +317,7 @@ class EmployeeController extends Controller
             'insurance_deduction',
             'other_deductions',
             'net_pay',
+            'email',
         ]));
 
         return redirect()->route('client.employees.index')

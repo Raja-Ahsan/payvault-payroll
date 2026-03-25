@@ -10,11 +10,11 @@
     <div class="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-lg shadow-md p-6 text-white">
         <div class="flex items-center justify-between">
             <div>
-                <h2 class="text-3xl font-bold mb-2">Welcome, {{ $employee->first_name }}!</h2>
-                <p class="text-blue-100">{{ $employee->company->name ?? 'N/A' }} • Employee ID: {{ $employee->employee_number ?? 'N/A' }}</p>
+                <h2 class="text-3xl font-bold mb-2">Welcome, {{ $employee->name }}!</h2>
+                <p class="text-blue-100">{{ $employee->company->name ?? 'N/A' }} • Employee ID: {{ $employee->employee_id ?? 'N/A' }}</p>
             </div>
             <div class="w-20 h-20 rounded-full bg-white bg-opacity-20 flex items-center justify-center text-4xl font-bold">
-                {{ strtoupper(substr($employee->first_name, 0, 1)) }}
+                {{ strtoupper(substr($employee->name, 0, 1)) }}
             </div>
         </div>
     </div>

@@ -11,7 +11,12 @@
             @method('PUT')
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="md:col-span-2">
+                @include('includes.image-preview', [
+                    'name' => 'profile_image',
+                    'label' => 'Profile Image',
+                    'src' => $employee->profile_image ? asset('storage/' . $employee->profile_image) : null,
+                ])
+                <div class="">
                     <label class="block text-sm font-medium text-gray-700 mb-2">Company *</label>
                     <select name="company_id" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
@@ -28,6 +33,17 @@
                     <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
                     <input type="text" name="name" value="{{ old('name', $employee->name) }}" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <input type="email" name="email" value="{{ old('email', $employee->email) }}" required
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <input type="password" name="password" value="{{ old('password', $employee->password) }}"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
+                    <small class="text-gray-500">Leave blank to keep current password</small>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Employee ID</label>
@@ -87,8 +103,8 @@
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">401(k) contrib.</label>
                     <input type="number" step="0.01" min="0" max="100" name="401_k_contrib_percent"
-                        value="{{ old('401_k_contrib_percent', $employee->effective401kContributionPercent()) }}"
-                        required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
+                        value="{{ old('401_k_contrib_percent', $employee->effective401kContributionPercent()) }}" required
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
                         placeholder="e.g. 3 for 3%">
                 </div>
                 <div>
