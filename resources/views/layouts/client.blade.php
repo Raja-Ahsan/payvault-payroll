@@ -129,13 +129,13 @@
                                 <span>ACH Transactions</span>
                             </a>
                         </li> --}}
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('client.reports') }}"
                                 class="flex items-center px-4 py-3 rounded-lg {{ request()->routeIs('client.reports') ? 'active-menu' : 'text-gray-700 hover:bg-gray-100' }}">
                                 <i class="fas fa-chart-bar w-5 mr-3"></i>
                                 <span>Reports</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </nav>
 
