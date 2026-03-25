@@ -21,7 +21,7 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">EIN</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Employees</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ACH Status</th>
+                    {{-- <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ACH Status</th> --}}
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                 </tr>
             </thead>
@@ -56,7 +56,7 @@
                             {{ $company->employees->count() }} employees
                         </span>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
+                    {{-- <td class="px-6 py-4 whitespace-nowrap">
                         @if($company->ach_enrolled)
                             <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">
                                 {{ ucfirst($company->ach_status ?? 'Active') }}
@@ -66,7 +66,7 @@
                                 Not Enrolled
                             </span>
                         @endif
-                    </td>
+                    </td> --}}
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <div class="flex items-center space-x-2">
                             <a href="{{ route('client.companies.show', $company) }}" class="text-blue-600 hover:text-blue-900">

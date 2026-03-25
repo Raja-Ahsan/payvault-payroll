@@ -172,7 +172,7 @@
                         <h2 class="text-2xl font-semibold text-gray-800">@yield('page-title', 'Dashboard')</h2>
                         <p class="text-sm text-gray-500">@yield('page-description', 'Welcome back, ' . Auth::user()->name)</p>
                     </div>
-                    <div class="flex items-center space-x-4">
+                    {{-- <div class="flex items-center space-x-4">
                         <div class="relative">
                             <input type="text" placeholder="Search..."
                                 class="pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
@@ -181,7 +181,7 @@
                         <div class="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center">
                             <i class="fas fa-bell text-gray-600"></i>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </header>
 

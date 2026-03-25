@@ -154,9 +154,17 @@
             <p class="text-sm text-gray-700 mb-3 leading-relaxed">
                 Employers in the following states must withhold state income tax from employee wages:
             </p>
-            <p class="text-gray-700 text-sm leading-relaxed">
-                Alabama, Arizona, Arkansas, California, Colorado, Connecticut, Delaware, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Montana, Nebraska, New Jersey, New Mexico, New York, North Carolina, North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina, Utah, Vermont, Virginia, West Virginia, Wisconsin, and Washington, D.C.
-            </p>
+            <div class="flex flex-wrap gap-2 mb-4">
+                @foreach ([
+                    'Alabama', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Georgia', 'Hawaii',
+                    'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts',
+                    'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'New Jersey', 'New Mexico', 'New York',
+                    'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
+                    'Utah', 'Vermont', 'Virginia', 'West Virginia', 'Wisconsin', 'Washington, D.C.',
+                ] as $state)
+                    <span class="px-3 py-1 rounded-full text-sm font-medium text-white btn-gradient">{{ $state }}</span>
+                @endforeach
+            </div>
         </div>
     </div>
 
