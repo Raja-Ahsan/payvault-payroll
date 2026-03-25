@@ -83,9 +83,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/payroll/{payroll}/approve', [\App\Http\Controllers\Client\PayrollController::class, 'approve'])->name('payroll.approve');
         Route::post('/payroll/{payroll}/finalize', [\App\Http\Controllers\Client\PayrollController::class, 'finalize'])->name('payroll.finalize');
         Route::get('/reports', [\App\Http\Controllers\Client\ReportController::class, 'index'])->name('reports');
-        Route::get('/federal-payroll-eftps', function () {
-            return view('client.federal-payroll-eftps');
-        })->name('federal-payroll-eftps');
+        Route::get('/US-employer-tax-guide', function () {
+            return view('client.US-employer-tax-guide');
+        })->name('US-employer-tax-guide');
     });
     
     // Admin Routes

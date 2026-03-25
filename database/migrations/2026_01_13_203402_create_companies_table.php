@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('legal_name')->nullable();
+            $table->string('company_logo')->nullable();
             $table->string('ein')->unique()->nullable(); // Employer Identification Number
             $table->text('address')->nullable();
             $table->string('city')->nullable();

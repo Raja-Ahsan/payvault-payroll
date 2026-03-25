@@ -13,21 +13,7 @@ class Company extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [
-        'name',
-        'legal_name',
-        'ein',
-        'address',
-        'city',
-        'state',
-        'zip_code',
-        'phone',
-        'email',
-        'payroll_config',
-        'ach_enrolled',
-        'ach_status',
-        'created_by',
-    ];
+    protected $guarded = ['id'];
 
     protected function casts(): array
     {

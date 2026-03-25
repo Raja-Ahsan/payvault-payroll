@@ -9,8 +9,11 @@
         <div class="bg-white rounded-lg shadow-md p-6">
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center">
+                    <div class="w-16 h-16 rounded-full btn-gradient flex items-center justify-center">
+                        <img src="{{ asset('storage/' . $employee->profile_image) }}" alt="Profile Image" class="w-16 h-16 rounded-full">
+                    </div>
                     <div
-                        class="w-16 h-16  flex items-center justify-center text-white font-bold text-2xl mr-4">
+                        class=" text-white font-bold text-2xl mr-4">
                         {{ strtoupper(substr($employee->first_name, 0, 1)) }}
                     </div>
                     <div>

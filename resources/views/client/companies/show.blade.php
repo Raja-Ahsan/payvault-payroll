@@ -10,7 +10,13 @@
     <div class="bg-white rounded-lg shadow-md p-6">
         <div class="flex items-center justify-between mb-6">
             <div class="flex items-center">
-                <div class="w-16 h-16 rounded-full btn-gradient flex items-center justify-center text-white font-bold text-2xl mr-4">
+                <div class="w-16 h-16 rounded-full btn-gradient flex items-center justify-center">
+                    <img src="{{ $company->company_logo
+                     ? asset('storage/' . $company->company_logo)
+                     : asset('images/placeholders/img-not-available.png')}}"
+                      alt="Company Logo" class="w-16 h-16 rounded-full">
+                </div>
+                <div class="text-white font-bold text-2xl mr-4">
                     {{ strtoupper(substr($company->name, 0, 1)) }}
                 </div>
                 <div>

@@ -6,11 +6,16 @@
 
 @section('content')
     <div class="bg-white rounded-lg shadow-md p-6">
-        <form action="{{ route('client.employees.store') }}" method="POST">
+        <form action="{{ route('client.employees.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="md:col-span-2">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Profile Image</label>
+                    <input type="file" name="profile_image"
+                        class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
+                </div>
+                <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Company *</label>
                     <select name="company_id" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
@@ -57,43 +62,43 @@
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Annual Salary</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Annual Salary ($)</label>
                     <input type="number" step="0.01" name="annual_salary" value="{{ old('annual_salary') }}" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Regular Hourly Rate</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Regular Hourly Rate ($)</label>
                     <input type="number" step="0.01" name="regular_hourly_rate"
                         value="{{ old('regular_hourly_rate') }}" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Overtime Hourly Rate</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Overtime Hourly Rate ($)</label>
                     <input type="number" step="0.01" name="overtime_hourly_rate"
                         value="{{ old('overtime_hourly_rate') }}" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Federal Allowances</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Federal Allowances (W-4)</label>
                     <input type="number" step="0.01" name="federal_allowances" value="{{ old('federal_allowances') }}"
                         required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">401(k) contribution (% of gross)</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">401(k) Contrib. (%)</label>
                     <input type="number" step="0.01" min="0" max="100" name="401_k_contrib_percent"
                         value="{{ old('401_k_contrib_percent') }}" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500"
-                        placeholder="e.g. 3 for 3%">
-                    <p class="text-xs text-gray-500 mt-1">Enter <strong>3</strong> for 3% — not 300. Each pay, deduction = gross pay × (this % ÷ 100).</p>
+                        placeholder="">
+                    {{-- <p class="text-xs text-gray-500 mt-1">Enter <strong>3</strong> for 3% — not 300. Each pay, deduction = gross pay × (this % ÷ 100).</p> --}}
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Insurance Deduction</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Insurance Deduction ($)</label>
                     <input type="number" step="0.01" name="insurance_deduction"
                         value="{{ old('insurance_deduction') }}" required
                         class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Other Deductions</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Other Deductions ($)</label>
                     <input type="number" step="0.01" name="other_deductions" value="{{ old('other_deductions') }}"
                         required class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                 </div>

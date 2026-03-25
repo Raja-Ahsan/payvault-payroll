@@ -22,7 +22,6 @@
             <p class="text-sm text-gray-500">Employee</p>
             <p class="text-lg font-semibold text-gray-800">{{ $employee->name }}</p>
             <p class="text-sm text-gray-600">ID: {{ $employee->employee_id }}</p>
-            <p class="text-sm text-gray-600 mt-1">401(k): <span class="font-medium">{{ number_format($k401Percent, 2) }}%</span> of gross (employee profile — percentage, not dollars). Deduction = gross × ({{ number_format($k401Percent, 2) }} ÷ 100).</p>
         </div>
 
         <form action="{{ route('client.employees.create-payroll.store', $employee) }}" method="POST" id="payroll-form">
@@ -77,51 +76,51 @@
                 </div>
 
                 <div class="md:col-span-2 p-4 rounded-lg border border-green-200 bg-green-50">
-                    <p class="text-sm text-gray-600">Gross pay <span class="text-gray-500">(same logic as register: regular-rate × reg/vac/sick/holiday/personal hours + OT rate × OT hours)</span></p>
+                    <p class="text-sm text-gray-600">Gross pay</p>
                     <p class="text-2xl font-bold text-green-800 mt-1" id="gross_pay_display">$0.00</p>
                 </div>
 
                 <div class="md:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
                     <div class="space-y-4">
-                        <p class="text-sm font-semibold text-gray-800">Withholdings &amp; deductions <span class="font-normal text-gray-500">(enter tax amounts; 401(k) is computed from gross)</span></p>
+                        <p class="text-sm font-semibold text-gray-800">Withholdings &amp; deductions</p>
                         <div class="p-3 bg-gray-50 rounded-lg border border-gray-200">
-                            <p class="text-sm text-gray-600">401(k) contribution</p>
+                            <p class="text-sm text-gray-600">401(k) contrib.</p>
                             <p class="text-lg font-mono font-semibold text-gray-900" id="k401_display">$0.00</p>
                             <p class="text-xs text-gray-500 mt-1">{{ number_format($k401Percent, 2) }}% × gross pay</p>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Federal tax *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Fed tax ($) *</label>
                             <input type="number" step="0.01" name="fed_tax" id="fed_tax" value="{{ old('fed_tax', 0) }}" required
                                 class="js-payroll-recalc w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">State tax *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">State tax ($) *</label>
                             <input type="number" step="0.01" name="state_tax" id="state_tax" value="{{ old('state_tax', 0) }}" required
                                 class="js-payroll-recalc w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Local tax *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Local tax ($) *</label>
                             <input type="number" step="0.01" name="local_tax" id="local_tax" value="{{ old('local_tax', 0) }}" required
                                 class="js-payroll-recalc w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Social Security *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Social Security ($) *</label>
                             <input type="number" step="0.01" name="social_security" id="social_security" value="{{ old('social_security', 0) }}" required
                                 class="js-payroll-recalc w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Medicare *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Medicare ($) *</label>
                             <input type="number" step="0.01" name="medi_care" id="medi_care" value="{{ old('medi_care', 0) }}" required
                                 class="js-payroll-recalc w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Insurance deduction *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Insurance deduction ($) *</label>
                             <input type="number" step="0.01" name="insurance_deduction" id="insurance_deduction" value="{{ old('insurance_deduction', $defaultInsurance) }}" required
                                 class="js-payroll-recalc w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                             <p class="text-xs text-gray-500 mt-1">Default from employee profile; adjust if needed</p>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Other deductions *</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Other deductions ($) *</label>
                             <input type="number" step="0.01" name="other_deductions" id="other_deductions" value="{{ old('other_deductions', $defaultOther) }}" required
                                 class="js-payroll-recalc w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-green-500">
                         </div>

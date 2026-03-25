@@ -35,16 +35,31 @@ class CompanyController extends Controller
             'zip_code' => 'nullable|string',
             'phone' => 'nullable|string',
             'email' => 'nullable|email',
+            'company_logo' => 'nullable|image|mimes:jpg,png,jpeg',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $company = Company::create([
-            ...$request->all(),
-            'created_by' => Auth::id(),
+        $data = $request->only([
+            'name',
+            'legal_name',
+            'ein',
+            'address',
+            'city',
+            'state',
+            'zip_code',
+            'phone',
+            'email',
         ]);
+
+        if ($request->hasFile('company_logo')) {
+            $data['company_logo'] = $request->file('company_logo')->store('companies', 'public');
+        }
+
+        $data['created_by'] = Auth::id();
+        $company = Company::create($data);
 
         return redirect()->route('client.companies.index')
             ->with('success', 'Company created successfully!');
@@ -88,13 +103,30 @@ class CompanyController extends Controller
             'zip_code' => 'nullable|string',
             'phone' => 'nullable|string',
             'email' => 'nullable|email',
+            'company_logo' => 'nullable|image|mimes:jpg,png,jpeg',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $company->update($request->all());
+        $data = $request->only([
+            'name',
+            'legal_name',
+            'ein',
+            'address',
+            'city',
+            'state',
+            'zip_code',
+            'phone',
+            'email',
+        ]);
+
+        if ($request->hasFile('company_logo')) {
+            $data['company_logo'] = $request->file('company_logo')->store('companies', 'public');
+        }
+
+        $company->update($data);
 
         return redirect()->route('client.companies.index')
             ->with('success', 'Company updated successfully!');

@@ -9,6 +9,7 @@ use App\Models\Employee;
 use App\Models\PayrollItem;
 use App\Services\AchService;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Container\Attributes\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -156,13 +157,35 @@ class EmployeeController extends Controller
             '401_k_contrib_percent' => 'required|numeric|min:0|max:100',
             'insurance_deduction' => 'required|numeric|min:0',
             'other_deductions' => 'required|numeric|min:0',
+            'profile_image' => 'nullable|image|mimes:jpg,png,jpeg',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        Employee::create($request->all());
+        $data = $request->only([
+            'company_id',
+            'name',
+            'employee_id',
+            'address',
+            'gender',
+            'occupation',
+            'hire_date',
+            'annual_salary',
+            'regular_hourly_rate',
+            'overtime_hourly_rate',
+            'federal_allowances',
+            '401_k_contrib_percent',
+            'insurance_deduction',
+            'other_deductions',
+        ]);
+
+        if ($request->hasFile('profile_image')) {
+            $data['profile_image'] = $request->file('profile_image')->store('profiles', 'public');
+        }
+
+        Employee::create($data);
 
         return redirect()->route('client.employees.index')
             ->with('success', 'Employee created successfully!');

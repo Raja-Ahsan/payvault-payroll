@@ -30,7 +30,13 @@
                 <tr class="hover:bg-gray-50">
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="flex items-center">
-                            <div class="w-10 h-10 rounded-full btn-gradient flex items-center justify-center text-white font-bold mr-3">
+                            <div class="w-10 h-10 rounded-full btn-gradient flex items-center justify-center">
+                                <img src="{{ $company->company_logo
+                                 ? asset('storage/' . $company->company_logo)
+                                 : asset('images/placeholders/img-not-available.png')}}"
+                                  alt="Company Logo" class="w-10 h-10 rounded-full">
+                            </div>
+                            <div class=" text-white font-bold mr-3">
                                 {{ strtoupper(substr($company->name, 0, 1)) }}
                             </div>
                             <div>
