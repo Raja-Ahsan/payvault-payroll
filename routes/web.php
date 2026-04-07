@@ -54,7 +54,10 @@ Route::prefix('admin')->middleware('auth', 'role:admin')->group(function () {
 });
 Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function () {
     Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
-    Route::post('/companies', [CompanyController::class, 'general'])->name('company.general');
+    Route::get('/companies/create', [CompanyController::class, 'create'])->name('companies.create');
+    Route::get('/companies/{company}/edit/', [CompanyController::class, 'edit'])->name('companies.edit');
+    Route::post('/companies/update', [CompanyController::class, 'update'])->name('companies.update');
+    Route::post('/companies', [CompanyController::class, 'general'])->name('companies.general');
 });
 // admin dashboard routes
 Route::prefix('admin')->middleware(['auth'])->group(function () {

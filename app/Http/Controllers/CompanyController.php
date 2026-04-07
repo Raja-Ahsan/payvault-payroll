@@ -12,12 +12,20 @@ class CompanyController extends Controller
 {
     public function index()
     {
-        return view('screens.admin.companies.index');
+        $companies = Company::get();
+        return view('screens.admin.companies.index', get_defined_vars());
     }
+
+    public function create()
+    {
+        return view('screens.admin.companies.create');
+    }
+
     public function general(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'company_name' => 'required|string|max:255',
             'address_1' => 'required|string|max:255',
             'address_2' => 'nullable|string|max:255',
             'city' => 'required|string|max:255',
@@ -28,16 +36,19 @@ class CompanyController extends Controller
             'email' => 'required|email|max:255',
         ]);
         $userId = auth()->user()->id;
+
         $company = Company::create([
             'user_id' => $userId,
             'created_by' => $userId,
-            'company_name' => $validated['name'],
+            'company_name' => $validated['company_name'],
         ]);
 
-        User::where('id', $userId)->update([
-            'phone' => $validated['phone'],
-            'fax_number' => $validated['fax_number'],
-        ]);
+        // User::where('id', $userId)->updateOrCreate([
+        //     'name' => $validated['name'],
+        //     'phone' => $validated['phone'],
+        //     'fax_number' => $validated['fax_number'],
+        //     'email' => $validated['email'],
+        // ]);
 
         $company->address()->create([
             'address_1' => $validated['address_1'],
@@ -47,9 +58,14 @@ class CompanyController extends Controller
             'zip_code' => $validated['zip_code'],
             'created_by' => $userId,
         ]);
-       
-        $company_id = $company->id;
-        
         return response()->json(['message' => 'Company created successfully']);
+    }
+
+    public function edit(Company $company)
+    {
+        return view('screens.admin.companies.edit', get_defined_vars());
+    }
+    public function update() {
+
     }
 }

@@ -27,7 +27,6 @@ class DatabaseSeeder extends Seeder
             TaxCategorySeeder::class,
             DeductionCategorySeeder::class,
             CompanyTypeSeeder::class,
-            AddressSeeder::class,
         ]);
     }
 }

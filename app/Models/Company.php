@@ -15,6 +15,6 @@ class Company extends Model
 
     public function address()
     {
-        return $this->hasMany(Address::class);
+        return $this->hasOne(Address::class);
     }
 }

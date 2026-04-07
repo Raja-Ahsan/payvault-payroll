@@ -27,7 +27,8 @@ class AddressSeeder extends Seeder
                     'city' => $item['city'],
                     'state' => $item['state'],
                     'zip_code' => $item['zip_code'],
-                    'created_by' => 1
+                    'created_by' => 1,
+                    'company_id' => 1,
                 ]
             , $item);
         }
