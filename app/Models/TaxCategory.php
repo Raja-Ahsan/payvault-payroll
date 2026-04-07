@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class IncomeTypes extends Model
+class TaxCategory extends Model
 {
-    protected $table = ['id'];
+    protected $guarded = ['id'];
 }

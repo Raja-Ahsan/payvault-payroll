@@ -22,7 +22,12 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CmsModuleSeeder::class,
             CmsModulePermissions::class,
-            // IncomeCategorySeeder::class,
+            IncomeTypeSeeder::class,
+            IncomeCategorySeeder::class,
+            TaxCategorySeeder::class,
+            DeductionCategorySeeder::class,
+            CompanyTypeSeeder::class,
+            AddressSeeder::class,
         ]);
     }
 }

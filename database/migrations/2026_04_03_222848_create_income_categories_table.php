@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('income_categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('income_type_id')->constrained('income_types');
+            $table->foreignId('income_type_id')->constrained('income_types')->onDelete('cascade');
             $table->string('title');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();

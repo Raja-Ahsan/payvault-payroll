@@ -33,6 +33,16 @@ class CmsModuleSeeder extends Seeder
             'parent_id' => 0,
         ]);
 
+        $companies = CmsModule::firstOrCreate([
+            'route_name' => 'companies-module'
+        ], [
+            'name' => 'Companies',
+            'icon' => 'fa-solid fa-building',
+            'sort_order' => 3,
+            'status' => 'active',
+            'parent_id' => 0,
+        ]);
+
         // submenus
         // users submenu start
         CmsModule::firstOrCreate([
@@ -53,6 +63,16 @@ class CmsModuleSeeder extends Seeder
             'sort_order' => 2,
             'status' => 'active',
             'parent_id' => $users->id,
+        ]);
+
+        CmsModule::firstOrCreate([
+            'route_name' => 'companies.index'
+        ], [
+            'name' => 'All Companies',
+            'icon' => 'fa-solid fa-list-ul',
+            'sort_order' => 1,
+            'status' => 'active',
+            'parent_id' => $companies->id,
         ]);
     }
 }

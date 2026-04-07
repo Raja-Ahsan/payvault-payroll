@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('income_types', function (Blueprint $table) {
+        Schema::create('deduction_categories', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->foreignId('income_type_id')->constrained('income_types')->onDelete('cascade');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
@@ -24,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('income_types');
+        Schema::dropIfExists('deduction_categories');
     }
 };

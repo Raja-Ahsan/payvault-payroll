@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('income_types', function (Blueprint $table) {
+        Schema::create('federal_tax_information', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
+            $table->foreignId('company_type_id')->constrained('company_types')->onDelete('cascade');
+            $table->string('employee_identification_number');
+            $table->string('trade_name')->nullable();
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('income_types');
+        Schema::dropIfExists('federal_tax_information');
     }
 };

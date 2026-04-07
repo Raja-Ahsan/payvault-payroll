@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 
@@ -50,6 +51,10 @@ Route::prefix('admin')->middleware('auth', 'role:admin')->group(function () {
     Route::get('/users', [UsersController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UsersController::class, 'create'])->name('users.create');
     Route::post('/users', [UsersController::class, 'store'])->name('users.store');
+});
+Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function () {
+    Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
+    Route::post('/companies', [CompanyController::class, 'general'])->name('company.general');
 });
 // admin dashboard routes
 Route::prefix('admin')->middleware(['auth'])->group(function () {

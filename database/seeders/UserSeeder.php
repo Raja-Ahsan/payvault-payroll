@@ -13,17 +13,27 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::firstOrCreate(
+        $admin = User::firstOrCreate(
         [
             'email' => 'admin@diypayroll.com',
         ],
         [
 
         'name' => 'Admin',
-        'password' => bcrypt('Admin@123')
-
+        'password' => bcrypt('Admin@123'),
         ]
     );
-    $user->assignRole('admin');
+        $admin->assignRole('admin');
+
+        $client = User::firstOrCreate(
+            [
+                'email' => 'client@gmail.com',
+            ],
+            [
+                'name' => 'Client',
+                'password' => bcrypt('client@123'),
+            ]
+        );
+        $client->assignRole('client');
     }
 }
