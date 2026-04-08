@@ -23,14 +23,89 @@
                                 <span class="f-light">Total Revenue</span>
                                 <h4>
                                     <span class="">
-                                        <span class="" data-target="">0</span>
+                                        <span class="">0</span>
                                     </span>
                                 </h4>
                             </div>
                         </div>
-                        {{-- <div class="font-success f-w-500">
-                            <i class="bookmark-search me-1"></i><span class="txt-success">+50%</span>
-                        </div> --}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-auto col-xl-3 col-sm-6 box-col-3">
+                <div class="card widget-1">
+                    <div class="card-body">
+                        <div class="widget-content">
+                            <div class="widget-round secondary">
+                                <div class="bg-round">
+                                    <svg>
+                                        <use href="{{ asset('/assets/libs/svg/icon-sprite.svg#c-invoice') }}"></use>
+                                    </svg><svg class="half-circle svg-fill">
+                                        <use href="{{ asset('/assets/libs/svg/icon-sprite.svg#halfcircle') }}">
+                                        </use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="f-light">Total Companies</span>
+                                <h4>
+                                    <span class="">
+                                        <span class="">{{ $totalCompanies ?? 0 }}</span>
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-auto col-xl-3 col-sm-6 box-col-3">
+                <div class="card widget-1">
+                    <div class="card-body">
+                        <div class="widget-content">
+                            <div class="widget-round secondary">
+                                <div class="bg-round">
+                                    <svg>
+                                        <use href="{{ asset('/assets/libs/svg/icon-sprite.svg#c-profit') }}"></use>
+                                    </svg><svg class="half-circle svg-fill">
+                                        <use href="{{ asset('/assets/libs/svg/icon-sprite.svg#halfcircle') }}">
+                                        </use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="f-light">Total Categories</span>
+                                <h4>
+                                    <span class="">
+                                        <span class="">{{ $totalCategories ?? 0 }}</span>
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xxl-auto col-xl-3 col-sm-6 box-col-3">
+                <div class="card widget-1">
+                    <div class="card-body">
+                        <div class="widget-content">
+                            <div class="widget-round secondary">
+                                <div class="bg-round">
+                                    <svg>
+                                        <use href="{{ asset('/assets/libs/svg/icon-sprite.svg#c-customer') }}"></use>
+                                    </svg><svg class="half-circle svg-fill">
+                                        <use href="{{ asset('/assets/libs/svg/icon-sprite.svg#halfcircle') }}">
+                                        </use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="f-light">Total Employees</span>
+                                <h4>
+                                    <span class="">
+                                        <span class="">{{ $totalEmployees ?? 0 }}</span>
+                                    </span>
+                                </h4>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
