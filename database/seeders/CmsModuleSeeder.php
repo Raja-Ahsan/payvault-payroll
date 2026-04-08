@@ -43,6 +43,47 @@ class CmsModuleSeeder extends Seeder
             'parent_id' => 0,
         ]);
 
+        $employees = CmsModule::firstOrCreate([
+            'route_name' => 'employees-module'
+        ], [
+            'name' => 'Employees',
+            'icon' => 'fa-solid fa-user',
+            'sort_order' => 4,
+            'status' => 'active',
+            'parent_id' => 0,
+        ]);
+
+        $forms = CmsModule::firstOrCreate([
+            'route_name' => 'forms-module'
+        ], [
+            'name' => 'Forms',
+            'icon' => 'fa-solid fa-file',
+            'sort_order' => 5,
+            'status' => 'active',
+            'parent_id' => 0,
+        ]);
+
+        $reports = CmsModule::firstOrCreate([
+            'route_name' => 'reports-module'
+        ], [
+            'name' => 'Reports',
+            'icon' => 'fa-solid fa-chart-line',
+            'sort_order' => 5,
+            'status' => 'active',
+            'parent_id' => 0,
+        ]);
+
+        $vendor = CmsModule::firstOrCreate([
+            'route_name' => 'vendor-module'
+        ], [
+            'name' => 'Vendor',
+            'icon' => 'fa-solid fa-user-tie',
+            'sort_order' => 6,
+            'status' => 'active',
+            'parent_id' => 0,
+        ]);
+        
+
         // submenus
         // users submenu start
         CmsModule::firstOrCreate([
