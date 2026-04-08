@@ -24,7 +24,6 @@ class CmsModulePermissions extends Seeder
             'dashboard' => CmsModule::where('route_name', 'admin.dashboard')->first(),
             'users' => CmsModule::where('route_name', 'users-module')->first(),
             'companies' => CmsModule::where('route_name', 'companies-module')->first(),
-            'categories' => CmsModule::where('route_name', 'categories-module')->first(),
             
         ];
 
@@ -38,27 +37,26 @@ class CmsModulePermissions extends Seeder
         ];
 
         $permissions = [
-            // admin modules
-            ['role_id' => $adminRole->id, 'module_id' => $modules['dashboard']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0], // Dashboard
-            ['role_id' => $adminRole->id, 'module_id' => $modules['users']->id ?? null, 'is_add' => 1, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0], // Users
-            
-            // Submenus
-            ['role_id' => $adminRole->id, 'module_id' => $submenus['users.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0], // All Users (users.index)
-            ['role_id' => $adminRole->id, 'module_id' => $submenus['users.create']->id ?? null, 'is_add' => 0, 'is_view' => 0, 'is_update' => 0, 'is_delete' => 0], // Add User (users.create)
-            ['role_id' => $adminRole->id, 'module_id' => $submenus['categories']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0], // Categories
-            // // client modules
-            ['role_id' => $clientRole->id, 'module_id' => $modules['dashboard']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0], // Dashboard
-            ['role_id' => $clientRole->id, 'module_id' => $modules['companies']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0], // Dashboard
-            ['role_id' => $clientRole->id, 'module_id' => $modules['categories']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0], // Dashboard
-
-
-            
-            // // Submenus
-            ['role_id' => $clientRole->id, 'module_id' => $submenus['companies.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0], // All Users (users.index)
-            ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0], // Categories
-            ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.income.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0], // Categories
-            ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.tax.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0], // Categories
-            ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.deduction.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0], // Categories
+            // admin — top-level
+            ['role_id' => $adminRole->id, 'module_id' => $modules['dashboard']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
+            ['role_id' => $adminRole->id, 'module_id' => $modules['users']->id ?? null, 'is_add' => 1, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
+            ['role_id' => $adminRole->id, 'module_id' => $modules['companies']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
+            // admin — users submenu
+            ['role_id' => $adminRole->id, 'module_id' => $submenus['users.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
+            ['role_id' => $adminRole->id, 'module_id' => $submenus['users.create']->id ?? null, 'is_add' => 0, 'is_view' => 0, 'is_update' => 0, 'is_delete' => 0],
+            // admin — companies submenu (All Companies + category screens under Companies in CMS)
+            ['role_id' => $adminRole->id, 'module_id' => $submenus['companies.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
+            ['role_id' => $adminRole->id, 'module_id' => $submenus['categories.income.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
+            ['role_id' => $adminRole->id, 'module_id' => $submenus['categories.tax.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
+            ['role_id' => $adminRole->id, 'module_id' => $submenus['categories.deduction.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
+            // client — top-level
+            ['role_id' => $clientRole->id, 'module_id' => $modules['dashboard']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
+            ['role_id' => $clientRole->id, 'module_id' => $modules['companies']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
+            // client — companies submenu (same category rows; parent_id = companies in CmsModuleSeeder)
+            ['role_id' => $clientRole->id, 'module_id' => $submenus['companies.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
+            ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.income.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
+            ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.tax.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
+            ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.deduction.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
         ];
 
         foreach ($permissions as $perm) {

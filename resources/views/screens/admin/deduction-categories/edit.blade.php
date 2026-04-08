@@ -126,6 +126,7 @@
                             </div>
                         </fieldset>
                     </div>
+                    
                     <div class="col-12 mb-3">
                         <p class="small text-muted mb-1">Pre-tax payroll deductions reduce your employee&apos;s taxable wages.</p>
                         <p class="small text-muted mb-0">When you apply related taxes below, taxable wages for those taxes are reduced by this deduction amount.</p>

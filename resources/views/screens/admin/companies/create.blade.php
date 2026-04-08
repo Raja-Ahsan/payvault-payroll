@@ -75,7 +75,6 @@
                                 </div>
                             </div>
                             <div class="steps stepper-two row g-3 needs-validation">
-                                
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="name">Company Type</label>

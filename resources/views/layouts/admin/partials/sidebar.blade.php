@@ -15,9 +15,9 @@
 <div class="sidebar-wrapper" data-sidebar-layout="stroke-svg">
     <div class="logo-wrapper">
         <a href="">
-            <img class="img-fluid for-light" src="{{ asset('/images/logo.png') }}" alt="" style="max-width: 60px" />
-            <img class="img-fluid for-dark" src="{{ asset('/images/logo.png') }}" alt=""
-                style="max-width: 60px" />
+            <img class="img-fluid for-light" src="{{ asset('/images/logo.png') }}" alt="" style="max-width: 200px" />
+            <img class="img-fluid for-dark" src="{{ asset('/images/logo-dark.png') }}" alt=""
+                style="max-width: 200px" />
         </a>
         <div class="back-btn"><i class="fa-solid fa-angle-left"></i></div>
         {{-- <div class="toggle-sidebar">

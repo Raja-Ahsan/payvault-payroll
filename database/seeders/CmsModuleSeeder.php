@@ -42,15 +42,6 @@ class CmsModuleSeeder extends Seeder
             'status' => 'active',
             'parent_id' => 0,
         ]);
-        $categories = CmsModule::firstOrCreate([
-            'route_name' => 'categories-module'
-        ], [
-            'name' => 'Categories',
-            'icon' => 'fa-solid fa-list-ul',
-            'sort_order' => 4,
-            'status' => 'active',
-            'parent_id' => 0,
-        ]);
 
         // submenus
         // users submenu start
@@ -88,9 +79,9 @@ class CmsModuleSeeder extends Seeder
         ], [
             'name' => 'Income Categories',
             'icon' => 'fa-solid fa-money-bill',
-            'sort_order' => 1,
+            'sort_order' => 2,
             'status' => 'active',
-            'parent_id' => $categories->id,
+            'parent_id' => $companies->id,
         ]);
 
         CmsModule::firstOrCreate([
@@ -98,9 +89,9 @@ class CmsModuleSeeder extends Seeder
         ], [
             'name' => 'Tax Categories',
             'icon' => 'fa-solid fa-money-bill',
-            'sort_order' => 2,
+            'sort_order' => 3,
             'status' => 'active',
-            'parent_id' => $categories->id,
+            'parent_id' => $companies->id,
         ]);
 
         CmsModule::firstOrCreate([
@@ -108,9 +99,14 @@ class CmsModuleSeeder extends Seeder
         ], [
             'name' => 'Deduction Categories',
             'icon' => 'fa-solid fa-minus-circle',
-            'sort_order' => 3,
+            'sort_order' => 4,
             'status' => 'active',
-            'parent_id' => $categories->id,
+            'parent_id' => $companies->id,
         ]);
+
+        // Income / Tax / Deduction category menus always hang under Companies (sidebar).
+        foreach (['categories.income.index', 'categories.tax.index', 'categories.deduction.index'] as $routeName) {
+            CmsModule::where('route_name', $routeName)->update(['parent_id' => $companies->id]);
+        }
     }
 }
