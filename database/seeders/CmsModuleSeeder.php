@@ -42,6 +42,15 @@ class CmsModuleSeeder extends Seeder
             'status' => 'active',
             'parent_id' => 0,
         ]);
+        $categories = CmsModule::firstOrCreate([
+            'route_name' => 'categories-module'
+        ], [
+            'name' => 'Categories',
+            'icon' => 'fa-solid fa-list-ul',
+            'sort_order' => 4,
+            'status' => 'active',
+            'parent_id' => 0,
+        ]);
 
         // submenus
         // users submenu start
@@ -73,6 +82,35 @@ class CmsModuleSeeder extends Seeder
             'sort_order' => 1,
             'status' => 'active',
             'parent_id' => $companies->id,
+        ]);
+        CmsModule::firstOrCreate([
+            'route_name' => 'categories.income.index'
+        ], [
+            'name' => 'Income Categories',
+            'icon' => 'fa-solid fa-money-bill',
+            'sort_order' => 1,
+            'status' => 'active',
+            'parent_id' => $categories->id,
+        ]);
+
+        CmsModule::firstOrCreate([
+            'route_name' => 'categories.tax.index'
+        ], [
+            'name' => 'Tax Categories',
+            'icon' => 'fa-solid fa-money-bill',
+            'sort_order' => 2,
+            'status' => 'active',
+            'parent_id' => $categories->id,
+        ]);
+
+        CmsModule::firstOrCreate([
+            'route_name' => 'categories.deduction.index'
+        ], [
+            'name' => 'Deduction Categories',
+            'icon' => 'fa-solid fa-minus-circle',
+            'sort_order' => 3,
+            'status' => 'active',
+            'parent_id' => $categories->id,
         ]);
     }
 }

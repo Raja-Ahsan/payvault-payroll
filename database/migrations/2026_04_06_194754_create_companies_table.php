@@ -16,6 +16,10 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
             $table->string('company_name');
+            $table->string('contact_name');
+            $table->string('tel_number');
+            $table->string('fax_number')->nullable();
+            $table->string('email');
             $table->timestamps();
         });
     }

@@ -1,3 +1,4 @@
+
 @section('title', 'Company')
 @extends('layouts.admin.master')
 @section('content')
@@ -39,13 +40,10 @@
                                                      {{$company->company_name ?? '-'}}
                                                  </td>
                                                  <td>
-                                                     {{$company->company_type ?? '-'}}
+                                                     {{ $company->federalTaxInformation?->companyType?->title ?? '-' }}
                                                  </td>
                                                  <td>
-                                                     {{$company->created_date ?? '-'}}
-                                                 </td>
-                                                 <td>
-                                                     {{$company->created_date ?? '-'}}
+                                                     {{$company->created_at->format('d-m-Y') ?? '-'}}
                                                  </td>
                                                  <td>
                                                     <div class="common-align gap-2 justify-content-start">
@@ -55,9 +53,15 @@
                                                         <a class="square-white" href="{{route('companies.edit', $company->id)}}">
                                                             <span><i class="fa-solid fa-pen"></i></span>
                                                         </a>
-                                                        <a class="square-white trash-7" href="#!">
-                                                            <span><i class="fa-solid fa-trash"></i></span>
-                                                        </a>
+                                                        <form
+                                                            action="{{ route('companies.delete', $company->id) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="square-white ajax-delete">
+                                                                <span><i class="fa-solid fa-trash"></i></span>
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </td>
                                              </tr>
@@ -74,3 +78,9 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        ajaxDelete('.ajax-delete', 'tr');
+    </script>
+@endpush

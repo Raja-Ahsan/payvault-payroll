@@ -44,9 +44,9 @@
 
 <title>
     @hasSection('title')
-    @yield('title') || League Of Contractors
+    @yield('title') || Diy PayRoll 
     @else
-    Dashboard | League Of Contractors
+    Dashboard | Diy PayRoll 
     @endif
 
     @hasSection('page_heading')

@@ -12,7 +12,7 @@
                     <div id="msform">
                         <form class="ajax-form" action="{{ route('companies.store') }}" id="submit-form" method="POST">
                             @csrf
-                            <div class="steps stepper-one row g-3 needs-validation">
+                            <div class="steps stepper-one row g-3 needs-validation custom-input">
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="name">Company Name</label>
@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="steps stepper-two row g-3 needs-validation">
+                            <div class="steps stepper-two row g-3 needs-validation custom-input">
                                 
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
@@ -136,7 +136,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="steps stepper-three row g-3 needs-validation">
+                            <div class="steps stepper-three row g-3 needs-validation custom-input">
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="state_id">State ID</label>
@@ -252,6 +252,89 @@
 @include('includes.js.step-form')
 <script>
     ajaxCreate("{{ route('companies.index') }}");
+    // ajaxCreate("{{ route('companies.index') }}");
+
+    // let currentStep = 0;
+
+    // const steps = [
+    //     '.stepper-one',
+    //     '.stepper-two',
+    //     '.stepper-three',
+    //     '.stepper-four'
+    // ];
+
+    // // initial hide
+    // $(steps.join(',')).hide();
+    // $(steps[currentStep]).show();
+
+    // // NEXT BUTTON
+    // $('#nextbtn').on('click', function() {
+
+    //     // validate current step
+    //     if (!validateStep(steps[currentStep])) {
+    //         return;
+    //     }
+
+    //     // last step → submit
+    //     if (currentStep === steps.length - 1) {
+    //         $('#msform form').submit();
+    //         return;
+    //     }
+
+    //     // next step
+    //     $(steps[currentStep]).hide();
+    //     currentStep++;
+    //     $(steps[currentStep]).fadeIn();
+    // });
+
+    // // BACK BUTTON
+    // $('#backbtn').on('click', function() {
+
+    //     if (currentStep === 0) return;
+
+    //     $(steps[currentStep]).hide();
+    //     currentStep--;
+    //     $(steps[currentStep]).fadeIn();
+    // });
+
+
+    // // 🔥 VALIDATION FUNCTION
+    // function validateStep(stepClass) {
+    //     let isValid = true;
+
+    //     // purane errors remove
+    //     $(stepClass + ' .error-message').remove();
+    //     $(stepClass + ' .form-control').removeClass('is-invalid');
+
+    //     $(stepClass).find('input, select, textarea').each(function() {
+
+    //         let input = $(this);
+
+    //         // required field check
+    //         if (input.prop('required') && !input.val()) {
+    //             showError(input, 'This field is required');
+    //             isValid = false;
+    //         }
+
+    //         // email validation
+    //         if (input.attr('type') === 'email' && input.val()) {
+    //             let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //             if (!emailRegex.test(input.val())) {
+    //                 showError(input, 'Invalid email format');
+    //                 isValid = false;
+    //             }
+    //         }
+    //     });
+
+    //     return isValid;
+    // }
+
+
+    // // 🔥 ERROR SHOW FUNCTION
+    // function showError(input, message) {
+    //     input.addClass('is-invalid');
+    //     input.after(`<span class="error-message text-danger">${message}</span>`);
+    // }
 </script>
 @endpush
 @endsection

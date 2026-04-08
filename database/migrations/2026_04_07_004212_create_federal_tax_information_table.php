@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('federal_tax_information', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->foreignId('company_type_id')->constrained('company_types')->onDelete('cascade');
-            $table->string('employee_identification_number');
+            $table->string('employer_identification_number');
             $table->string('trade_name')->nullable();
+            $table->boolean('round_federal_tax')->default(0);
+            $table->string('control_number')->nullable();
+            $table->string('establishment_number')->nullable();
+            $table->string('other_ein')->nullable();
             $table->timestamps();
         });
     }

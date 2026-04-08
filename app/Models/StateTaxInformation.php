@@ -4,19 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FederalTaxInformation extends Model
+class StateTaxInformation extends Model
 {
-    protected $table = 'federal_tax_information';
+    protected $table = 'state_tax_information';
 
     protected $guarded = ['id'];
 
     public function company()
     {
         return $this->belongsTo(Company::class);
-    }
-
-    public function companyType()
-    {
-        return $this->belongsTo(CompanyType::class);
     }
 }
