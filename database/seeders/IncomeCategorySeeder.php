@@ -14,21 +14,21 @@ class IncomeCategorySeeder extends Seeder
         $types = IncomeType::pluck('id', 'title');
 
         $data = [
-            ['title' => 'Regular Hourly Pay', 'income_type_id' => 1],
+            ['title' => 'Regular Hourly Pay', 'income_type_id' => 2],
             ['title' => 'Overtime Hourly Pay', 'income_type_id' => 2],
-            ['title' => 'Yearly Salary', 'income_type_id' => 3],
-            ['title' => 'Bonus', 'income_type_id' => 4],
+            ['title' => 'Yearly Salary', 'income_type_id' => 1],
+            ['title' => 'Bonus', 'income_type_id' => 5],
             ['title' => 'Tips Received Directly by Employee', 'income_type_id' => 5],
-            ['title' => 'Tips Paid by Employer', 'income_type_id' => 6],
-            ['title' => 'Double-Time', 'income_type_id' => 7],
-            ['title' => 'Commission', 'income_type_id' => 8],
-            ['title' => 'Mileage', 'income_type_id' => 1],
-            ['title' => 'Piece Work', 'income_type_id' => 2],
+            ['title' => 'Tips Paid by Employer', 'income_type_id' => 5],
+            ['title' => 'Double-Time', 'income_type_id' => 2],
+            ['title' => 'Commission', 'income_type_id' => 5],
+            ['title' => 'Mileage', 'income_type_id' => 7],
+            ['title' => 'Piece Work', 'income_type_id' => 6],
             ['title' => 'Fringe Benefits', 'income_type_id' => 3],
-            ['title' => 'Life Insurance over 50,000', 'income_type_id' => 4],
+            ['title' => 'Life Insurance over 50,000', 'income_type_id' => 5],
             ['title' => 'Sick Pay', 'income_type_id' => 5],
-            ['title' => 'Vacation Pay Hourly', 'income_type_id' => 6],
-            ['title' => 'Sick Pay Hourly', 'income_type_id' => 7],
+            ['title' => 'Vacation Pay Hourly', 'income_type_id' => 2],
+            ['title' => 'Sick Pay Hourly', 'income_type_id' => 2],
         ];
 
         foreach ($data as $item) {

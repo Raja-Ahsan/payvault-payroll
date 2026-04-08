@@ -34,9 +34,19 @@ class TaxCategorySeeder extends Seeder
                 [
                     'title' => $item['title'],
                     'income_type_id' => $item['income_type_id'] ?? null,
-                    'created_by' => 1 
+                    'abbreviation' => $item['abbreviation'] ?? null,
+                    'calculation' => $item['calculation'] ?? 'percentage',
+                    'paid_by' => $item['paid_by'] ?? 'employee',
+                    'inactive' => $item['inactive'] ?? false,
+                    'created_by' => 1,
                 ]
             );
         }
+
+        TaxCategory::query()
+            ->where(function ($q) {
+                $q->whereNull('calculation')->orWhere('calculation', '');
+            })
+            ->update(['calculation' => 'percentage']);
     }
 }

@@ -5,6 +5,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\IncomeCategoryController;
+use App\Http\Controllers\TaxCategoryController;
+use App\Http\Controllers\DeductionCategoryController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 
@@ -64,9 +66,25 @@ Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function 
 
     Route::get('/categories/income', [IncomeCategoryController::class, 'index'])->name('categories.income.index');
     Route::get('/categories/income/create', [IncomeCategoryController::class, 'create'])->name('categories.income.create');
-    // Route::get('/categories/income', [IncomeCategoryController::class, 'store'])->name('categories.income.store');
-    // Route::get('/income-categories/create', [CategoryController::class, 'create'])->name('income-categories.create');
-    // Route::post('/income-categories', [CategoryController::class, 'store'])->name('income-categories.store');
+    Route::post('/categories/income', [IncomeCategoryController::class, 'store'])->name('categories.income.store');
+    Route::get('/categories/income/{incomeCategory}/edit', [IncomeCategoryController::class, 'edit'])->name('categories.income.edit');
+    Route::put('/categories/income/{incomeCategory}/update', [IncomeCategoryController::class, 'update'])->name('categories.income.update');
+    Route::delete('/categories/income/{incomeCategory}/delete', [IncomeCategoryController::class, 'delete'])->name('categories.income.delete');
+
+    Route::get('/categories/tax', [TaxCategoryController::class, 'index'])->name('categories.tax.index');
+    Route::get('/categories/tax/create', [TaxCategoryController::class, 'create'])->name('categories.tax.create');
+    Route::post('/categories/tax', [TaxCategoryController::class, 'store'])->name('categories.tax.store');
+    Route::get('/categories/tax/{taxCategory}/edit', [TaxCategoryController::class, 'edit'])->name('categories.tax.edit');
+    Route::put('/categories/tax/{taxCategory}/update', [TaxCategoryController::class, 'update'])->name('categories.tax.update');
+    Route::delete('/categories/tax/{taxCategory}/delete', [TaxCategoryController::class, 'delete'])->name('categories.tax.delete');
+
+    Route::get('/categories/deduction', [DeductionCategoryController::class, 'index'])->name('categories.deduction.index');
+    Route::get('/categories/deduction/create', [DeductionCategoryController::class, 'create'])->name('categories.deduction.create');
+    Route::post('/categories/deduction', [DeductionCategoryController::class, 'store'])->name('categories.deduction.store');
+    Route::get('/categories/deduction/{deductionCategory}/edit', [DeductionCategoryController::class, 'edit'])->name('categories.deduction.edit');
+    Route::put('/categories/deduction/{deductionCategory}/update', [DeductionCategoryController::class, 'update'])->name('categories.deduction.update');
+    Route::delete('/categories/deduction/{deductionCategory}/delete', [DeductionCategoryController::class, 'delete'])->name('categories.deduction.delete');
+
 });
 // admin dashboard routes
 Route::prefix('admin')->middleware(['auth'])->group(function () {

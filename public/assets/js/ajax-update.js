@@ -51,8 +51,8 @@ function ajaxUpdate(formSelector, successRedirect = null) {
                     timer: 1500,
                 });
 
-                if (response.data) {
-                    updateCategoryRow(response.data);
+                if (response.data && typeof window.updateCategoryRow === 'function') {
+                    window.updateCategoryRow(response.data);
                 }
 
                 if (successRedirect) {

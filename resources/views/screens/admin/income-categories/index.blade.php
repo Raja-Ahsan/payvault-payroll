@@ -24,9 +24,9 @@
                                         <th>
                                             <span class="c-o-light f-w-600">Calculation</span>
                                         </th>
-                                        <!-- <th>
+                                        <th>
                                             <span class="c-o-light f-w-600">Actions</span>
-                                        </th> -->
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,7 +38,23 @@
                                         <td>
                                             {{$category->incomeType->title ?? '-'}}
                                         </td>
-                                        
+                                        <td>
+                                            <div class="common-align gap-2 justify-content-start">
+                                                <a class="square-white" href="{{ route('categories.income.edit', $category) }}">
+                                                    <span><i class="fa-solid fa-pen"></i></span>
+                                                </a>
+                                                <form
+                                                    action="{{ route('categories.income.delete', $category) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="square-white ajax-delete">
+                                                        <span><i class="fa-solid fa-trash"></i></span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+
                                     </tr>
                                     @empty
 
@@ -59,12 +75,10 @@
     ajaxDelete('.ajax-delete', 'tr');
 
     var table = $('#income-categories-table').DataTable({
-        order: [
-            [3, 'desc']
-        ],
+        order: [[0, 'asc']],
         columnDefs: [{
             orderable: false,
-            targets: 1
+            targets: 2
         }]
     });
 </script>

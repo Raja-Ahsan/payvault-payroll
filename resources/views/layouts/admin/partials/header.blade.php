@@ -93,6 +93,21 @@
                         </li>
                     </ul>
                 </li>
+                <li class="theme-toggle-wrap d-flex align-items-center ps-2 ms-1">
+                    <button
+                        type="button"
+                        id="themeToggle"
+                        class="theme-toggle-btn toggleThemeBtn"
+                        aria-label="Toggle color theme"
+                        title="Theme">
+                        <span class="theme-toggle-track" aria-hidden="true">
+                            <span class="theme-toggle-thumb">
+                                <i class="fa-solid fa-sun"></i>
+                                <i class="fa-solid fa-moon"></i>
+                            </span>
+                        </span>
+                    </button>
+                </li>
             </ul>
         </div>
         <script class="result-template" type="text/x-handlebars-template">

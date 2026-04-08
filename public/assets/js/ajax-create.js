@@ -8,6 +8,8 @@ function ajaxCreate(successRedirect = null) {
         e.preventDefault();
 
         let form = $(this);
+        let submitBtn = form.find('button[type="submit"]');
+        let btnOriginalText = submitBtn.length ? submitBtn.text() : 'Save';
         let formData = new FormData(this);
         
         // Check for Dropzone instances and append files
@@ -28,11 +30,15 @@ function ajaxCreate(successRedirect = null) {
             data: formData,
             processData: false,
             contentType: false,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
+            },
             beforeSend: function () {
-                form.find('button[type="submit"]').prop('disabled', true).text('Saving...');
+                submitBtn.prop('disabled', true).text('Saving...');
             },
             success: function (response) {
-                form.find('button[type="submit"]').prop('disabled', false).text('Save');
+                submitBtn.prop('disabled', false).text(btnOriginalText);
                 form[0].reset();
 
                 Swal.fire({
@@ -56,7 +62,7 @@ function ajaxCreate(successRedirect = null) {
                 }
             },
             error: function (xhr) {
-                form.find('button[type="submit"]').prop('disabled', false).text('Create');
+                submitBtn.prop('disabled', false).text(btnOriginalText);
 
                 if (xhr.status === 422) {
                     const response = xhr.responseJSON;

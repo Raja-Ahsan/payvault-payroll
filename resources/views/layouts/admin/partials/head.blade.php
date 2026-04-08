@@ -14,6 +14,20 @@
 <link href="https://fonts.googleapis.com/css?family=Rubik:400,500,700&display=swap" rel="stylesheet" />
 <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap" rel="stylesheet" />
 
+<script>
+    (function () {
+    let theme = localStorage.getItem('theme') || 'dark';
+
+    document.addEventListener('DOMContentLoaded', function () {
+        if (theme === 'dark') {
+            document.body.classList.add('dark-only');
+        } else {
+            document.body.classList.remove('dark-only');
+        }
+    });
+})();
+</script>
+
 <!-- Vendor CSS -->
 <link rel="stylesheet" href="{{ asset('assets/libs/css/vendors/fontawesome.css') }}" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">

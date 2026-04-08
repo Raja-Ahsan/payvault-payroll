@@ -3,6 +3,33 @@ $(".loader-wrapper").fadeOut("slow", function() {
     $(this).remove();
 });
 
+(function () {
+    const themeToggleBtn = document.querySelector('.toggleThemeBtn');
+    if (!themeToggleBtn) {
+        return;
+    }
+
+    function syncThemeToggleButton() {
+        const isDark = document.body.classList.contains('dark-only');
+        themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+        themeToggleBtn.setAttribute('title', isDark ? 'Light mode' : 'Dark mode');
+    }
+
+    themeToggleBtn.addEventListener('click', function () {
+        const body = document.querySelector('body');
+        if (body.classList.contains('dark-only')) {
+            body.classList.remove('dark-only');
+            localStorage.setItem('theme', 'light');
+        } else {
+            body.classList.add('dark-only');
+            localStorage.setItem('theme', 'dark');
+        }
+        syncThemeToggleButton();
+    });
+
+    document.addEventListener('DOMContentLoaded', syncThemeToggleButton);
+})();
+
 // single image upload
 $('#image').on('change', function() {
     const file = this.files[0];

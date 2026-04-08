@@ -13,8 +13,21 @@ return new class extends Migration
     {
         Schema::create('deduction_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->foreignId('income_type_id')->constrained('income_types')->onDelete('cascade');
+            $table->string('title');
+            $table->string('abbreviation')->nullable();
+            $table->string('calculation')->default('percentage');
+            $table->string('paid_by')->default('employee');
+            $table->decimal('quarterly_rate_q1', 10, 4)->nullable();
+            $table->decimal('quarterly_rate_q2', 10, 4)->nullable();
+            $table->decimal('quarterly_rate_q3', 10, 4)->nullable();
+            $table->decimal('quarterly_rate_q4', 10, 4)->nullable();
+            $table->decimal('cutoff', 12, 2)->nullable();
+            $table->boolean('use_w2_box_10')->default(false);
+            $table->boolean('use_w2_box_12')->default(false);
+            $table->string('w2_box_12_code')->nullable();
+            $table->boolean('use_w2_box_14')->default(false);
+            $table->boolean('inactive')->default(false);
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });

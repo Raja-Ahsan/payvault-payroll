@@ -15,6 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('income_type_id')->constrained('income_types')->onDelete('cascade');
             $table->string('title');
+            $table->string('abbreviation')->nullable();
+            $table->string('w2_box_12_code')->nullable();
+            $table->string('w2_box_14_abbreviation')->nullable();
+            $table->boolean('reported_tips')->default(false);
+            $table->boolean('omit_net_pay')->default(false);
+            $table->boolean('inactive')->default(false);
             $table->foreignId('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
