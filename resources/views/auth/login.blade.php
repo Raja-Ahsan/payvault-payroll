@@ -6,25 +6,32 @@
         data-aos-easing="ease-out">Log in</h1>
 
     <x-auth-session-status class="mb-4" :status="session('status')"
-                           data-aos="fade-up"
-                           data-aos-duration="1500"
-                           data-aos-delay="150"
-                           data-aos-easing="ease-out" />
+        data-aos="fade-up"
+        data-aos-duration="1500"
+        data-aos-delay="150"
+        data-aos-easing="ease-out" />
 
     <form method="POST" action="{{ route('login') }}" class="space-y-4">
         @csrf
 
         <!-- Email Address -->
-        <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200" data-aos-easing="ease-out">
+        <div data-aos="fade-up " data-aos-duration="1500" data-aos-delay="200" data-aos-easing="ease-out">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            <div class="field-wrapper">
+                <x-text-input id="email" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+            </div>
             <x-input-error :messages="$errors->get('email')" />
         </div>
 
         <!-- Password -->
         <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="300" data-aos-easing="ease-out">
             <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" type="password" name="password" required autocomplete="current-password" />
+            <div class="field-wrapper relative">
+                <x-text-input id="password" type="password" name="password" required autocomplete="current-password" />
+                <span class="eye-icon absolute right-[10px] top-1/2 -translate-y-1/2">
+                    <i class="fa-regular fa-eye"></i>
+                </span>
+            </div>
             <x-input-error :messages="$errors->get('password')" />
         </div>
 
@@ -37,14 +44,14 @@
         </div>
 
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2"
-             data-aos="fade-up"
-             data-aos-duration="1500"
-             data-aos-delay="500"
-             data-aos-easing="ease-out">
+            data-aos="fade-up"
+            data-aos-duration="1500"
+            data-aos-delay="500"
+            data-aos-easing="ease-out">
             @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}" class="form-link">
-                    {{ __('Forgot your password?') }}
-                </a>
+            <a href="{{ route('password.request') }}" class="form-link">
+                {{ __('Forgot your password?') }}
+            </a>
             @endif
 
             <x-primary-button>

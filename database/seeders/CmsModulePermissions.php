@@ -23,11 +23,11 @@ class CmsModulePermissions extends Seeder
         $modules = [
             'dashboard' => CmsModule::where('route_name', 'admin.dashboard')->first(),
             'users' => CmsModule::where('route_name', 'users-module')->first(),
-            'companies' => CmsModule::where('route_name', 'companies-module')->first(),
             'employees' => CmsModule::where('route_name', 'employees-module')->first(),
+            'companies' => CmsModule::where('route_name', 'companies-module')->first(),
             'forms' => CmsModule::where('route_name', 'forms-module')->first(),
             'reports' => CmsModule::where('route_name', 'reports-module')->first(),
-            'vendor' => CmsModule::where('route_name', 'vendor-module')->first(),
+            'checks' => CmsModule::where('route_name', 'checks-module')->first(),
         ];
 
         $submenus = [
@@ -47,23 +47,27 @@ class CmsModulePermissions extends Seeder
             ['role_id' => $adminRole->id, 'module_id' => $modules['employees']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $modules['forms']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $modules['reports']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
-            ['role_id' => $adminRole->id, 'module_id' => $modules['vendor']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
-            // admin — users submenu
+            ['role_id' => $adminRole->id, 'module_id' => $modules['checks']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
+
+
+            // admin submenus
             ['role_id' => $adminRole->id, 'module_id' => $submenus['users.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $submenus['users.create']->id ?? null, 'is_add' => 0, 'is_view' => 0, 'is_update' => 0, 'is_delete' => 0],
-            // admin — companies submenu (All Companies + category screens under Companies in CMS)
             ['role_id' => $adminRole->id, 'module_id' => $submenus['companies.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $submenus['categories.income.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $submenus['categories.tax.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $submenus['categories.deduction.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
+
+
             // client — top-level
             ['role_id' => $clientRole->id, 'module_id' => $modules['dashboard']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
             ['role_id' => $clientRole->id, 'module_id' => $modules['companies']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
             ['role_id' => $clientRole->id, 'module_id' => $modules['employees']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
             ['role_id' => $clientRole->id, 'module_id' => $modules['forms']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
             ['role_id' => $clientRole->id, 'module_id' => $modules['reports']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
-            ['role_id' => $clientRole->id, 'module_id' => $modules['vendor']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
-            // client — companies submenu (same category rows; parent_id = companies in CmsModuleSeeder)
+            ['role_id' => $clientRole->id, 'module_id' => $modules['checks']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
+
+            // client submenus
             ['role_id' => $clientRole->id, 'module_id' => $submenus['companies.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
             ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.income.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
             ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.tax.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],

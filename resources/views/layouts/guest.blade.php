@@ -26,6 +26,25 @@
                 AOS.init({ once: true, duration: 800, easing: 'ease-out' });
             }
         });
+
+        // const input = document.querySelectorAll('.form-input');
+        document.querySelectorAll('.eye-icon').forEach(icon => {
+    icon.addEventListener('click', () => {
+
+        const input = icon.parentElement.querySelector('.form-input');
+
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.querySelector('i').classList.remove('fa-eye');
+            icon.querySelector('i').classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.querySelector('i').classList.remove('fa-eye-slash');
+            icon.querySelector('i').classList.add('fa-eye');
+        }
+
+    });
+});
     </script>
 </body>
 </html>

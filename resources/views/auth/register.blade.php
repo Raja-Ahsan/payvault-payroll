@@ -25,22 +25,32 @@
         <!-- Password -->
         <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="350" data-aos-easing="ease-out">
             <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" type="password" name="password" required autocomplete="new-password" />
+            <div class="field-wrapper relative">
+                <x-text-input id="password" type="password" name="password" required autocomplete="new-password" />
+                <span class="eye-icon absolute right-[10px] top-1/2 -translate-y-1/2">
+                    <i class="fa-regular fa-eye"></i>
+                </span>
+            </div>
             <x-input-error :messages="$errors->get('password')" />
         </div>
 
         <!-- Confirm Password -->
         <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="450" data-aos-easing="ease-out">
             <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-            <x-text-input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" />
+            <div class="field-wrapper relative">
+                <x-text-input id="password_confirmation" type="password" name="password_confirmation" required autocomplete="new-password" />
+                <span class="eye-icon absolute right-[10px] top-1/2 -translate-y-1/2">
+                    <i class="fa-regular fa-eye"></i>
+                </span>
+            </div>
             <x-input-error :messages="$errors->get('password_confirmation')" />
         </div>
 
         <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2"
-             data-aos="fade-up"
-             data-aos-duration="1500"
-             data-aos-delay="550"
-             data-aos-easing="ease-out">
+            data-aos="fade-up"
+            data-aos-duration="1500"
+            data-aos-delay="550"
+            data-aos-easing="ease-out">
             <a href="{{ route('login') }}" class="form-link">
                 {{ __('Already registered?') }}
             </a>

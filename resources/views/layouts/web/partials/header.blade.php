@@ -17,21 +17,11 @@
             <a href="{{ route('admin.dashboard') }}" class="destop-nav-links">Dashboard</a>
             @else
             <a href="{{ route('login') }}" class="destop-nav-links">Login</a>
-            <a href="{{ route('register') }}" class="destop-nav-links">Register</a>
+            <a href="{{ route('register') }}" class="destop-nav-links text-white primary-btn" style="color: white;">Register</a>
             @endif
         </div>
 
         <!-- Auth Buttons -->
-        {{-- <div class="hidden lg:flex items-center space-x-6">
-            @if(!auth()->user())
-            <a href="{{ route('web.login') }}" class="text-[var(--text-secondary-color)] font-regular text-[18px] underline decoration-1 underline-offset-4 hover:text-green-800 transition-all">Login</a>
-            <a href="{{ route('web.register') }}" class="primary-btn">
-                Register
-            </a>
-            @else
-            <a href="{{ route('web.dashboard') }}" class="primary-btn">Dashboard</a>
-            @endif
-        </div> --}}
 
         <!-- Mobile Menu Button -->
         <button id="mobile-menu-button" class="lg:hidden text-gray-700 focus:outline-none p-2 relative w-10 h-10">

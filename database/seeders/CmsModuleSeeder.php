@@ -22,23 +22,12 @@ class CmsModuleSeeder extends Seeder
             'status' => 'active',
             'parent_id' => 0,
         ]);
-
-        $users = CmsModule::firstOrCreate([
-            'route_name' => 'users-module'
+        $checks = CmsModule::firstOrCreate([
+            'route_name' => 'checks-module'
         ], [
-            'name' => 'Users',
-            'icon' => 'fa-solid fa-users',
+            'name' => 'Checks',
+            'icon' => 'fa-solid fa-check',
             'sort_order' => 2,
-            'status' => 'active',
-            'parent_id' => 0,
-        ]);
-
-        $companies = CmsModule::firstOrCreate([
-            'route_name' => 'companies-module'
-        ], [
-            'name' => 'Companies',
-            'icon' => 'fa-solid fa-building',
-            'sort_order' => 3,
             'status' => 'active',
             'parent_id' => 0,
         ]);
@@ -48,6 +37,16 @@ class CmsModuleSeeder extends Seeder
         ], [
             'name' => 'Employees',
             'icon' => 'fa-solid fa-user',
+            'sort_order' => 3,
+            'status' => 'active',
+            'parent_id' => 0,
+        ]);
+
+        $users = CmsModule::firstOrCreate([
+            'route_name' => 'users-module'
+        ], [
+            'name' => 'Users',
+            'icon' => 'fa-solid fa-users',
             'sort_order' => 4,
             'status' => 'active',
             'parent_id' => 0,
@@ -68,17 +67,17 @@ class CmsModuleSeeder extends Seeder
         ], [
             'name' => 'Reports',
             'icon' => 'fa-solid fa-chart-line',
-            'sort_order' => 5,
+            'sort_order' => 6,
             'status' => 'active',
             'parent_id' => 0,
         ]);
 
-        $vendor = CmsModule::firstOrCreate([
-            'route_name' => 'vendor-module'
+        $companies = CmsModule::firstOrCreate([
+            'route_name' => 'companies-module'
         ], [
-            'name' => 'Vendor',
-            'icon' => 'fa-solid fa-user-tie',
-            'sort_order' => 6,
+            'name' => 'Companies',
+            'icon' => 'fa-solid fa-building',
+            'sort_order' => 7,
             'status' => 'active',
             'parent_id' => 0,
         ]);
@@ -144,10 +143,6 @@ class CmsModuleSeeder extends Seeder
             'status' => 'active',
             'parent_id' => $companies->id,
         ]);
-
-        // Income / Tax / Deduction category menus always hang under Companies (sidebar).
-        foreach (['categories.income.index', 'categories.tax.index', 'categories.deduction.index'] as $routeName) {
-            CmsModule::where('route_name', $routeName)->update(['parent_id' => $companies->id]);
-        }
+        
     }
 }

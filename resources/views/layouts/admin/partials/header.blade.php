@@ -78,7 +78,7 @@
                     </div>
                     <ul class="profile-dropdown onhover-show-div">
                         <li>
-                            <a href="{{ route('home') }}"><i data-feather="globe"></i><span>Website </span></a>
+                            <a href="{{ route('home') }}" target="_blank"><i data-feather="globe"></i><span>Website </span></a>
                         </li>
                         {{-- <li>
                             <a href="{{ route('profile') }}"><i data-feather="user"></i><span>Update Profile
