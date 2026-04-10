@@ -143,6 +143,15 @@ class CmsModuleSeeder extends Seeder
             'status' => 'active',
             'parent_id' => $companies->id,
         ]);
-        
+
+        CmsModule::firstOrCreate([
+            'route_name' => 'employees.index'
+        ], [
+            'name' => 'All Employees',
+            'icon' => 'fa-solid fa-list-ul',
+            'sort_order' => 1,
+            'status' => 'active',
+            'parent_id' => $employees->id,
+        ]);
     }
 }

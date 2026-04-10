@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
+            StatesSeeder::class,
             CmsModuleSeeder::class,
             CmsModulePermissions::class,
             IncomeTypeSeeder::class,
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
             TaxCategorySeeder::class,
             DeductionCategorySeeder::class,
             CompanyTypeSeeder::class,
+            StatesSeeder::class,
         ]);
     }
 }

@@ -362,3 +362,7 @@ body:not(.dark-only) .page-wrapper .page-header .theme-toggle-btn.toggleThemeBtn
 body.dark-only .page-wrapper .page-header .header-wrapper .theme-toggle-wrap .fa-sun {
     color: #000;
 }
+.text-area {
+    min-height: 100px !important;
+    resize: none;
+}

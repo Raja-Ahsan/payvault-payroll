@@ -8,6 +8,7 @@ use App\Http\Controllers\IncomeCategoryController;
 use App\Http\Controllers\TaxCategoryController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\DeductionCategoryController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Support\Facades\Route;
 
@@ -85,6 +86,13 @@ Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function 
     Route::get('/categories/deduction/{deductionCategory}/edit', [DeductionCategoryController::class, 'edit'])->name('categories.deduction.edit');
     Route::put('/categories/deduction/{deductionCategory}/update', [DeductionCategoryController::class, 'update'])->name('categories.deduction.update');
     Route::delete('/categories/deduction/{deductionCategory}/delete', [DeductionCategoryController::class, 'delete'])->name('categories.deduction.delete');
+
+    Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
+    Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
+    Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
+    Route::get('/employees/{employee}/edit', [EmployeeController::class, 'edit'])->name('employees.edit');
+    Route::put('/employees/{employee}/update', [EmployeeController::class, 'update'])->name('employees.update');
+    Route::delete('/employees/{employee}/delete', [EmployeeController::class, 'delete'])->name('employees.delete');
 
 });
 // admin dashboard routes

@@ -37,6 +37,7 @@ class CmsModulePermissions extends Seeder
             'categories.income.index' => CmsModule::where('route_name', 'categories.income.index')->first(),
             'categories.tax.index' => CmsModule::where('route_name', 'categories.tax.index')->first(),
             'categories.deduction.index' => CmsModule::where('route_name', 'categories.deduction.index')->first(),
+            'employees.index' => CmsModule::where('route_name', 'employees.index')->first(),
         ];
 
         $permissions = [
@@ -57,6 +58,7 @@ class CmsModulePermissions extends Seeder
             ['role_id' => $adminRole->id, 'module_id' => $submenus['categories.income.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $submenus['categories.tax.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $submenus['categories.deduction.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
+            ['role_id' => $adminRole->id, 'module_id' => $submenus['employees.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
 
 
             // client — top-level
@@ -72,6 +74,7 @@ class CmsModulePermissions extends Seeder
             ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.income.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
             ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.tax.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
             ['role_id' => $clientRole->id, 'module_id' => $submenus['categories.deduction.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
+            ['role_id' => $clientRole->id, 'module_id' => $submenus['employees.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
         ];
 
         foreach ($permissions as $perm) {
