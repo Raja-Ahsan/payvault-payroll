@@ -4,12 +4,29 @@
         const nextbtn = document.querySelector('#nextbtn');
         const backbtn = document.querySelector('#backbtn');
         const formHeading = document.querySelector('.form-heading');
-        const stepHeadings = [
-            "General Information",
-            "Federal Tax Information",
-            "State Tax Information",
-            "Income Categories"
-        ];
+        let stepHeadings = [];
+
+        if (window.location.pathname.includes('employees')) {
+            stepHeadings = [
+                "General Information",
+                "Tax Setup",
+                "Income",
+                "Taxes"
+            ];
+        } else {
+            stepHeadings = [
+                "General Information",
+                "Federal Tax Information",
+                "State Tax Information",
+                "Income Categories"
+            ];
+        }
+        // const stepHeadings = [
+        //     "General Information",
+        //     "Federal Tax Information",
+        //     "State Tax Information",
+        //     "Income Categories"
+        // ];
         let currentStep = 0;
 
         function updateNextButton() {
@@ -150,6 +167,6 @@
             });
         }
 
-        
+
     });
 </script>

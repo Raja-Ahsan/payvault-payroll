@@ -497,7 +497,7 @@
     </div>
 </div>
 
-<!-- <x-modals.modal id="incomeModal" title="Confirm Action" size="modal-lg">
+<x-modals.modal id="incomeModal" title="Confirm Action" size="modal-lg">
     
     <p>Do you want to continue?</p>
 
@@ -506,7 +506,7 @@
         <button class="btn btn-primary" id="confirmYes">Yes</button>
     </x-slot>
 
-</x-modal> -->
+</x-modal>
 @push('scripts')
 @include('includes.js.step-form')
 <script>
