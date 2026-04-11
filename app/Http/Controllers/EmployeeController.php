@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DeductionCategory;
+use App\Models\IncomeCategory;
+use App\Models\IncomeType;
+use App\Models\TaxCategory;
 use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 
 class EmployeeController extends Controller
 {
@@ -15,6 +20,10 @@ class EmployeeController extends Controller
 
     public function create()
     {
+        $incomeCategoriesTypes = IncomeType::with('categories')->get();
+        $taxCategories = TaxCategory::all();
+        $deductionCategories = DeductionCategory::with('incomeType')->get();
+
         $states = State::all();
         return view('screens.admin.employees.create', get_defined_vars());
     }

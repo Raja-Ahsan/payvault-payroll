@@ -28,7 +28,8 @@
                                         <tr>
                                             <td>{{ $row->title }}</td>
                                             <td>
-                                                {{ $calculationOptions[$row->calculation] ?? (filled($row->calculation) ? ucwords(str_replace('_', ' ', (string) $row->calculation)) : '—') }}
+                                                <!-- {{ $calculationOptions[$row->calculation] ?? (filled($row->calculation) ? ucwords(str_replace('_', ' ', (string) $row->calculation)) : '—') }} -->
+                                                {{ $row->incomeType->title }}
                                             </td>
                                             <td>
                                                 <div class="common-align gap-2 justify-content-start">

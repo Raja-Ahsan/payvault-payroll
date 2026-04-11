@@ -13,7 +13,7 @@
             </div>
             <div class="card-body">
                 <div class="row custom-input">
-                   
+
                     <div class="col-sm-6 col-md-4">
                         <div class="form-group mb-3">
                             <label class="form-label" for="title">Title</label>
@@ -29,11 +29,13 @@
                     <div class="col-sm-6 col-md-4">
                         <div class="form-group mb-3">
                             <label class="form-label" for="calculation">Calculation</label>
-                            <select class="form-select" id="calculation" name="calculation" required>
-                                @foreach ($calculationOptions ?? [] as $value => $label)
-                                    <option value="{{ $value }}" @selected($value === 'percentage')>{{ $label }}</option>
-                                @endforeach
-                            </select>
+                                <select class="form-select" id="income_type_id" name="income_type_id" required>
+                                    @forelse (($incomeTypes ?? []) as $type)
+                                    <option value="{{ $type->id }}">{{ $type->title }}</option>
+                                    @empty
+                                    <option value="" disabled selected>No income types available</option>
+                                    @endforelse
+                                </select>
                         </div>
                     </div>
                     <div class="col-sm-6 col-md-4">
@@ -41,20 +43,8 @@
                             <label class="form-label" for="paid_by">Paid by</label>
                             <select class="form-select" id="paid_by" name="paid_by" required>
                                 @foreach ($paidByOptions ?? [] as $value => $label)
-                                    <option value="{{ $value }}" @selected($value === 'employee')>{{ $label }}</option>
+                                <option value="{{ $value }}" @selected($value==='employee' )>{{ $label }}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <div class="form-group mb-3">
-                            <label class="form-label" for="income_type_id">Type</label>
-                            <select class="form-select" id="income_type_id" name="income_type_id" required>
-                                @forelse (($incomeTypes ?? []) as $type)
-                                    <option value="{{ $type->id }}">{{ $type->title }}</option>
-                                @empty
-                                    <option value="" disabled selected>No income types available</option>
-                                @endforelse
                             </select>
                         </div>
                     </div>

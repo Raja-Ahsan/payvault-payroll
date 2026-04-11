@@ -33,10 +33,12 @@
                     <div class="col-sm-6 col-md-4">
                         <div class="form-group mb-3">
                             <label class="form-label" for="calculation">Calculation</label>
-                            <select class="form-select" id="calculation" name="calculation" required>
-                                @foreach ($calculationOptions ?? [] as $value => $label)
-                                    <option value="{{ $value }}" @selected(old('calculation', $deductionCategory->calculation) === $value)>{{ $label }}</option>
-                                @endforeach
+                            <select class="form-select" id="income_type_id" name="income_type_id" required>
+                                @forelse (($incomeTypes ?? []) as $type)
+                                    <option value="{{ $type->id }}" @selected(old('income_type_id', $deductionCategory->income_type_id) == $type->id)>{{ $type->title }}</option>
+                                @empty
+                                    <option value="" disabled selected>No income types available</option>
+                                @endforelse
                             </select>
                         </div>
                     </div>
@@ -47,18 +49,6 @@
                                 @foreach ($paidByOptions ?? [] as $value => $label)
                                     <option value="{{ $value }}" @selected(old('paid_by', $deductionCategory->paid_by) === $value)>{{ $label }}</option>
                                 @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <div class="form-group mb-3">
-                            <label class="form-label" for="income_type_id">Type</label>
-                            <select class="form-select" id="income_type_id" name="income_type_id" required>
-                                @forelse (($incomeTypes ?? []) as $type)
-                                    <option value="{{ $type->id }}" @selected(old('income_type_id', $deductionCategory->income_type_id) == $type->id)>{{ $type->title }}</option>
-                                @empty
-                                    <option value="" disabled selected>No income types available</option>
-                                @endforelse
                             </select>
                         </div>
                     </div>

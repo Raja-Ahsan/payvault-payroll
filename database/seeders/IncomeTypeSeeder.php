@@ -22,6 +22,9 @@ class IncomeTypeSeeder extends Seeder
             ['title' => 'Per Piece',],
             ['title' => 'Per Mile',],
             ['title' => 'Percentage of Sales',],
+            ['title' => 'Percentage',],
+            ['title' => 'Percentage of Deduction',],
+            ['title' => 'Percentage of Net Pay',],
         ];
 
         foreach ($data as $item) {

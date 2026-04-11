@@ -81,6 +81,10 @@
             var fields = stepEl.querySelectorAll('input, select, textarea');
 
             fields.forEach(function(field) {
+                if (field.disabled) {
+                    return;
+                }
+
                 if (!field.hasAttribute('required') && !field.required) {
                     return;
                 }
@@ -88,6 +92,17 @@
                 if (isEmptyRequired(field)) {
                     showFieldError(field, 'This field is required');
                     valid = false;
+                    return;
+                }
+
+                var minLenAttr = field.getAttribute('minlength');
+                if (minLenAttr !== null && minLenAttr !== '') {
+                    var minLen = parseInt(minLenAttr, 10);
+                    if (!isNaN(minLen) && String(field.value || '').trim().length < minLen) {
+                        var minMsg = field.getAttribute('data-minlength-message');
+                        showFieldError(field, minMsg || ('Enter at least ' + minLen + ' characters'));
+                        valid = false;
+                    }
                 }
             });
 

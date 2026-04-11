@@ -25,7 +25,7 @@ class TaxCategorySeeder extends Seeder
             ['title' => 'Local Income Tax', 'income_type_id' => 1],
             ['title' => 'State Disability Insurance (Employee)', 'income_type_id' => 2],
             ['title' => 'State Disability Insurance (Employer)', 'income_type_id' => 3],
-            ['title' => 'New York City Tax', 'income_type_id' => 4],
+            // ['title' => 'New York City Tax', 'income_type_id' => 4],
         ];
 
         foreach ($data as $item) {

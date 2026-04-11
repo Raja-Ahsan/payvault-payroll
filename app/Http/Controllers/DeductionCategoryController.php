@@ -12,22 +12,10 @@ class DeductionCategoryController extends Controller
     /**
      * @return array<string, string>
      */
-    protected function calculationOptions(): array
-    {
-        return [
-            'percentage' => 'Percentage',
-            'fixed' => 'Fixed',
-            'per_hour' => 'Per Hour',
-            'per_piece' => 'Per Piece',
-            'per_mile' => 'Per Mile',
-            'percentage_of_tax' => 'Percentage of Tax',
-        ];
-    }
 
     public function index()
     {
         $deductionCategories = DeductionCategory::query()->with('incomeType')->orderBy('title')->get();
-        $calculationOptions = $this->calculationOptions();
 
         return view('screens.admin.deduction-categories.index', get_defined_vars());
     }
@@ -35,7 +23,7 @@ class DeductionCategoryController extends Controller
     public function create()
     {
         $incomeTypes = IncomeType::query()->orderBy('title')->get();
-        $calculationOptions = $this->calculationOptions();
+
         $paidByOptions = [
             'employee' => 'Employee',
             'employer' => 'Employer',
@@ -50,7 +38,6 @@ class DeductionCategoryController extends Controller
             'title' => 'required|string|max:255',
             'abbreviation' => 'nullable|string|max:255',
             'income_type_id' => 'required|exists:income_types,id',
-            'calculation' => ['required', 'string', Rule::in(array_keys($this->calculationOptions()))],
             'quarterly_rate_q1' => 'nullable|numeric|min:0',
             'quarterly_rate_q2' => 'nullable|numeric|min:0',
             'quarterly_rate_q3' => 'nullable|numeric|min:0',
@@ -64,7 +51,6 @@ class DeductionCategoryController extends Controller
             'title' => $validated['title'],
             'abbreviation' => $validated['abbreviation'] ?? null,
             'income_type_id' => $validated['income_type_id'],
-            'calculation' => $validated['calculation'],
             'quarterly_rate_q1' => $validated['quarterly_rate_q1'] ?? null,
             'quarterly_rate_q2' => $validated['quarterly_rate_q2'] ?? null,
             'quarterly_rate_q3' => $validated['quarterly_rate_q3'] ?? null,
@@ -89,7 +75,6 @@ class DeductionCategoryController extends Controller
     public function edit(DeductionCategory $deductionCategory)
     {
         $incomeTypes = IncomeType::query()->orderBy('title')->get();
-        $calculationOptions = $this->calculationOptions();
         $paidByOptions = [
             'employee' => 'Employee',
             'employer' => 'Employer',
@@ -104,7 +89,6 @@ class DeductionCategoryController extends Controller
             'title' => 'required|string|max:255',
             'abbreviation' => 'nullable|string|max:255',
             'income_type_id' => 'required|exists:income_types,id',
-            'calculation' => ['required', 'string', Rule::in(array_keys($this->calculationOptions()))],
             'quarterly_rate_q1' => 'nullable|numeric|min:0',
             'quarterly_rate_q2' => 'nullable|numeric|min:0',
             'quarterly_rate_q3' => 'nullable|numeric|min:0',
@@ -118,7 +102,6 @@ class DeductionCategoryController extends Controller
             'title' => $validated['title'],
             'abbreviation' => $validated['abbreviation'] ?? null,
             'income_type_id' => $validated['income_type_id'],
-            'calculation' => $validated['calculation'],
             'quarterly_rate_q1' => $validated['quarterly_rate_q1'] ?? null,
             'quarterly_rate_q2' => $validated['quarterly_rate_q2'] ?? null,
             'quarterly_rate_q3' => $validated['quarterly_rate_q3'] ?? null,
