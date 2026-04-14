@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PackageSubscription;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -11,10 +12,30 @@ class UsersController extends Controller
     {
         $authUser = current_user();
 
-        $users = User::with('roles')
+        $users = User::with(['roles', 'packageSubscriptions' => function ($q) {
+            $q->with('package')->orderByDesc('created_at');
+        }])
             ->where('id', '!=', $authUser->id)
             ->paginate(10);
+
         return view('screens.admin.users.index', compact('users'));
+    }
+
+    public function show(User $user)
+    {
+        $user->load(['roles', 'packageSubscriptions.package']);
+
+        return view('screens.admin.users.show', compact('user'));
+    }
+
+    public function packageSubscriptions()
+    {
+        $subscriptions = PackageSubscription::query()
+            ->with(['user', 'package'])
+            ->orderByDesc('created_at')
+            ->paginate(20);
+
+        return view('screens.admin.users.subscriptions-index', compact('subscriptions'));
     }
 
     public function create()

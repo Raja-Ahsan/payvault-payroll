@@ -13,7 +13,7 @@
                     Accurate payroll processing with secure employee access and approvals.
                 </p>
                 <div class="flex">
-                    <a href="#" class="primary-btn">
+                    <a href="{{ url('/#pricing') }}" class="primary-btn">
                         View Pricing
                     </a>
                 </div>
@@ -62,7 +62,7 @@
                         </div>
 
                         <div class="flex">
-                            <a href="#" class="primary-btn">
+                            <a href="{{ url('/#pricing') }}" class="primary-btn">
                                 View Pricing
                             </a>
                         </div>
@@ -234,7 +234,7 @@
         </section>
 
         <!-- Pricing cards -->
-        <section class="py-20 md:py-32">
+        <section id="pricing" class="py-20 md:py-32">
             <div class="container">
                 <!-- Section Header -->
                 <div class="text-center mb-20 text-[var(--text-secondary-color)]">
@@ -249,106 +249,50 @@
 
                 <!-- Pricing Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                    <!-- DIY Card -->
-                    <div class="pricing-card group">
-                        <div class="pricing-card-top">
-                            <h3 class="pricing-title">Simple Payroll, Direct Deposit</h3>
-                            <div class="mb-10">
-                                <span class="pricing-price-val">$350 <span class="pricing-price-unit">/Flat yearly Fee</span></span>
-                                <span class="pricing-price-unit"></span>
+                    @forelse ($packages as $package)
+                        <div class="pricing-card group">
+                            <div class="pricing-card-top">
+                                <h3 class="pricing-title">{{ $package->title }}</h3>
+                                <div class="mb-10">
+                                    <span class="pricing-price-val">
+                                        @if (strtoupper($package->currency) === 'USD')
+                                            ${{ number_format((float) $package->price, 0) }}
+                                        @else
+                                            {{ $package->currency }} {{ number_format((float) $package->price, 2) }}
+                                        @endif
+                                        @if ($package->billing_label)
+                                            <span class="pricing-price-unit">{{ $package->billing_label }}</span>
+                                        @endif
+                                    </span>
+                                </div>
+                                @guest
+                                    <a href="{{ route('register', ['package' => $package->id]) }}" class="pricing-card-btn text-white">{{ $package->cta_label }}</a>
+                                @elseif(auth()->user()->hasRole('client'))
+                                    <a href="{{ route('packages.checkout.show', $package) }}" class="pricing-card-btn text-white">{{ $package->cta_label }}</a>
+                                @else
+                                    <a href="{{ route('packages.index') }}" class="pricing-card-btn text-white">Manage packages</a>
+                                @endguest
                             </div>
-                            <a href="{{ route('register') }}" class="pricing-card-btn text-white">Start Today</a> 
-                        </div>
 
-                        <div class="pricing-divider"></div>
+                            <div class="pricing-divider"></div>
 
-                        <div class="pricing-card-bottom">
-                            <p class="font-bold text-[16px] mb-2 feature-text">Includes:</p>
-                            <ul class="space-y-4">
-                                <li class="flex items-start space-x-3">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">No per-employee fees</span>
-                                </li>
-                                <li class="flex items-start space-x-3">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Unlimited runs. Perfect for up to 15 employees</span>
-                                </li>
-                                <li class="flex items-start space-x-3">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Secure ACH direct deposits every payday</span>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <!-- Business Card -->
-                    <div class="pricing-card group">
-                        <div class="pricing-card-top">
-                            <h3 class="pricing-title">Simple Payroll, Direct Deposit</h3>
-                            <div class="mb-10">
-                                <span class="pricing-price-val">$500 <span class="pricing-price-unit">/Flat yearly Fee</span></span>
-                                
+                            <div class="pricing-card-bottom">
+                                <p class="font-bold text-[16px] mb-2 feature-text">Includes:</p>
+                                <ul class="space-y-4">
+                                    @foreach ($package->features ?? [] as $feature)
+                                        <li class="flex items-start space-x-3">
+                                            <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
+                                            <span class="feature-text">{{ $feature }}</span>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             </div>
-                            <a href="{{ route('register') }}" class="pricing-card-btn text-white">Start Today</a> 
                         </div>
-
-                        <div class="pricing-divider"></div>
-
-                        <div class="pricing-card-bottom">
-                            <p class="font-bold text-[16px] mb-2 feature-text">Includes
-                            </p>
-                            <ul class="space-y-4">
-                                <li class="pricing-feature">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">No per-employee fees</span>
-                                </li>
-                                <li class="pricing-feature">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Unlimited runs. Perfect for up to 30 employees</span>
-                                </li>
-                                <li class="pricing-feature">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Secure ACH direct deposits every payday</span>
-                                </li>
-                            </ul>
+                    @empty
+                        <div class="col-span-full text-center text-[var(--text-color)] opacity-80 py-8">
+                            <p>No packages are available yet. Please check back soon.</p>
                         </div>
-                    </div>
-                    <!-- Business Card -->
-                    <div class="pricing-card group">
-                        <div class="pricing-card-top">
-                            <h3 class="pricing-title">Simple Payroll, Direct Deposit</h3>
-                            <div class="mb-10">
-                                <span class="pricing-price-val">$900 <span class="pricing-price-unit">/Flat yearly Fee</span></span>
-                                
-                            </div>
-                            <a href="{{ route('register') }}" class="pricing-card-btn text-white">Start Today</a> 
-                        </div>
-
-                        <div class="pricing-divider"></div>
-
-                        <div class="pricing-card-bottom">
-                            <p class="font-bold text-[16px] mb-2 feature-text">Includes
-                            </p>
-                            <ul class="space-y-4">
-                                <li class="pricing-feature">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Sign up and Pay your federal payroll taxes online</span>
-                                </li>
-                                <!-- <li class="pricing-feature">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Unlimited runs. Perfect for up to 30 employees</span>
-                                </li>
-                                <li class="pricing-feature">
-                                    <img src="{{ asset('images/check-icon.png') }}" alt="check" class="check-icon">
-                                    <span class="feature-text">Secure ACH direct deposits every payday</span>
-                                </li> -->
-                            </ul>
-                        </div>
-                    </div>
-
-               
-
+                    @endforelse
                 </div>
             </div>
         </section>

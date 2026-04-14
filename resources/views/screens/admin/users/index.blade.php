@@ -28,6 +28,9 @@
                                                 <span class="c-o-light f-w-600">Role</span>
                                             </th> --}}
                                             <th>
+                                                <span class="c-o-light f-w-600">Package / subscription</span>
+                                            </th>
+                                            <th>
                                                 <span class="c-o-light f-w-600">Creation Date</span>
                                             </th>
                                             <th>
@@ -38,27 +41,30 @@
                                     <tbody>
                                         @forelse ($users as $user)
                                             <tr class="product-removes inbox-data">
-                                                <td><a href="user-profile.html">{{ $user->name }}</a></td>
+                                                <td><a href="{{ route('users.show', $user) }}">{{ $user->name }}</a></td>
                                                 <td>
                                                     <p>{{ $user->email }}</p>
                                                 </td>
-                                                {{-- <td>
-                                                    <span
-                                                        class="badge badge-light-success">{{ $user->roles->first()->name ?? 'No Role' }}</span>
-                                                </td> --}}
+                                                @php
+                                                    $activeSub = $user->packageSubscriptions->firstWhere('status', \App\Models\PackageSubscription::STATUS_ACTIVE);
+                                                @endphp
+                                                <td>
+                                                    @if ($activeSub)
+                                                        <p class="mb-0 f-w-600">{{ $activeSub->package?->title ?? 'Package' }}</p>
+                                                        <p class="mb-0 text-muted small">
+                                                            {{ $activeSub->currency }} {{ number_format((float) $activeSub->amount_paid, 2) }}
+                                                            · until {{ $activeSub->ends_at?->format('M j, Y') ?? '—' }}
+                                                        </p>
+                                                    @else
+                                                        <span class="text-muted">—</span>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <p>{{ $user->created_at->format('d M Y, H:i A') }}</p>
                                                 </td>
                                                 <td>
                                                     <div class="common-align gap-2 justify-content-start">
-                                                        {{-- <a class="square-white" href="add-user.html">
-                                                            <span><i class="fa-solid fa-pen"></i></span>
-                                                        </a>
-                                                        <a class="square-white trash-7" href="#!">
-                                                            <span><i class="fa-solid fa-trash"></i></span>
-                                                        </a> --}}
-                                                        {{-- add view icon --}}
-                                                        <a class="square-white" href="#!">
+                                                        <a class="square-white" href="{{ route('users.show', $user) }}" title="View packages & subscriptions">
                                                             <span><i class="fa-solid fa-eye"></i></span>
                                                         </a>
                                                     </div>
@@ -66,7 +72,7 @@
                                             </tr>
                                         @empty
                                             <tr>
-                                                <td colspan="6" class="text-center">
+                                                <td colspan="5" class="text-center">
                                                     <h3 class="pt-5">No @yield('title', 'Dashboard') Found</h3>
                                                 </td>
                                             </tr>

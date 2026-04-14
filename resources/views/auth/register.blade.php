@@ -7,6 +7,15 @@
 
     <form method="POST" action="{{ route('register') }}" class="space-y-4">
         @csrf
+        @if (old('package', request('package')))
+            <input type="hidden" name="package" value="{{ old('package', request('package')) }}" />
+        @endif
+
+        @if (! empty($package))
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-2" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100" data-aos-easing="ease-out">
+                You selected: <strong>{{ $package->title }}</strong> ({{ $package->currency }} {{ number_format((float) $package->price, 2) }}). After registering you can confirm your subscription.
+            </p>
+        @endif
 
         <!-- Name -->
         <div data-aos="fade-up" data-aos-duration="1500" data-aos-delay="150" data-aos-easing="ease-out">

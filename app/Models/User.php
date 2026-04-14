@@ -52,4 +52,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Company::class);
     }
+
+    public function packageSubscriptions()
+    {
+        return $this->hasMany(PackageSubscription::class)->orderByDesc('created_at');
+    }
+
+    public function activePackageSubscription(): ?PackageSubscription
+    {
+        return $this->packageSubscriptions()->active()->with('package')->first();
+    }
 }

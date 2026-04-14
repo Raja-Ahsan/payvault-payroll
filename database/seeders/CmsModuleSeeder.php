@@ -22,6 +22,7 @@ class CmsModuleSeeder extends Seeder
             'status' => 'active',
             'parent_id' => 0,
         ]);
+
         $checks = CmsModule::firstOrCreate([
             'route_name' => 'checks-module'
         ], [
@@ -81,7 +82,27 @@ class CmsModuleSeeder extends Seeder
             'status' => 'active',
             'parent_id' => 0,
         ]);
-        
+
+        $packages = CmsModule::firstOrCreate([
+            'route_name' => 'packages-module',
+        ], [
+            'name' => 'Packages',
+            'icon' => 'fa-solid fa-box-open',
+            'sort_order' => 8,
+            'status' => 'active',
+            'parent_id' => 0,
+        ]);
+
+        CmsModule::updateOrCreate(
+            ['route_name' => 'subscription.index'],
+            [
+                'name' => 'My subscription',
+                'icon' => 'fa-solid fa-receipt',
+                'sort_order' => 9,
+                'status' => 'active',
+                'parent_id' => 0,
+            ]
+        );
 
         // submenus
         // users submenu start
@@ -101,6 +122,16 @@ class CmsModuleSeeder extends Seeder
             'name' => 'Add User',
             'icon' => 'fa-solid fa-circle-plus',
             'sort_order' => 2,
+            'status' => 'active',
+            'parent_id' => $users->id,
+        ]);
+
+        CmsModule::firstOrCreate([
+            'route_name' => 'users.subscriptions.index',
+        ], [
+            'name' => 'Package subscriptions',
+            'icon' => 'fa-solid fa-receipt',
+            'sort_order' => 3,
             'status' => 'active',
             'parent_id' => $users->id,
         ]);
@@ -152,6 +183,26 @@ class CmsModuleSeeder extends Seeder
             'sort_order' => 1,
             'status' => 'active',
             'parent_id' => $employees->id,
+        ]);
+
+        CmsModule::firstOrCreate([
+            'route_name' => 'packages.index',
+        ], [
+            'name' => 'All Packages',
+            'icon' => 'fa-solid fa-list-ul',
+            'sort_order' => 1,
+            'status' => 'active',
+            'parent_id' => $packages->id,
+        ]);
+
+        CmsModule::firstOrCreate([
+            'route_name' => 'packages.create',
+        ], [
+            'name' => 'Add Package',
+            'icon' => 'fa-solid fa-circle-plus',
+            'sort_order' => 2,
+            'status' => 'active',
+            'parent_id' => $packages->id,
         ]);
     }
 }

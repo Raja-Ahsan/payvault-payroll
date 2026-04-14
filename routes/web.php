@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CompanyController;
@@ -9,13 +8,19 @@ use App\Http\Controllers\TaxCategoryController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\DeductionCategoryController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Middleware\CheckRole;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PackageController;
+use App\Http\Controllers\PackagePurchaseController;
+use App\Http\Controllers\SubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 // web routes
-Route::get('/', function () {
-    return view('screens.web.home.index');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
+Route::middleware(['auth', 'role:client'])->group(function () {
+    Route::get('packages/{package}/checkout', [PackagePurchaseController::class, 'show'])->name('packages.checkout.show');
+    Route::post('packages/{package}/checkout', [PackagePurchaseController::class, 'store'])->name('packages.checkout.store');
+});
 
 
 Route::get('/how-it-work', function () {
@@ -48,6 +53,10 @@ Route::get('/contact', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return redirect()->route('admin.dashboard');
+    })->name('dashboard');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -57,8 +66,19 @@ Route::prefix('admin')->middleware('auth', 'role:admin')->group(function () {
     Route::get('/users', [UsersController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UsersController::class, 'create'])->name('users.create');
     Route::post('/users', [UsersController::class, 'store'])->name('users.store');
+    Route::get('/users/subscriptions/overview', [UsersController::class, 'packageSubscriptions'])->name('users.subscriptions.index');
+    Route::get('/users/{user}', [UsersController::class, 'show'])->name('users.show');
+
+    Route::get('/packages', [PackageController::class, 'index'])->name('packages.index');
+    Route::get('/packages/create', [PackageController::class, 'create'])->name('packages.create');
+    Route::post('/packages', [PackageController::class, 'store'])->name('packages.store');
+    Route::get('/packages/{package}/edit', [PackageController::class, 'edit'])->name('packages.edit');
+    Route::put('/packages/{package}/update', [PackageController::class, 'update'])->name('packages.update');
+    Route::delete('/packages/{package}/delete', [PackageController::class, 'delete'])->name('packages.delete');
 });
 Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function () {
+    Route::get('/subscription', [SubscriptionController::class, 'index'])->name('subscription.index');
+
     Route::get('/companies', [CompanyController::class, 'index'])->name('companies.index');
     Route::get('/companies/create', [CompanyController::class, 'create'])->name('companies.create');
     Route::post('/companies', [CompanyController::class, 'store'])->name('companies.store');
