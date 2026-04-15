@@ -13,20 +13,22 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('company_id')->constrained('companies');
+            $table->foreignId('created_by')->constrained('users');
             $table->string('first_name');
             $table->string('middle_name')->nullable();
-            $table->string('last_name');
-            $table->string('address_1');
+            $table->string('last_name')->nullable();
+            $table->string('address_1')->nullable();
             $table->string('address_2')->nullable();
-            $table->string('city');
-            $table->foreignId('state_id')->constrained('states');
-            $table->string('zip_code');
-            $table->string('ssn');
+            $table->string('city')->nullable();
+            $table->foreignId('state_id')->constrained('states')->nullable();
+            $table->string('zip_code')->nullable();
+            $table->string('ssn')->nullable();
             $table->date('dob')->nullable();
             $table->string('phone')->nullable();
             $table->string('fax')->nullable();
-            $table->string('email')->nullable();
-            $table->string('employee_id')->nullable();
+            $table->string('email');
+            $table->string('employee_id');
             $table->text('message')->nullable();
             $table->boolean('inactive')->default(false);
             $table->timestamps();

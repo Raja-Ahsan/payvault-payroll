@@ -80,12 +80,27 @@ function ajaxCreate(successRedirect = null) {
                     let globalErrors = [];
                     if (response.errors) {
                         $.each(response.errors, function (key, messages) {
-                            const input = form.find(`[name="${key}"]`);
+                            let input = form.find(`[name="${key}"]`);
+                            if (!input.length) {
+                                const dot = String(key).match(/^(.+)\.(\d+)$/);
+                                if (dot) {
+                                    input = form.find(`[name="${dot[1]}[${dot[2]}]"]`);
+                                }
+                            }
+                            if (!input.length) {
+                                const br = String(key).match(/^(.+)\.(\d+)$/);
+                                if (br) {
+                                    const named = form.find(`[name="${br[1]}[]"]`);
+                                    if (named.length) {
+                                        const idx = parseInt(br[2], 10);
+                                        input = named.eq(idx);
+                                    }
+                                }
+                            }
                             if (input.length) {
                                 input.addClass('is-invalid');
                                 input.after(`<div class="invalid-feedback d-block">${messages[0]}</div>`);
                             } else {
-                                // If input not found (e.g. dropzone images), collect error
                                 globalErrors.push(messages[0]);
                             }
                         });

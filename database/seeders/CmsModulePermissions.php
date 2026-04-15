@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\CmsModule;
 use App\Models\CmsModulePermission;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
@@ -25,7 +24,7 @@ class CmsModulePermissions extends Seeder
             'users' => CmsModule::where('route_name', 'users-module')->first(),
             'employees' => CmsModule::where('route_name', 'employees-module')->first(),
             'companies' => CmsModule::where('route_name', 'companies-module')->first(),
-            'forms' => CmsModule::where('route_name', 'forms-module')->first(),
+            'forms' => CmsModule::where('route_name', 'admin.forms.index')->first(),
             'reports' => CmsModule::where('route_name', 'reports-module')->first(),
             'checks' => CmsModule::where('route_name', 'checks-module')->first(),
         ];
@@ -50,7 +49,6 @@ class CmsModulePermissions extends Seeder
             ['role_id' => $adminRole->id, 'module_id' => $modules['reports']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $modules['checks']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
 
-
             // admin submenus
             ['role_id' => $adminRole->id, 'module_id' => $submenus['users.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $submenus['users.create']->id ?? null, 'is_add' => 0, 'is_view' => 0, 'is_update' => 0, 'is_delete' => 0],
@@ -59,7 +57,6 @@ class CmsModulePermissions extends Seeder
             ['role_id' => $adminRole->id, 'module_id' => $submenus['categories.tax.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $submenus['categories.deduction.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
             ['role_id' => $adminRole->id, 'module_id' => $submenus['employees.index']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 1, 'is_delete' => 0],
-
 
             // client — top-level
             ['role_id' => $clientRole->id, 'module_id' => $modules['dashboard']->id ?? null, 'is_add' => 0, 'is_view' => 1, 'is_update' => 0, 'is_delete' => 0],
@@ -86,7 +83,7 @@ class CmsModulePermissions extends Seeder
             CmsModulePermission::firstOrCreate(
                 [
                     'role_id' => $perm['role_id'],
-                    'module_id' => $perm['module_id']
+                    'module_id' => $perm['module_id'],
                 ],
                 $perm
             );

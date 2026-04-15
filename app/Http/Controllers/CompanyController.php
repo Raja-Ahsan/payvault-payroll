@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
-use App\Models\Address;
 use App\Models\CompanyType;
-use App\Models\UserInformation;
-use App\Models\User;
+use App\Models\State;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,12 +15,15 @@ class CompanyController extends Controller
         $companies = Company::query()
             ->with(['federalTaxInformation.companyType'])
             ->get();
+
         return view('screens.admin.companies.index', get_defined_vars());
     }
 
     public function create()
     {
         $companyTypes = CompanyType::get();
+        $states = State::query()->orderBy('name')->get();
+
         return view('screens.admin.companies.create', get_defined_vars());
     }
 
@@ -34,7 +35,7 @@ class CompanyController extends Controller
             'address_1' => 'required|string|max:255',
             'address_2' => 'nullable|string|max:255',
             'city' => 'required|string|max:255',
-            'state' => 'required|string|max:255',
+            'address_state_id' => ['required', 'integer', 'exists:states,id'],
             'zip_code' => 'required|string|max:255',
             'contact_name' => 'required|string|max:255',
             'tel_number' => 'required|string|max:255',
@@ -62,6 +63,7 @@ class CompanyController extends Controller
             'hide_ssn_on_paystub' => 'nullable|boolean',
         ]);
         $userId = auth()->user()->id;
+        $addressStateName = State::query()->findOrFail((int) $validated['address_state_id'])->name;
 
         DB::beginTransaction();
 
@@ -81,7 +83,7 @@ class CompanyController extends Controller
                 'address_1' => $validated['address_1'],
                 'address_2' => $validated['address_2'],
                 'city' => $validated['city'],
-                'state' => $validated['state'],
+                'state' => $addressStateName,
                 'zip_code' => $validated['zip_code'],
                 'created_by' => $userId,
             ]);
@@ -116,7 +118,7 @@ class CompanyController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Company created successfully'
+                'message' => 'Company created successfully',
             ]);
         } catch (\Exception $e) {
 
@@ -124,7 +126,7 @@ class CompanyController extends Controller
 
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
@@ -133,6 +135,17 @@ class CompanyController extends Controller
     {
         $company->load(['address', 'federalTaxInformation.companyType', 'stateTaxInformation']);
         $companyTypes = CompanyType::query()->orderBy('title')->get();
+        $states = State::query()->orderBy('name')->get();
+
+        $addressStateId = old('address_state_id');
+        if ($addressStateId === null && $company->address) {
+            $addressStateId = State::query()
+                ->where('name', $company->address->state)
+                ->value('id')
+                ?? State::query()
+                    ->where('code', strtoupper((string) $company->address->state))
+                    ->value('id');
+        }
 
         return view('screens.admin.companies.edit', get_defined_vars());
     }
@@ -145,7 +158,7 @@ class CompanyController extends Controller
             'address_1' => 'required|string|max:255',
             'address_2' => 'nullable|string|max:255',
             'city' => 'required|string|max:255',
-            'state' => 'required|string|max:255',
+            'address_state_id' => ['required', 'integer', 'exists:states,id'],
             'zip_code' => 'required|string|max:255',
             'contact_name' => 'required|string|max:255',
             'tel_number' => 'required|string|max:255',
@@ -175,6 +188,7 @@ class CompanyController extends Controller
         ]);
 
         $userId = auth()->id();
+        $addressStateName = State::query()->findOrFail((int) $validated['address_state_id'])->name;
 
         DB::beginTransaction();
 
@@ -195,7 +209,7 @@ class CompanyController extends Controller
                     'address_1' => $validated['address_1'],
                     'address_2' => $validated['address_2'],
                     'city' => $validated['city'],
-                    'state' => $validated['state'],
+                    'state' => $addressStateName,
                     'zip_code' => $validated['zip_code'],
                 ]);
             } else {
@@ -203,7 +217,7 @@ class CompanyController extends Controller
                     'address_1' => $validated['address_1'],
                     'address_2' => $validated['address_2'],
                     'city' => $validated['city'],
-                    'state' => $validated['state'],
+                    'state' => $addressStateName,
                     'zip_code' => $validated['zip_code'],
                     'created_by' => $userId,
                 ]);
@@ -254,7 +268,7 @@ class CompanyController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Company updated successfully'
+                'message' => 'Company updated successfully',
             ]);
         } catch (\Exception $e) {
 
@@ -262,7 +276,7 @@ class CompanyController extends Controller
 
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], 500);
         }
     }
@@ -270,9 +284,10 @@ class CompanyController extends Controller
     public function delete(Company $company)
     {
         $company->delete();
+
         return response()->json([
             'success' => true,
-            'message' => 'Company deleted successfully'
+            'message' => 'Company deleted successfully',
         ]);
     }
 }

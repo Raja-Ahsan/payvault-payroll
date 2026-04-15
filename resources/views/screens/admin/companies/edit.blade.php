@@ -65,8 +65,16 @@ $state = $company->stateTaxInformation;
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group mb-3">
-                                            <label for="state">State</label>
-                                            <input type="text" class="form-control" id="state" name="state" value="{{ old('state', $address->state ?? '') }}" required>
+                                            <label for="address_state_id">State</label>
+                                            <select name="address_state_id" id="address_state_id" class="form-control" required>
+                                                <option value="" disabled @selected(! $addressStateId)>Select state</option>
+                                                @foreach ($states ?? [] as $st)
+                                                    <option value="{{ $st->id }}" @selected((string) ($addressStateId ?? '') === (string) $st->id)>{{ $st->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            @if (($states ?? collect())->isEmpty())
+                                                <small class="text-danger d-block mt-1">No states in database. Run states seeder.</small>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-4">

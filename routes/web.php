@@ -1,22 +1,20 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\CompanyController;
-use App\Http\Controllers\IncomeCategoryController;
-use App\Http\Controllers\TaxCategoryController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DeductionCategoryController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Middleware\CheckRole;
+use App\Http\Controllers\FormController;
+use App\Http\Controllers\IncomeCategoryController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TaxCategoryController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 // web routes
 Route::get('/', function () {
     return view('screens.web.home.index');
 })->name('home');
-
 
 Route::get('/how-it-work', function () {
     return view('screens.web.inner-pages.how-it-work');
@@ -39,9 +37,6 @@ Route::get('/contact', function () {
 })->name('contact');
 
 // web routes end
-
-
-
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -90,15 +85,22 @@ Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function 
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
     Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');
     Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
+    Route::delete('/employees/{employee}/delete', [EmployeeController::class, 'delete'])->name('employees.delete');
+    Route::get('/forms', [FormController::class, 'index'])->name('admin.forms.index');
+    Route::get('/forms/w-2', [FormController::class, 'w2'])->name('admin.forms.w2');
+    Route::get('/forms/940', [FormController::class, 'form940'])->name('admin.forms.940');
+    Route::get('/forms/944', [FormController::class, 'form944'])->name('admin.forms.944');
+
+});
+
+Route::prefix('admin')->middleware('auth', 'role:admin|client|employee')->group(function () {
+    Route::get('/employees/{employee}', [EmployeeController::class, 'show'])->name('employees.show');
     Route::get('/employees/{employee}/edit', [EmployeeController::class, 'edit'])->name('employees.edit');
     Route::put('/employees/{employee}/update', [EmployeeController::class, 'update'])->name('employees.update');
-    Route::delete('/employees/{employee}/delete', [EmployeeController::class, 'delete'])->name('employees.delete');
-
 });
 // admin dashboard routes
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
 });
 
-
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

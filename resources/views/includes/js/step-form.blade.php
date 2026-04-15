@@ -10,8 +10,11 @@
             stepHeadings = [
                 "General Information",
                 "Tax Setup",
-                "Income",
-                "Taxes"
+                "Incomes",
+                "Taxes",
+                "Deductions",
+                "Direct Deposit",
+                "Vacation / Sick Hours Settings"
             ];
         } else {
             stepHeadings = [
@@ -37,7 +40,15 @@
             }
         }
 
-        if (!steps.length || !nextbtn) {
+        if (!steps.length) {
+            return;
+        }
+
+        if (!nextbtn) {
+            document.dispatchEvent(new CustomEvent('wizard:step-changed', {
+                bubbles: true,
+                detail: { step: 0 }
+            }));
             return;
         }
 
@@ -50,6 +61,10 @@
                 formHeading.textContent = stepHeadings[index];
             }
             updateNextButton();
+            document.dispatchEvent(new CustomEvent('wizard:step-changed', {
+                bubbles: true,
+                detail: { step: index }
+            }));
         }
 
         function clearErrors(stepEl) {
@@ -136,14 +151,10 @@
         showStep(0);
         syncBackButton();
 
-        nextbtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            var panel = steps[currentStep];
-            if (!panel || !validateStep(panel)) {
-                return;
-            }
+        function advanceNextStep() {
             if (currentStep >= steps.length - 1) {
-                var form = panel.closest('form');
+                var panel = steps[currentStep];
+                var form = panel && panel.closest('form');
                 if (form) {
                     $(form).trigger('submit');
                 }
@@ -152,6 +163,24 @@
             currentStep += 1;
             showStep(currentStep);
             syncBackButton();
+        }
+
+        nextbtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var panel = steps[currentStep];
+            if (!panel || !validateStep(panel)) {
+                return;
+            }
+            if (currentStep >= steps.length - 1) {
+                advanceNextStep();
+                return;
+            }
+            var hook = window.__wizardBeforeNextStep;
+            if (typeof hook === 'function') {
+                hook(currentStep, advanceNextStep);
+                return;
+            }
+            advanceNextStep();
         });
 
         if (backbtn) {

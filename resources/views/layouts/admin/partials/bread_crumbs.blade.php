@@ -2,6 +2,21 @@
     <div class="page-title">
         <div class="row">
             <div class="row mb-3">
+                <div class="col-12">
+                    @if (auth()->check() && auth()->user()->hasRole(config('roles.employee')) && ! request()->routeIs('employees.edit'))
+                        @php
+                            $profileEmployee = \App\Models\Employee::query()->where('user_id', auth()->id())->first();
+                        @endphp
+                        @if ($profileEmployee)
+                            <div class="alert alert-warning alert-dismissible fade show d-flex flex-wrap align-items-center justify-content-between gap-2 mb-0 border"
+                                role="alert">
+                                <span class="mb-0 text-body"><i class="fa-solid fa-user-pen me-2"></i>Complete your employee profile.</span>
+                                <a href="{{ route('employees.edit', $profileEmployee) }}" class="btn btn-sm btn-primary flex-shrink-0">Complete profile</a>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+                    @endif
+                </div>
                 {{-- <div class="col-12">
                     @if (auth()->user()->hasRole(config('roles.league_contractor')))
                         @if (!$company || !$company->is_profile_completed)

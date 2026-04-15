@@ -23,7 +23,13 @@ class Company extends Model
         return $this->hasOne(FederalTaxInformation::class);
     }
 
-    public function stateTaxInformation() {
+    public function stateTaxInformation()
+    {
         return $this->hasOne(StateTaxInformation::class);
+    }
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
     }
 }

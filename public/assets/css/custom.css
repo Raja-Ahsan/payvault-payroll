@@ -366,3 +366,7 @@ body.dark-only .page-wrapper .page-header .header-wrapper .theme-toggle-wrap .fa
     min-height: 100px !important;
     resize: none;
 }
+.form-940-wrapper label,
+.w2-forms .form-label {
+    margin-bottom: 10px !important;
+}

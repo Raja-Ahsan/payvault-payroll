@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\CmsModule;
+use Illuminate\Database\Seeder;
 
 class CmsModuleSeeder extends Seeder
 {
@@ -14,7 +13,7 @@ class CmsModuleSeeder extends Seeder
     public function run(): void
     {
         $dashboard = CmsModule::firstOrCreate([
-            'route_name' => 'admin.dashboard'
+            'route_name' => 'admin.dashboard',
         ], [
             'name' => 'Dashboard',
             'icon' => 'fa-regular fa-house',
@@ -23,7 +22,7 @@ class CmsModuleSeeder extends Seeder
             'parent_id' => 0,
         ]);
         $checks = CmsModule::firstOrCreate([
-            'route_name' => 'checks-module'
+            'route_name' => 'checks-module',
         ], [
             'name' => 'Checks',
             'icon' => 'fa-solid fa-check',
@@ -33,7 +32,7 @@ class CmsModuleSeeder extends Seeder
         ]);
 
         $employees = CmsModule::firstOrCreate([
-            'route_name' => 'employees-module'
+            'route_name' => 'employees-module',
         ], [
             'name' => 'Employees',
             'icon' => 'fa-solid fa-user',
@@ -43,7 +42,7 @@ class CmsModuleSeeder extends Seeder
         ]);
 
         $users = CmsModule::firstOrCreate([
-            'route_name' => 'users-module'
+            'route_name' => 'users-module',
         ], [
             'name' => 'Users',
             'icon' => 'fa-solid fa-users',
@@ -53,7 +52,7 @@ class CmsModuleSeeder extends Seeder
         ]);
 
         $forms = CmsModule::firstOrCreate([
-            'route_name' => 'forms-module'
+            'route_name' => 'admin.forms.index',
         ], [
             'name' => 'Forms',
             'icon' => 'fa-solid fa-file',
@@ -63,7 +62,7 @@ class CmsModuleSeeder extends Seeder
         ]);
 
         $reports = CmsModule::firstOrCreate([
-            'route_name' => 'reports-module'
+            'route_name' => 'reports-module',
         ], [
             'name' => 'Reports',
             'icon' => 'fa-solid fa-chart-line',
@@ -73,7 +72,7 @@ class CmsModuleSeeder extends Seeder
         ]);
 
         $companies = CmsModule::firstOrCreate([
-            'route_name' => 'companies-module'
+            'route_name' => 'companies-module',
         ], [
             'name' => 'Companies',
             'icon' => 'fa-solid fa-building',
@@ -81,12 +80,11 @@ class CmsModuleSeeder extends Seeder
             'status' => 'active',
             'parent_id' => 0,
         ]);
-        
 
         // submenus
         // users submenu start
         CmsModule::firstOrCreate([
-            'route_name' => 'users.index'
+            'route_name' => 'users.index',
         ], [
             'name' => 'All Users',
             'icon' => 'fa-solid fa-list-ul',
@@ -96,7 +94,7 @@ class CmsModuleSeeder extends Seeder
         ]);
 
         CmsModule::firstOrCreate([
-            'route_name' => 'users.create'
+            'route_name' => 'users.create',
         ], [
             'name' => 'Add User',
             'icon' => 'fa-solid fa-circle-plus',
@@ -106,7 +104,7 @@ class CmsModuleSeeder extends Seeder
         ]);
 
         CmsModule::firstOrCreate([
-            'route_name' => 'companies.index'
+            'route_name' => 'companies.index',
         ], [
             'name' => 'All Companies',
             'icon' => 'fa-solid fa-list-ul',
@@ -115,7 +113,7 @@ class CmsModuleSeeder extends Seeder
             'parent_id' => $companies->id,
         ]);
         CmsModule::firstOrCreate([
-            'route_name' => 'categories.income.index'
+            'route_name' => 'categories.income.index',
         ], [
             'name' => 'Income Categories',
             'icon' => 'fa-solid fa-money-bill',
@@ -125,7 +123,7 @@ class CmsModuleSeeder extends Seeder
         ]);
 
         CmsModule::firstOrCreate([
-            'route_name' => 'categories.tax.index'
+            'route_name' => 'categories.tax.index',
         ], [
             'name' => 'Tax Categories',
             'icon' => 'fa-solid fa-money-bill',
@@ -135,7 +133,7 @@ class CmsModuleSeeder extends Seeder
         ]);
 
         CmsModule::firstOrCreate([
-            'route_name' => 'categories.deduction.index'
+            'route_name' => 'categories.deduction.index',
         ], [
             'name' => 'Deduction Categories',
             'icon' => 'fa-solid fa-minus-circle',
@@ -145,7 +143,7 @@ class CmsModuleSeeder extends Seeder
         ]);
 
         CmsModule::firstOrCreate([
-            'route_name' => 'employees.index'
+            'route_name' => 'employees.index',
         ], [
             'name' => 'All Employees',
             'icon' => 'fa-solid fa-list-ul',
