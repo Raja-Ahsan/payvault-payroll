@@ -9,8 +9,7 @@
                     <a href="{{ route('admin.forms.index') }}" class="btn btn-sm button-light-primary">Back to Forms</a>
                 </div>
                 <div class="card-body small">
-                    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2">
-                        <h4 class="mb-0 f-w-600">Form 944</h4>
+                    <div class="d-flex flex-wrap align-items-center justify-content-end gap-2 mb-2">
                         <div class="d-flex flex-wrap gap-2">
                             <button type="button" class="btn btn-primary btn-sm" id="f944BtnPreparer">Preparer / Designee</button>
                             <button type="button" class="btn btn-primary btn-sm" id="f944BtnPreview">Preview</button>
@@ -18,7 +17,7 @@
                             <button type="button" class="btn btn-primary btn-sm" id="f944BtnOverride">Override calculations</button>
                         </div>
                     </div>
-                    <p class="text-primary fst-italic mb-3 small text-center">If you click the Preview button and you still can&apos;t see the preview window, please look at the bottom of your screen, you should see a second icon for the form (next to the Payroll Mate icon). You can maximize it to show the form preview window.</p>
+                    <p class="text-primary fst-italic mb-3">If you click the Preview button and you still can&apos;t see the preview window, please look at the bottom of your screen, you should see a second icon for the form (next to the Payroll Mate icon). You can maximize it to show the form preview window.</p>
                     <p class="text-muted small mb-3">Employer name, EIN, trade name, and address on printed forms come from your saved company record.</p>
 
                     <div class="fw-bold border-bottom pb-2 mb-3">Part 1: Answer these questions for {{ $taxYear }}</div>

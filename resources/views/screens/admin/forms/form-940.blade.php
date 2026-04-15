@@ -18,13 +18,13 @@
                     <a href="{{ route('admin.forms.index') }}" class="btn btn-sm button-light-primary">Back to Forms</a>
                 </div>
                 <div class="card-body small">
-                    <div class="d-flex flex-wrap gap-2 mb-2">
+                    <div class="d-flex flex-wrap gap-2 justify-content-end mb-2">
                         <button type="button" class="btn btn-primary btn-sm" id="f940BtnPreparer">Preparer / Designee</button>
                         <button type="button" class="btn btn-primary btn-sm" id="f940BtnPreview">Preview</button>
                         <button type="button" class="btn btn-primary btn-sm" id="f940BtnPrint">Print</button>
                         <button type="button" class="btn btn-primary btn-sm" id="f940BtnOverride">Override calculations</button>
                     </div>
-                    <p class="text-primary fst-italic mb-3 small text-center">If you click the Preview button and you still can&apos;t see the preview window, please look at the bottom of your screen, you should see a second icon for the form (next to the Payroll Mate icon). You can maximize it to show the form preview window.</p>
+                    <p class="text-primary fst-italic mb-3 ">If you click the Preview button and you still can&apos;t see the preview window, please look at the bottom of your screen, you should see a second icon for the form (next to the Payroll Mate icon). You can maximize it to show the form preview window.</p>
 
                     <div class="border rounded p-3 mb-3 bg-light">
                         <div class="fw-semibold mb-2">Type of Return (Check all that apply):</div>
@@ -94,7 +94,7 @@
                         </div>
                     @endforeach
 
-                    <p class="text-primary fst-italic small my-3">Do not contact our team with questions about Form 940; they will not be able to help you. If you want to compare the amounts on Form 940, you can generate the &quot;Form 940 Helper Sheet&quot; report and compare your numbers. You can also contact the IRS or a tax professional if you have any questions about tax forms. Do not compare reports printed before with data currently inside the software. You will need to compare the current reports with the current forms.</p>
+                    <p class="text-primary fst-italic my-3">Do not contact our team with questions about Form 940; they will not be able to help you. If you want to compare the amounts on Form 940, you can generate the &quot;Form 940 Helper Sheet&quot; report and compare your numbers. You can also contact the IRS or a tax professional if you have any questions about tax forms. Do not compare reports printed before with data currently inside the software. You will need to compare the current reports with the current forms.</p>
 
                     <div class="fw-bold border-bottom pb-2 mb-2">Part 3: Determine your adjustments. If any line does NOT apply, leave it blank.</div>
                     <div class="row mb-2 align-items-start g-2">
@@ -144,7 +144,7 @@
                     </div>
 
                     <div class="fw-bold border-bottom pb-2 mb-2">Part 5: Report your FUTA tax liability by quarter only if line 12 is more than $500. If not, go to Part 6.</div>
-                    <p class="text-primary small mb-2">This section gets populated ONLY when line 12 is more than $500. You can check the 940 instructions for details.</p>
+                    <p class="text-primary mb-2">This section gets populated ONLY when line 12 is more than $500. You can check the 940 instructions for details.</p>
                     <p class="small text-muted mb-3"><span class="badge bg-secondary me-1">16</span> Report the amount of your FUTA tax liability for each quarter; do NOT enter the amount you deposited. If you had no liability for a quarter, leave the line blank.</p>
                     @foreach ([['f940-l16a', '16a', '1st quarter (January 1 - March 31)'], ['f940-l16b', '16b', '2nd quarter (April 1 - June 30)'], ['f940-l16c', '16c', '3rd quarter (July 1 - September 30)'], ['f940-l16d', '16d', '4th quarter (October 1 - December 31)']] as $q)
                         <div class="row mb-2 align-items-center g-2">
