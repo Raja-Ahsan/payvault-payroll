@@ -189,7 +189,7 @@
     </x-slot>
 </x-modals.modal>
 
-<x-modals.modal id="w3PreviewModal" title="Preview — Form W-3" size="modal-fullscreen">
+<x-modals.modal id="w3PreviewModal" title="Preview — Form W-3" size="modal-xl">
     <div id="w3PreviewMount" class="small font-monospace overflow-auto" style="max-height: 75vh;"></div>
     <x-slot name="footer">
         <button type="button" class="btn btn-primary" onclick="window.printW3FromPreview && window.printW3FromPreview()">Print</button>

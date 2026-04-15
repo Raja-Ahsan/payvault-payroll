@@ -370,3 +370,6 @@ body.dark-only .page-wrapper .page-header .header-wrapper .theme-toggle-wrap .fa
 .w2-forms .form-label {
     margin-bottom: 10px !important;
 }
+.w2-form-table td {
+    color: var(--default-color);
+}

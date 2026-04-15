@@ -195,7 +195,7 @@
 </x-modals.modal>
 
 <x-modals.modal id="f940PreviewModal" title="Preview — Form 940 (4 pages)" size="modal-fullscreen">
-    <div id="f940PreviewMount" class="f940-preview-scroll bg-secondary bg-opacity-10 p-2 p-md-3" style="max-height: calc(100vh - 11rem); overflow-y: auto;"></div>
+    <div id="f940PreviewMount" class="f940-preview-scroll bg-opacity-10 p-2 p-md-3" style="max-height: calc(100vh - 11rem); overflow-y: auto;"></div>
     <x-slot name="footer">
         <button type="button" class="btn btn-primary" id="f940PreviewPrint">Print</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

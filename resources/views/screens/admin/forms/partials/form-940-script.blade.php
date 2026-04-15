@@ -189,11 +189,9 @@
         return { d: p[0] || '0', c: (p[1] || '00').slice(0, 2) };
     }
 
+    /** Single amount cell (matches main form one box per line; not dollars/cents split). */
     function moneyBoxes(v) {
-        var p = splitMoneyDisplay(v);
-        return '<span class="f940-m-d">' + escapeHtml(p.d) + '</span>'
-            + '<span class="f940-m-dot">.</span>'
-            + '<span class="f940-m-c">' + escapeHtml(p.c) + '</span>';
+        return '<span class="f940-m-val">' + escapeHtml(formatMoney(parseMoney(v))) + '</span>';
     }
 
     function einBoxes(ein) {
@@ -476,17 +474,15 @@
         + '.f940-einrow-b{display:flex;flex-wrap:nowrap;gap:1px}'
         + '.f940-ein{display:inline-flex;width:16px;height:20px;border:1px solid #000;align-items:center;justify-content:center;font-size:9pt}'
         + '.f940-lab{font-weight:bold;min-width:1.4in}'
-        + '.f940-fieldrow{display:flex;align-items:center;border-bottom:1px solid #000;padding:3px 0;min-height:22px}'
-        + '.f940-field{flex:1;border-bottom:1px dotted #666;min-height:18px;padding:0 4px}'
+        + '.f940-fieldrow{display:flex;align-items:center;padding:3px 0;min-height:22px}'
+        + '.f940-field{flex:1;border-bottom:1px solid #000;min-height:18px;padding:0 4px}'
         + '.f940-addr2{margin-bottom:10px}'
         + '.f940-part{font-weight:bold;font-size:10.5pt;margin:10px 0 4px;border-bottom:1px solid #000;padding-bottom:2px}'
         + '.f940-line{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px dotted #333;padding:3px 0;gap:8px}'
         + '.f940-line-l{flex:1;font-size:9pt;line-height:1.25}'
         + '.f940-line-r{flex-shrink:0;text-align:right}'
         + '.f940-mnum{font-variant-numeric:tabular-nums}'
-        + '.f940-m-d{border:1px solid #000;min-width:1.15in;display:inline-block;text-align:right;padding:1px 4px}'
-        + '.f940-m-dot{font-weight:bold}'
-        + '.f940-m-c{border:1px solid #000;width:0.5in;display:inline-block;text-align:center;padding:1px}'
+        + '.f940-m-val{border:1px solid #000;min-width:1.35in;display:inline-block;text-align:right;padding:1px 6px;font-variant-numeric:tabular-nums}'
         + '.f940-st{border:1px solid #000;min-width:2.5rem;text-align:center;padding:1px 6px;font-weight:bold}'
         + '.f940-cbx{border:1px solid #000;width:1.5rem;height:1.25rem;display:inline-flex;align-items:center;justify-content:center;font-weight:bold}'
         + '.f940-sub4{font-size:8.5pt;margin:4px 0 6px 12px}'

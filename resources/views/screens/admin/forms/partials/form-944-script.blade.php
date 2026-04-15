@@ -203,15 +203,15 @@
         return { d: p[0] || '0', c: (p[1] || '00').slice(0, 2) };
     }
 
+    /** Single amount cell (same as main form: one box per value, not dollars/cents split). */
     function moneyBoxes(v) {
-        var x = splitMoneyDisplay(v);
-        return '<span class="f944-m-d">' + escapeHtml(x.d) + '</span><span class="f944-m-dot">.</span><span class="f944-m-c">' + escapeHtml(x.c) + '</span>';
+        return '<span class="f944-m-val">' + escapeHtml(formatMoney(parseMoney(v))) + '</span>';
     }
 
     /** Match on-screen blanks: line 12 is empty when there is a balance due (not 0.00 on print). */
     function moneyBoxesOptional(v) {
         if (String(v == null ? '' : v).trim() === '') {
-            return '<span class="f944-m-d f944-m-empty">&nbsp;</span><span class="f944-m-dot">.</span><span class="f944-m-c f944-m-empty">&nbsp;&nbsp;</span>';
+            return '<span class="f944-m-val f944-m-empty">&nbsp;</span>';
         }
         return moneyBoxes(v);
     }
@@ -397,17 +397,15 @@
         + '.f944-einrow-b{display:flex;flex-wrap:nowrap;gap:1px}'
         + '.f944-ein{display:inline-flex;width:16px;height:20px;border:1px solid #000;align-items:center;justify-content:center;font-size:9pt}'
         + '.f944-lab{font-weight:bold;min-width:1.4in}'
-        + '.f944-fieldrow{display:flex;align-items:center;border-bottom:1px solid #000;padding:3px 0;min-height:22px}'
-        + '.f944-field{flex:1;border-bottom:1px dotted #666;min-height:18px;padding:0 4px}'
+        + '.f944-fieldrow{display:flex;align-items:center;padding:3px 0;min-height:22px}'
+        + '.f944-field{flex:1;border-bottom:1px solid #000;min-height:18px;padding:0 4px}'
         + '.f944-part{font-weight:bold;font-size:10.5pt;margin:12px 0 6px;border-bottom:1px solid #000;padding-bottom:2px}'
         + '.f944-l4title{font-weight:bold;margin:8px 0 4px;font-size:9.5pt}'
         + '.f944-helpt{font-size:8.5pt;margin:2px 0 4px}'
         + '.f944-line{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px dotted #333;padding:3px 0;gap:8px}'
         + '.f944-line-l{flex:1;font-size:9pt;line-height:1.25}'
         + '.f944-line-r{flex-shrink:0;text-align:right;font-variant-numeric:tabular-nums}'
-        + '.f944-m-d{border:1px solid #000;min-width:1.1in;display:inline-block;text-align:right;padding:1px 4px}'
-        + '.f944-m-dot{font-weight:bold}'
-        + '.f944-m-c{border:1px solid #000;width:0.48in;display:inline-block;text-align:center;padding:1px}'
+        + '.f944-m-val{border:1px solid #000;min-width:1.35in;display:inline-block;text-align:right;padding:1px 6px;font-variant-numeric:tabular-nums}'
         + '.f944-m-empty{opacity:0.35}'
         + '.f944-cbx{border:1px solid #000;width:1.4rem;height:1.1rem;display:inline-flex;align-items:center;justify-content:center;font-weight:bold}'
         + '.f944-tri{font-size:8.5pt;white-space:nowrap}'

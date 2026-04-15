@@ -97,11 +97,15 @@ class FormController extends Controller
      */
     private function employerFormPayload(): array
     {
-        $company = Company::query()
+        $scoped = fn () => Company::query()
             ->with(['address', 'federalTaxInformation'])
-            ->when(! userHasRole('admin'), fn ($q) => $q->where('user_id', auth()->id()))
+            ->when(! userHasRole('admin'), fn ($q) => $q->where('user_id', auth()->id()));
+
+        $company = $scoped()
+            ->whereHas('federalTaxInformation')
             ->orderBy('company_name')
-            ->first();
+            ->first()
+            ?? $scoped()->orderBy('company_name')->first();
 
         $addr = $company?->address;
         $fti = $company?->federalTaxInformation;

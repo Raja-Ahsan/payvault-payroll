@@ -228,13 +228,18 @@
     }
 
     paperFilingUnderstand.addEventListener('click', function () {
-        var fn = paperModalCallback;
-        paperModalCallback = null;
-        if (typeof fn === 'function') {
-            paperModalEl.addEventListener('hidden.bs.modal', fn, { once: true });
-        }
-        bsPaper.hide();
-    });
+    // pehla modal band
+    bsPaper.hide();
+
+    // calculations generate
+    var totals = aggregateTotals();
+
+    // preview me inject
+    w3PreviewMount.innerHTML = w3GridHtml(totals);
+
+    // second modal open
+    bsW3Preview.show();
+});
 
     function getCompanyForEmp(empId) {
         var e = employees.find(function (x) { return String(x.id) === String(empId); });
@@ -325,7 +330,7 @@
             + watermarkHtml()
             + '<div style="position:relative;z-index:1;">'
             + '<div class="fw-bold mb-2">Form W-3 — Transmittal (preview)</div>'
-            + '<table class="table table-bordered table-sm" style="max-width:900px;">'
+            + '<table class="table table-bordered table-sm w2-form-table" style="max-width:900px;">'
             + '<tr><td>c Total number of Forms W-2</td><td>' + n + '</td></tr>'
             + '<tr><td>e Employer identification number (EIN)</td><td>' + escapeHtml(c.ein || '') + '</td></tr>'
             + '<tr><td>f Employer name</td><td>' + escapeHtml(c.name || '') + '</td></tr>'
