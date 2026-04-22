@@ -1,7 +1,7 @@
 @section('title', 'Form 944')
 @extends('layouts.admin.master')
 @section('content')
-<div class="container-fluid form-944-wrapper">
+<div class="container-fluid form-944-wrapper custom-form-wrapper">
     <div class="row">
         <div class="col-12">
             <div class="card">

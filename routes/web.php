@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\CheckController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DeductionCategoryController;
 use App\Http\Controllers\EmployeeController;
@@ -103,6 +104,11 @@ Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function 
     Route::get('/categories/deduction/{deductionCategory}/edit', [DeductionCategoryController::class, 'edit'])->name('categories.deduction.edit');
     Route::put('/categories/deduction/{deductionCategory}/update', [DeductionCategoryController::class, 'update'])->name('categories.deduction.update');
     Route::delete('/categories/deduction/{deductionCategory}/delete', [DeductionCategoryController::class, 'delete'])->name('categories.deduction.delete');
+
+    Route::get('/checks', [CheckController::class, 'index'])->name('checks.index');
+    Route::get('/checks/create', [CheckController::class, 'create'])->name('checks.create');
+    Route::get('/checks/{check}', [CheckController::class, 'show'])->whereNumber('check')->name('checks.show');
+    Route::get('/checks/{check}/edit', [CheckController::class, 'edit'])->whereNumber('check')->name('checks.edit');
 
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
     Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');

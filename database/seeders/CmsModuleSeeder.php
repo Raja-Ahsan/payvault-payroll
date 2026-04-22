@@ -22,15 +22,28 @@ class CmsModuleSeeder extends Seeder
             'parent_id' => 0,
         ]);
 
-        $checks = CmsModule::firstOrCreate([
-            'route_name' => 'checks-module',
-        ], [
-            'name' => 'Checks',
-            'icon' => 'fa-solid fa-check',
-            'sort_order' => 2,
-            'status' => 'active',
-            'parent_id' => 0,
-        ]);
+        $checksLegacy = CmsModule::query()->where('route_name', 'checks-module')->first();
+        if ($checksLegacy) {
+            $checksLegacy->update([
+                'route_name' => 'checks.index',
+                'name' => 'Checks',
+                'icon' => 'fa-solid fa-money-check',
+                'sort_order' => 2,
+                'status' => 'active',
+                'parent_id' => 0,
+            ]);
+        } else {
+            CmsModule::firstOrCreate(
+                ['route_name' => 'checks.index'],
+                [
+                    'name' => 'Checks',
+                    'icon' => 'fa-solid fa-money-check',
+                    'sort_order' => 2,
+                    'status' => 'active',
+                    'parent_id' => 0,
+                ]
+            );
+        }
 
         $employees = CmsModule::firstOrCreate([
             'route_name' => 'employees-module',

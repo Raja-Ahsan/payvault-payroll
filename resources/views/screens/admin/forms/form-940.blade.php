@@ -10,7 +10,7 @@
     $sutaDefault = (! empty($emp['state_code']) && in_array($emp['state_code'], $usStates, true)) ? $emp['state_code'] : 'IL';
 @endphp
 @section('content')
-<div class="container-fluid form-940-wrapper">
+<div class="container-fluid form-940-wrapper custom-form-wrapper">
     <div class="row">
         <div class="col-12">
             <div class="card">

@@ -65,7 +65,7 @@
     .f941r-screen-toolbar { display: none !important; }
 }
 </style>
-<div class="container-fluid form-941r-wrapper">
+<div class="container-fluid form-941r-wrapper custom-form-wrapper">
     <div class="row">
         <div class="col-12">
             <div class="card">

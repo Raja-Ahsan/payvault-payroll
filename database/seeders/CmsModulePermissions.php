@@ -26,7 +26,7 @@ class CmsModulePermissions extends Seeder
             'companies' => CmsModule::where('route_name', 'companies-module')->first(),
             'forms' => CmsModule::where('route_name', 'admin.forms.index')->first(),
             'reports' => CmsModule::where('route_name', 'reports-module')->first(),
-            'checks' => CmsModule::where('route_name', 'checks-module')->first(),
+            'checks' => CmsModule::where('route_name', 'checks.index')->first(),
             'packages' => CmsModule::where('route_name', 'packages-module')->first(),
             'subscription' => CmsModule::where('route_name', 'subscription.index')->first(),
         ];

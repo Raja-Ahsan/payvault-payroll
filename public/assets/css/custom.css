@@ -207,6 +207,12 @@ form .square-white:hover {
     width: 20px;
     height: 20px;
 }
+.form-check-input {
+    margin-top: 0;
+}
+.custom-form-wrapper .form-check-input {
+    margin-right: 10px;
+}
 /* responsive */
 .user-list-wrapper .user-list-table div.dt-container .dt-layout-row .dt-search {
     right: 215px; 

@@ -303,7 +303,7 @@
     }
 
     function watermarkHtml() {
-        return '<div style="position:absolute;left:0;right:0;top:18%;text-align:center;font-size:2rem;font-weight:bold;color:#b00020;opacity:0.35;pointer-events:none;transform:rotate(-12deg);z-index:0;">Not Updated — Do NOT File</div>';
+        return '<div style="position:absolute;left:0;right:0;top:18%;text-align:center;font-size:2rem;font-weight:bold;color:#000;opacity:0.35;pointer-events:none;transform:rotate(-12deg);z-index:0;">Not Updated — Do NOT File</div>';
     }
 
     function printCssW2() {

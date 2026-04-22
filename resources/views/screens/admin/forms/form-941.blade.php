@@ -30,7 +30,7 @@
     font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 </style>
-<div class="container-fluid form-941-wrapper">
+<div class="container-fluid form-941-wrapper custom-form-wrapper">
     <div class="row">
         <div class="col-12">
             <div class="card">

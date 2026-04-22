@@ -23,7 +23,7 @@
     .f941b-screen-toolbar { display: none !important; }
 }
 </style>
-<div class="container-fluid form-941b-wrapper">
+<div class="container-fluid form-941b-wrapper custom-form-wrapper">
     <div class="row">
         <div class="col-12">
             <div class="card">

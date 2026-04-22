@@ -3,14 +3,18 @@
 @push('styles')
 <style>
 .w2-preview-scroll .w2-doc { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+.w2-doc td,
+.w2-doc th {
+    color: #000;
+}
 @media print { .modal-footer .btn-secondary { display: none !important; } }
 </style>
 @endpush
 @section('content')
-<div class="container-fluid w2-forms">
+<div class="container-fluid w2-forms custom-form-wrapper">
     <div class="row">
         <div class="col-12">
-            <div class="card height-equal">
+            <div class="card  height-equal">
                 <div class="card-body basic-wizard">
                     <div id="wizard-step-0" class="wizard-panel">
                         <div class="text-primary small lh-lg mb-0 p-3 rounded">
