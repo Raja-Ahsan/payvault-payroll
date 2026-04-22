@@ -107,8 +107,12 @@ Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function 
 
     Route::get('/checks', [CheckController::class, 'index'])->name('checks.index');
     Route::get('/checks/create', [CheckController::class, 'create'])->name('checks.create');
-    Route::get('/checks/{check}', [CheckController::class, 'show'])->whereNumber('check')->name('checks.show');
-    Route::get('/checks/{check}/edit', [CheckController::class, 'edit'])->whereNumber('check')->name('checks.edit');
+    Route::post('/checks/recalculate', [CheckController::class, 'recalculate'])->name('checks.recalculate');
+    Route::post('/checks', [CheckController::class, 'store'])->name('checks.store');
+    Route::get('/checks/scaffold', [CheckController::class, 'employeeScaffold'])->name('checks.scaffold');
+    Route::get('/checks/employees-for-select', [CheckController::class, 'employeesForSelect'])->name('checks.employees-for-select');
+    Route::get('/checks/{payrollCheck}', [CheckController::class, 'show'])->name('checks.show');
+    Route::get('/checks/{payrollCheck}/edit', [CheckController::class, 'edit'])->name('checks.edit');
 
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
     Route::get('/employees/create', [EmployeeController::class, 'create'])->name('employees.create');

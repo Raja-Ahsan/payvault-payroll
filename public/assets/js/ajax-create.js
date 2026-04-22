@@ -39,7 +39,10 @@ function ajaxCreate(successRedirect = null) {
             },
             success: function (response) {
                 submitBtn.prop('disabled', false).text(btnOriginalText);
-                form[0].reset();
+                const methodOverride = form.find('input[name="_method"]').val();
+                if (methodOverride !== 'PUT' && methodOverride !== 'PATCH') {
+                    form[0].reset();
+                }
 
                 Swal.fire({
                     icon: 'success',

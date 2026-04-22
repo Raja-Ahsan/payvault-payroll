@@ -44,6 +44,11 @@ class Employee extends Model
         return $this->hasMany(EmployeeIncomeCategory::class);
     }
 
+    public function payrollChecks(): HasMany
+    {
+        return $this->hasMany(PayrollCheck::class);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

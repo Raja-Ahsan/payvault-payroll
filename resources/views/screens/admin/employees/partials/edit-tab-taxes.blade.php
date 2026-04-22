@@ -1,7 +1,7 @@
 @php
     $oldInput = session()->get('_old_input', []);
     if (! count($oldInput)) {
-        $selectedTaxCategoryIds = $taxCategories->pluck('id')->all();
+        $selectedTaxCategoryIds = [];
     } elseif (array_key_exists('tax_category_id', $oldInput)) {
         $selectedTaxCategoryIds = (array) ($oldInput['tax_category_id'] ?? []);
     } else {

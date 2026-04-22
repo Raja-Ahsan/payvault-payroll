@@ -84,7 +84,7 @@
 
 @push('scripts')
 <script>
-    ajaxCreate("{{ route('employees.index') }}");
+    ajaxCreate(null);
 
     (function() {
         function syncEmployeeTaxDeductionByIncome() {
