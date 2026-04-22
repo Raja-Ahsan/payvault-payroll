@@ -43,11 +43,11 @@
                                         <select name="address_state_id" id="address_state_id" class="form-control" required>
                                             <option value="" disabled selected>Select state</option>
                                             @foreach ($states ?? [] as $state)
-                                                <option value="{{ $state->id }}">{{ $state->name }}</option>
+                                            <option value="{{ $state->id }}">{{ $state->name }}</option>
                                             @endforeach
                                         </select>
                                         @if (($states ?? collect())->isEmpty())
-                                            <small class="text-danger d-block mt-1">No states in database. Run states seeder.</small>
+                                        <small class="text-danger d-block mt-1">No states in database. Run states seeder.</small>
                                         @endif
                                     </div>
                                 </div>
@@ -98,7 +98,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group mb-3">
                                         <label for="employer_identification_number">Employer Identification Number</label>
-                                        <input type="text" class="form-control" id="employer_identification_number" name="employer_identification_number" required>
+                                        <input type="text" class="form-control" id="employer_identification_number" name="employer_identification_number"
+                                            maxlength="10"
+                                            oninput="formatEIN(this)"
+                                            onblur="validateEIN(this)"
+                                            required>
+                                            @error('employer_identification_number')
+    <small class="text-danger">{{ $message }}</small>
+@enderror
                                     </div>
                                 </div>
                                 <div class="col-md-4">

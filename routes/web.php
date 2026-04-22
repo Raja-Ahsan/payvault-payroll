@@ -1,18 +1,18 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UsersController;
-use App\Http\Controllers\IncomeCategoryController;
-use App\Http\Controllers\TaxCategoryController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DeductionCategoryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IncomeCategoryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackagePurchaseController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\TaxCategoryController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
 // web routes
@@ -110,9 +110,18 @@ Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function 
     Route::delete('/employees/{employee}/delete', [EmployeeController::class, 'delete'])->name('employees.delete');
     Route::get('/forms', [FormController::class, 'index'])->name('admin.forms.index');
     Route::get('/forms/w-2', [FormController::class, 'w2'])->name('admin.forms.w2');
+    Route::post('/forms/w-2/pdf', [FormController::class, 'w2Pdf'])->name('admin.forms.w2.pdf');
+    Route::post('/forms/w-3/pdf', [FormController::class, 'w3Pdf'])->name('admin.forms.w3.pdf');
     Route::get('/forms/940', [FormController::class, 'form940'])->name('admin.forms.940');
     Route::get('/forms/944', [FormController::class, 'form944'])->name('admin.forms.944');
-
+    Route::get('/forms/941', [FormController::class, 'form941'])->name('admin.forms.form-941');
+    Route::post('/forms/941/pdf', [FormController::class, 'form941Pdf'])->name('admin.forms.form-941.pdf');
+    Route::get('/forms/941-x', [FormController::class, 'form941X'])->name('admin.forms.form-941-x');
+    Route::post('/forms/941-x/pdf', [FormController::class, 'form941XPdf'])->name('admin.forms.form-941-x.pdf');
+    Route::get('/forms/941/schedule-b', [FormController::class, 'form941ScheduleB'])->name('admin.forms.form-941-schedule-b');
+    Route::post('/forms/941/schedule-b/pdf', [FormController::class, 'form941ScheduleBPdf'])->name('admin.forms.form-941-schedule-b.pdf');
+    Route::get('/forms/941/schedule-r', [FormController::class, 'form941ScheduleR'])->name('admin.forms.form-941-schedule-r');
+    Route::post('/forms/941/schedule-r/pdf', [FormController::class, 'form941ScheduleRPdf'])->name('admin.forms.form-941-schedule-r.pdf');
 });
 
 Route::prefix('admin')->middleware('auth', 'role:admin|client|employee')->group(function () {

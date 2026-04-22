@@ -4,7 +4,8 @@
 @php
     $formTiles = [
         ['code' => 'W-2', 'label' => 'Wage and Tax Statement', 'href' => route('admin.forms.w2')],
-        ['code' => '941', 'label' => 'Employer\'s Quarterly Federal Tax Return', 'href' => '#'],
+        ['code' => '941', 'label' => 'Employer\'s Quarterly Federal Tax Return', 'href' => route('admin.forms.form-941')],
+        ['code' => '941-X', 'label' => 'Adjusted Employer\'s Quarterly Federal Tax Return or Claim for Refund', 'href' => route('admin.forms.form-941-x')],
         ['code' => '940', 'label' => 'Employer\'s Annual Federal Unemployment (FUTA)', 'href' => route('admin.forms.940')],
         ['code' => '944', 'label' => 'Employer\'s ANNUAL Federal Tax Return', 'href' => route('admin.forms.944')],
         ['code' => 'STATE', 'label' => 'State Reporting', 'href' => '#'],

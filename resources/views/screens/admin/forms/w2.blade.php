@@ -1,5 +1,11 @@
 @section('title', 'W-2 / W-3 Wizard')
 @extends('layouts.admin.master')
+@push('styles')
+<style>
+.w2-preview-scroll .w2-doc { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+@media print { .modal-footer .btn-secondary { display: none !important; } }
+</style>
+@endpush
 @section('content')
 <div class="container-fluid w2-forms">
     <div class="row">
@@ -27,7 +33,7 @@
                         </div>
                         <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
                             <button type="button" class="btn btn-primary px-4" id="btnW2Preview">Preview</button>
-                            <button type="button" class="btn btn-primary px-4" id="btnW2Print">Print</button>
+                            <button type="button" class="btn btn-primary px-4" id="btnW2Print">Download PDF</button>
                             <button type="button" class="btn btn-primary px-4" id="btnOverrideToggle">Override calculations</button>
                         </div>
 
@@ -131,8 +137,8 @@
                         <h5 class="mb-3">W-3 Page</h5>
                         <p class="text-muted small mb-3">After you acknowledge the reminder below, you can preview or print Form W-3 totals (summed from the W-2 entries in this wizard).</p>
                         <div class="d-flex flex-wrap gap-2 mb-3 opacity-50" id="w3Actions" style="pointer-events: none;">
-                            <button type="button" class="btn btn-primary btn-sm" id="btnW3Preview">Preview Form W-3</button>
-                            <button type="button" class="btn btn-primary btn-sm" id="btnW3Print">Print Form W-3</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="btnW3Preview">Preview</button>
+                            <button type="button" class="btn btn-primary btn-sm" id="btnW3Print">Download PDF</button>
                         </div>
                     </div>
                 </div>
@@ -189,10 +195,18 @@
     </x-slot>
 </x-modals.modal>
 
-<x-modals.modal id="w3PreviewModal" title="Preview — Form W-3" size="modal-xl">
-    <div id="w3PreviewMount" class="small font-monospace overflow-auto" style="max-height: 75vh;"></div>
+<x-modals.modal id="w2PreviewModal" title="Preview — Form W-2" size="modal-fullscreen">
+    <div id="w2PreviewMount" class="w2-preview-scroll bg-opacity-10 p-2 p-md-3 small" style="max-height: calc(100vh - 11rem); overflow-y: auto;"></div>
     <x-slot name="footer">
-        <button type="button" class="btn btn-primary" onclick="window.printW3FromPreview && window.printW3FromPreview()">Print</button>
+        <button type="button" class="btn btn-primary" id="w2PreviewPrint">Print</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    </x-slot>
+</x-modals.modal>
+
+<x-modals.modal id="w3PreviewModal" title="Preview — Form W-3" size="modal-fullscreen">
+    <div id="w3PreviewMount" class="w2-preview-scroll bg-opacity-10 p-2 p-md-3 small" style="max-height: calc(100vh - 11rem); overflow-y: auto;"></div>
+    <x-slot name="footer">
+        <button type="button" class="btn btn-primary" id="w3PreviewPrint">Print</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
     </x-slot>
 </x-modals.modal>
@@ -201,6 +215,9 @@
 @push('scripts')
 <script>
 window.__W2_WIZARD_EMPLOYEES = @json($wizardEmployees);
+window.__W2_TAX_YEAR = @json((int) ($w2TaxYear ?? now()->format('Y')));
+window.__W2_PDF_URL = @json(route('admin.forms.w2.pdf'));
+window.__W3_PDF_URL = @json(route('admin.forms.w3.pdf'));
 </script>
 @include('screens.admin.forms.partials.w2-wizard-script')
 @endpush
