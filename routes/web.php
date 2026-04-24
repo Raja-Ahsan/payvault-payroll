@@ -11,6 +11,7 @@ use App\Http\Controllers\IncomeCategoryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\PackagePurchaseController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StateReportingCatalogController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TaxCategoryController;
 use App\Http\Controllers\UsersController;
@@ -119,6 +120,7 @@ Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function 
     Route::post('/employees', [EmployeeController::class, 'store'])->name('employees.store');
     Route::delete('/employees/{employee}/delete', [EmployeeController::class, 'delete'])->name('employees.delete');
     Route::get('/forms', [FormController::class, 'index'])->name('admin.forms.index');
+    Route::get('/forms/state-reporting', [FormController::class, 'stateTaxReporting'])->name('admin.forms.state-reporting');
     Route::get('/forms/w-2', [FormController::class, 'w2'])->name('admin.forms.w2');
     Route::post('/forms/w-2/pdf', [FormController::class, 'w2Pdf'])->name('admin.forms.w2.pdf');
     Route::post('/forms/w-3/pdf', [FormController::class, 'w3Pdf'])->name('admin.forms.w3.pdf');
@@ -142,6 +144,21 @@ Route::prefix('admin')->middleware('auth', 'role:admin|client|employee')->group(
 // admin dashboard routes
 Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+});
+
+Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/forms/state-reporting/catalog', [StateReportingCatalogController::class, 'index'])->name('admin.forms.state-reporting.catalog.index');
+    Route::get('/forms/state-reporting/catalog/tax-types/create', [StateReportingCatalogController::class, 'createTaxType'])->name('admin.forms.state-reporting.catalog.tax-types.create');
+    Route::post('/forms/state-reporting/catalog/tax-types', [StateReportingCatalogController::class, 'storeTaxType'])->name('admin.forms.state-reporting.catalog.tax-types.store');
+    Route::get('/forms/state-reporting/catalog/tax-types/{taxType}/edit', [StateReportingCatalogController::class, 'editTaxType'])->name('admin.forms.state-reporting.catalog.tax-types.edit');
+    Route::put('/forms/state-reporting/catalog/tax-types/{taxType}', [StateReportingCatalogController::class, 'updateTaxType'])->name('admin.forms.state-reporting.catalog.tax-types.update');
+    Route::delete('/forms/state-reporting/catalog/tax-types/{taxType}', [StateReportingCatalogController::class, 'destroyTaxType'])->name('admin.forms.state-reporting.catalog.tax-types.destroy');
+    Route::get('/forms/state-reporting/catalog/tax-types/{taxType}/methods', [StateReportingCatalogController::class, 'methodsIndex'])->name('admin.forms.state-reporting.catalog.methods.index');
+    Route::get('/forms/state-reporting/catalog/tax-types/{taxType}/methods/create', [StateReportingCatalogController::class, 'createMethod'])->name('admin.forms.state-reporting.catalog.methods.create');
+    Route::post('/forms/state-reporting/catalog/tax-types/{taxType}/methods', [StateReportingCatalogController::class, 'storeMethod'])->name('admin.forms.state-reporting.catalog.methods.store');
+    Route::get('/forms/state-reporting/catalog/tax-types/{taxType}/methods/{method}/edit', [StateReportingCatalogController::class, 'editMethod'])->name('admin.forms.state-reporting.catalog.methods.edit');
+    Route::put('/forms/state-reporting/catalog/tax-types/{taxType}/methods/{method}', [StateReportingCatalogController::class, 'updateMethod'])->name('admin.forms.state-reporting.catalog.methods.update');
+    Route::delete('/forms/state-reporting/catalog/tax-types/{taxType}/methods/{method}', [StateReportingCatalogController::class, 'destroyMethod'])->name('admin.forms.state-reporting.catalog.methods.destroy');
 });
 
 require __DIR__.'/auth.php';
