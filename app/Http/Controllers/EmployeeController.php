@@ -334,6 +334,8 @@ class EmployeeController extends Controller
         $this->ensureEmployeeAccessible($employee);
 
         DB::transaction(function () use ($employee): void {
+            $employee->loadMissing('detail');
+            $employee->detail?->delete();
             $employee->delete();
         });
 
