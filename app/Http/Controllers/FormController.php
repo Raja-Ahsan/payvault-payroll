@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Company;
 use App\Models\Employee;
 use App\Models\State;
+use App\Models\StateReportingTaxType;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,6 +18,153 @@ class FormController extends Controller
     public function index(): View
     {
         return view('screens.admin.forms.index');
+    }
+
+    public function stateTaxReporting(): View
+    {
+        abort_if(userHasRole('employee'), 403);
+
+        $states = State::query()->orderBy('name')->get();
+        $wizardTableEmployees = $this->employeesForStateTaxReportingStep();
+        $stateReportingEmployeeCounts = $this->stateReportingEmployeeCountsByStateCode();
+        $amountsForYear = (int) now()->format('Y');
+
+        $stateReportingConfig = StateReportingTaxType::query()
+            ->where('is_active', true)
+            ->with(['methodOptions' => function ($query) {
+                $query->where('is_active', true)->orderBy('sort_order');
+            }])
+            ->orderBy('state_code')
+            ->orderBy('sort_order')
+            ->get()
+            ->map(static function (StateReportingTaxType $t) {
+                return [
+                    'id' => $t->id,
+                    'state_code' => $t->state_code,
+                    'slug' => $t->slug,
+                    'label' => $t->label,
+                    'methods' => $t->methodOptions->map(static function ($m) {
+                        return [
+                            'id' => $m->id,
+                            'slug' => $m->slug,
+                            'label' => $m->label,
+                            'description' => $m->description,
+                            'link_text' => $m->link_text,
+                            'flow_kind' => $m->flow_kind,
+                            'meta' => $m->meta,
+                        ];
+                    })->values()->all(),
+                ];
+            })->values()->all();
+
+        return view('screens.admin.forms.state-tax-reporting', [
+            'states' => $states,
+            'wizardTableEmployees' => $wizardTableEmployees,
+            'stateReportingEmployeeCounts' => $stateReportingEmployeeCounts,
+            'amountsForYear' => $amountsForYear,
+            'stateReportingConfig' => $stateReportingConfig,
+        ]);
+    }
+
+    /**
+     * Uppercase state code => count of in-scope, active employees tied to that state
+     * (address on file or state withholding on employee details).
+     *
+     * @return array<string, int>
+     */
+    private function stateReportingEmployeeCountsByStateCode(): array
+    {
+        $out = [];
+        $states = State::query()->orderBy('name')->get();
+        foreach ($states as $state) {
+            $id = (int) $state->id;
+            $base = $this->baseQueryEmployeesForStateReporting();
+            $n = $base
+                ->where(function ($w) use ($id) {
+                    $w->where('state_id', $id)
+                        ->orWhereHas('detail', function ($d) use ($id) {
+                            $d->where('withholding_state_id', $id);
+                        });
+                })
+                ->count();
+            $out[strtoupper((string) $state->code)] = $n;
+        }
+
+        return $out;
+    }
+
+    private function baseQueryEmployeesForStateReporting(): Builder
+    {
+        return Employee::query()
+            ->where('inactive', false)
+            ->when(! userHasRole('admin'), function ($query) {
+                $query->whereHas('company', fn ($q) => $q->where('user_id', auth()->id()));
+            });
+    }
+
+    /**
+     * @return list<array{
+     *     id: int,
+     *     full_name: string,
+     *     ssn: string,
+     *     first_name: string,
+     *     middle_initial: string,
+     *     last_name: string,
+     *     phone: string,
+     *     email: string,
+     *     include_in_state_reporting: bool
+     * }>
+     */
+    private function employeesForStateTaxReportingStep(): array
+    {
+        $employees = Employee::query()
+            ->with('company')
+            ->where('inactive', false)
+            ->when(! userHasRole('admin'), function ($query) {
+                $query->whereHas('company', fn ($q) => $q->where('user_id', auth()->id()));
+            })
+            ->orderBy('last_name')
+            ->orderBy('first_name')
+            ->get();
+
+        $rows = $employees->map(function (Employee $e) {
+            $fn = trim((string) ($e->first_name ?? ''));
+            $ln = trim((string) ($e->last_name ?? ''));
+            $middleRaw = trim((string) ($e->middle_name ?? ''));
+            $mi = $middleRaw !== '' ? mb_strtoupper(mb_substr($middleRaw, 0, 1)) : '';
+            $nameParts = array_filter([$fn, $mi, $ln], static fn (string $p) => $p !== '');
+            $full = $nameParts !== [] ? implode(' ', $nameParts) : 'Employee #'.$e->id;
+
+            return [
+                'id' => (int) $e->id,
+                'full_name' => $full,
+                'ssn' => (string) ($e->ssn !== null && $e->ssn !== '' ? $e->ssn : '—'),
+                'first_name' => $fn,
+                'middle_initial' => $mi,
+                'last_name' => $ln,
+                'phone' => (string) ($e->phone ?? ''),
+                'email' => (string) ($e->email ?? ''),
+                'include_in_state_reporting' => true,
+            ];
+        })->values()->all();
+
+        if ($rows === []) {
+            return [
+                [
+                    'id' => 0,
+                    'full_name' => 'George B Orange',
+                    'ssn' => '123-45-6788',
+                    'first_name' => 'George',
+                    'middle_initial' => 'B',
+                    'last_name' => 'Orange',
+                    'phone' => '',
+                    'email' => '',
+                    'include_in_state_reporting' => true,
+                ],
+            ];
+        }
+
+        return $rows;
     }
 
     public function w2(): View

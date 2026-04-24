@@ -8,7 +8,7 @@
         ['code' => '941-X', 'label' => 'Adjusted Employer\'s Quarterly Federal Tax Return or Claim for Refund', 'href' => route('admin.forms.form-941-x')],
         ['code' => '940', 'label' => 'Employer\'s Annual Federal Unemployment (FUTA)', 'href' => route('admin.forms.940')],
         ['code' => '944', 'label' => 'Employer\'s ANNUAL Federal Tax Return', 'href' => route('admin.forms.944')],
-        ['code' => 'STATE', 'label' => 'State Reporting', 'href' => '#'],
+        ['code' => 'STATE', 'label' => 'State Reporting', 'href' => route('admin.forms.state-reporting')],
         ['code' => '943', 'label' => 'Annual Fed. Tax Return for Agricultural Employees', 'href' => '#'],
     ];
 @endphp
@@ -21,6 +21,11 @@
                     <p class="text-muted small mb-0 mt-2">Federal and state payroll tax forms. Select a form to open its workspace (coming soon).</p>
                 </div> -->
                 <div class="card-body pt-4">
+                    @if (auth()->user()?->hasRole('admin'))
+                        <div class="text-end mb-3">
+                            <a href="{{ route('admin.forms.state-reporting.catalog.index') }}" class="btn btn-sm btn-outline-secondary">State reporting catalog</a>
+                        </div>
+                    @endif
                     <div class="row g-4">
                         @foreach ($formTiles as $tile)
                             <div class="col-md-6">
