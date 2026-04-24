@@ -1,12 +1,6 @@
 @php
-    $oldInput = session()->get('_old_input', []);
-    if (! count($oldInput)) {
-        $selectedTaxCategoryIds = [];
-    } elseif (array_key_exists('tax_category_id', $oldInput)) {
-        $selectedTaxCategoryIds = (array) ($oldInput['tax_category_id'] ?? []);
-    } else {
-        $selectedTaxCategoryIds = [];
-    }
+    $savedTaxIds = $employee?->taxCategories?->pluck('id')->map(fn ($id) => (string) $id)->all() ?? [];
+    $selectedTaxCategoryIds = (array) old('tax_category_id', $savedTaxIds);
 @endphp
 <div class="col-12">
     <div id="employee-wizard-tax-list" class="justify-content-between mb-3">

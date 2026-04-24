@@ -46,6 +46,7 @@ class EmployeeController extends Controller
             'state',
             'detail.withholdingState',
             'incomeCategories.incomeCategory.incomeType',
+            'taxCategories',
         ]);
 
         return view('screens.admin.employees.show', compact('employee'));
@@ -71,7 +72,7 @@ class EmployeeController extends Controller
     {
         $this->ensureEmployeeAccessible($employee);
 
-        $employee->load(['detail', 'incomeCategories.incomeCategory', 'state', 'company']);
+        $employee->load(['detail', 'incomeCategories.incomeCategory', 'state', 'company', 'taxCategories']);
         $incomeCategoriesTypes = IncomeType::with('categories')->get();
         $taxCategories = TaxCategory::all();
         $deductionCategories = DeductionCategory::with('incomeType')->get();
@@ -167,6 +168,7 @@ class EmployeeController extends Controller
         $inviteUserForMail = null;
 
         DB::transaction(function () use (
+            $request,
             $employeeFields,
             $detailFields,
             $incomeRows,
@@ -202,6 +204,8 @@ class EmployeeController extends Controller
                     'amount' => $row['amount'],
                 ]);
             }
+
+            $employee->taxCategories()->sync($this->taxCategoryIdsFromRequest($request));
         });
 
         if ($plainInvitePassword !== null && $inviteUserForMail !== null) {
@@ -292,7 +296,7 @@ class EmployeeController extends Controller
             ];
         }
 
-        DB::transaction(function () use ($employee, $employeeFields, $detailFields, $incomeRows): void {
+        DB::transaction(function () use ($request, $employee, $employeeFields, $detailFields, $incomeRows): void {
             $employee->update($employeeFields);
 
             $detailFields['employee_id'] = $employee->id;
@@ -311,6 +315,8 @@ class EmployeeController extends Controller
                     'amount' => $row['amount'],
                 ]);
             }
+
+            $employee->taxCategories()->sync($this->taxCategoryIdsFromRequest($request));
         });
 
         return response()->json([
@@ -358,6 +364,14 @@ class EmployeeController extends Controller
             $employee->company && (int) $employee->company->user_id === (int) auth()->id(),
             403
         );
+    }
+
+    /**
+     * @return array<int, int>
+     */
+    private function taxCategoryIdsFromRequest(StoreEmployeeRequest $request): array
+    {
+        return array_values(array_unique(array_filter(array_map('intval', (array) $request->input('tax_category_id', [])))));
     }
 
     /**

@@ -668,6 +668,18 @@
                 setByName('summary[ytd][total_taxes]', sy.total_taxes);
                 setByName('summary[ytd][total_deductions]', sy.total_deductions);
                 setByName('summary[ytd][net_pay]', sy.net_pay);
+                const leave = data.leave || {};
+                const leaveKeys = [
+                    'vacation_hours_earned',
+                    'vacation_hours_used',
+                    'sick_hours_earned',
+                    'sick_hours_used',
+                ];
+                leaveKeys.forEach(function (k) {
+                    const row = leave[k] || {};
+                    setByName('leave[' + k + '][amount]', row.amount);
+                    setByName('leave[' + k + '][ytd]', row.ytd);
+                });
                 showWarnings(data.warnings || []);
             }
 
@@ -763,6 +775,7 @@
                     if (n.indexOf('income[') === 0) return true;
                     if (n.indexOf('taxes[') === 0 && n.indexOf('][amount]') !== -1) return true;
                     if (n.indexOf('deductions[') === 0 && n.indexOf('][amount]') !== -1) return true;
+                    if (n.indexOf('leave[') === 0 && n.indexOf('][amount]') !== -1) return true;
                     if (n === 'pay_date' || n === 'period_begin_date' || n === 'period_end_date' || n === 'check_number') {
                         return true;
                     }

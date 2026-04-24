@@ -26,6 +26,13 @@ class PayrollCheckCalculationRequest extends FormRequest
             'check_memo' => ['nullable', 'string', 'max:2000'],
             'income' => ['nullable', 'array'],
             'deductions' => ['nullable', 'array'],
+
+            /* Needed so FormRequest::validated() keeps these trees (otherwise the calculator never sees form overrides). */
+            'taxes' => ['nullable', 'array'],
+            'leave' => ['nullable', 'array'],
+            'obb' => ['nullable', 'array'],
+            'other' => ['nullable', 'array'],
+            'summary' => ['nullable', 'array'],
         ];
     }
 }

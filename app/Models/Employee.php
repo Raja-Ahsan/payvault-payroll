@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -42,6 +43,14 @@ class Employee extends Model
     public function incomeCategories(): HasMany
     {
         return $this->hasMany(EmployeeIncomeCategory::class);
+    }
+
+    public function taxCategories(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            TaxCategory::class,
+            'employee_tax_category',
+        )->withTimestamps();
     }
 
     public function payrollChecks(): HasMany

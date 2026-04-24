@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TaxCategory extends Model
 {
@@ -34,6 +35,14 @@ class TaxCategory extends Model
             'income_category_taxes',
             'tax_category_id',
             'income_category_id'
+        )->withTimestamps();
+    }
+
+    public function employees(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Employee::class,
+            'employee_tax_category',
         )->withTimestamps();
     }
 }

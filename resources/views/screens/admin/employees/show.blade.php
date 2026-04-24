@@ -143,7 +143,14 @@
                                     <div class="col-md-4 mb-2"><span class="text-muted">SS &amp; Med. (employer)</span><br><strong>{{ $yn($d->tax_zero_ss_med_employer) }}</strong></div>
                                 </div>
                             @endif
-                            <!-- <p class="text-muted mb-0">Tax category checkbox selections from the employee form are not stored in the database yet. Federal and state withholding shown under Tax Setup reflects saved detail.</p> -->
+                            @if ($employee->taxCategories?->isNotEmpty())
+                                <h5 class="border-bottom pb-2 mb-3">Taxes (checklist)</h5>
+                                <ul class="mb-0">
+                                    @foreach ($employee->taxCategories->sortBy('title') as $t)
+                                        <li>{{ $t->title }}</li>
+                                    @endforeach
+                                </ul>
+                            @endif
                         </div>
 
                         <div class="tab-pane fade" id="employee-show-deductions" role="tabpanel" aria-labelledby="employee-show-deductions-tab" tabindex="0">

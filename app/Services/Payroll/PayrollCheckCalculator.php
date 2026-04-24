@@ -11,6 +11,9 @@ class PayrollCheckCalculator
 {
     public const INCOME_SLOTS = ['regular_hourly', 'overtime_hourly', 'yearly_salary', 'double_time'];
 
+    /** @var list<string> */
+    public const LEAVE_KEYS = ['vacation_hours_earned', 'vacation_hours_used', 'sick_hours_earned', 'sick_hours_used'];
+
     /**
      * @param  array<string, mixed>  $payload
      * @return array<string, mixed>
@@ -188,9 +191,33 @@ class PayrollCheckCalculator
                     'net_pay' => $this->fmt($prior['net_ytd'] + $netPay),
                 ],
             ],
+            'leave' => $this->mapLeaveForResponse($payload, $prior['leave_ytd_before'] ?? array_fill_keys(self::LEAVE_KEYS, 0.0)),
             'warnings' => $warnings,
             'persistable' => $persistable,
         ];
+    }
+
+    /**
+     * @param  array<string, float>  $leaveYtdBefore
+     * @return array<string, array{amount: string, ytd: string}>
+     */
+    private function mapLeaveForResponse(array $payload, array $leaveYtdBefore): array
+    {
+        $out = [];
+        $leave = (array) ($payload['leave'] ?? []);
+        foreach (self::LEAVE_KEYS as $key) {
+            $row = (array) ($leave[$key] ?? []);
+            $rawAmount = $row['amount'] ?? null;
+            $amount = ($rawAmount === null || $rawAmount === '') ? 0.0 : (float) $rawAmount;
+            $amount = round(max(0.0, $amount), 2);
+            $before = (float) ($leaveYtdBefore[$key] ?? 0.0);
+            $out[$key] = [
+                'amount' => $this->fmt($amount),
+                'ytd' => $this->fmt($before + $amount),
+            ];
+        }
+
+        return $out;
     }
 
     /**
@@ -343,10 +370,21 @@ class PayrollCheckCalculator
         $futaTaxableCumulative = (float) $filtered->sum('futa_taxable_wages');
 
         $incomeYtd = array_fill_keys(self::INCOME_SLOTS, 0.0);
+        $leaveYtdBefore = array_fill_keys(self::LEAVE_KEYS, 0.0);
         foreach ($filtered as $c) {
             $br = $c->income_breakdown ?? [];
             foreach (self::INCOME_SLOTS as $slot) {
                 $incomeYtd[$slot] += (float) data_get($br, "{$slot}.amount", 0);
+            }
+            $preview = $c->check_preview;
+            if (is_array($preview) && ! empty($preview['leave']) && is_array($preview['leave'])) {
+                foreach (self::LEAVE_KEYS as $leaveKey) {
+                    $leaveYtdBefore[$leaveKey] += (float) data_get(
+                        $preview['leave'],
+                        $leaveKey.'.amount',
+                        0
+                    );
+                }
             }
         }
 
@@ -370,6 +408,7 @@ class PayrollCheckCalculator
             'deduction_all_ytd' => (float) $filtered->sum('total_deductions'),
             'employee_all_taxes_ytd' => (float) $filtered->sum('employee_taxes_total'),
             'net_ytd' => (float) $filtered->sum('net_pay'),
+            'leave_ytd_before' => $leaveYtdBefore,
         ];
     }
 
