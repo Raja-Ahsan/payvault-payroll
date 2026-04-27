@@ -9,7 +9,6 @@
         ['code' => '940', 'label' => 'Employer\'s Annual Federal Unemployment (FUTA)', 'href' => route('admin.forms.940')],
         ['code' => '944', 'label' => 'Employer\'s ANNUAL Federal Tax Return', 'href' => route('admin.forms.944')],
         ['code' => 'STATE', 'label' => 'State Reporting', 'href' => route('admin.forms.state-reporting')],
-        ['code' => '943', 'label' => 'Annual Fed. Tax Return for Agricultural Employees', 'href' => '#'],
     ];
 @endphp
 <div class="container-fluid user-list-wrapper">

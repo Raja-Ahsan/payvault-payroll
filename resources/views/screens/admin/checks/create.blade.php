@@ -13,8 +13,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card height-equal mb-3">
-                    <div class="card-header card-no-border d-flex flex-wrap align-items-end justify-content-between gap-3">
-                        <h2 class="form-heading mb-0">Check Details</h2>
+                    <div class="card-header card-no-border d-flex justify-content-end justify-content-end">
                         <button type="button" class="btn btn-primary f-w-500" id="check-recalculate">Recalculate</button>
                     </div>
                     <div class="card-body pt-2">
@@ -32,7 +31,7 @@
                                 <div class="form-group mb-0">
                                     <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap">
                                         <label class="form-label mb-0" for="employee_id">Employee</label>
-                                        <button type="button" class="btn btn-link btn-sm py-0 px-0 small" id="check-refresh-employees" title="Reload employee list from server">Refresh list</button>
+                                        <!-- <button type="button" class="btn btn-link btn-sm py-0 px-0 small" id="check-refresh-employees" title="Reload employee list from server">Refresh list</button> -->
                                     </div>
                                     <select class="form-control" name="employee_id" id="employee_id">
                                         <option value="">Select employee</option>
