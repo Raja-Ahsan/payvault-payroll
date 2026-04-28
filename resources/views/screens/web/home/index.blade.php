@@ -7,7 +7,7 @@
 <section class="hero-section" style="background-image: url('{{ asset('images/hero-bg-image.png') }}');">
             <div class="container">
                 <h2 class="text-[var(--text-color)] text-[30px] md:text-[48px] font-bold leading-tight mb-4">
-                    Do It Yourself Payroll
+                    Do It Yourself Payroll solutions
                 </h2>
                 <p class="text-[var(--text-color)] text-lg md:text-xl font-normal mb-10 max-w-lg">
                     Accurate payroll processing with secure employee access and approvals.
