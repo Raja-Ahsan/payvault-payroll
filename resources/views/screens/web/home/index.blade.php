@@ -14,7 +14,7 @@
                 </p>
                 <div class="flex">
                     <a href="{{ url('/#pricing') }}" class="primary-btn">
-                        View Pricings
+                        View Pricingss
                     </a>
                 </div>
             </div>

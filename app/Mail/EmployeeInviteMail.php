@@ -35,7 +35,7 @@ class EmployeeInviteMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.employee-invite',
+            view: 'emails.employee-invite',
         );
     }
 
