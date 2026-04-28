@@ -15,6 +15,9 @@ use App\Http\Controllers\StateReportingCatalogController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\TaxCategoryController;
 use App\Http\Controllers\UsersController;
+use App\Mail\EmployeeInviteMail;
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 // web routes
@@ -164,6 +167,22 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/forms/state-reporting/catalog/tax-types/{taxType}/methods/{method}/edit', [StateReportingCatalogController::class, 'editMethod'])->name('admin.forms.state-reporting.catalog.methods.edit');
     Route::put('/forms/state-reporting/catalog/tax-types/{taxType}/methods/{method}', [StateReportingCatalogController::class, 'updateMethod'])->name('admin.forms.state-reporting.catalog.methods.update');
     Route::delete('/forms/state-reporting/catalog/tax-types/{taxType}/methods/{method}', [StateReportingCatalogController::class, 'destroyMethod'])->name('admin.forms.state-reporting.catalog.methods.destroy');
+});
+
+Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function () {
+    Route::get('/preview/mail/employee-invite', function () {
+        $company = Company::query()
+            ->when(! userHasRole('admin'), fn ($q) => $q->where('user_id', auth()->id()))
+            ->orderBy('id')
+            ->first() ?? new Company(['company_name' => 'DIY Payroll Solutions']);
+
+        $user = new User([
+            'name' => 'Demo Employee',
+            'email' => 'employee@example.com',
+        ]);
+
+        return (new EmployeeInviteMail($company, $user, 'password123'))->render();
+    })->name('preview.mail.employee-invite');
 });
 
 require __DIR__.'/auth.php';
