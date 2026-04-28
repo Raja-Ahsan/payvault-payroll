@@ -1,10 +1,36 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Employee Invite</title>
+
+    <style>
+        .primary-btn {
+            background: linear-gradient(to right, #1D5C24, #348C31);
+            color: #ffffff;
+            padding: 12px 32px;
+            /* py-3 px-8 */
+            border-radius: 12px;
+            /* rounded-xl */
+            font-weight: 600;
+            /* font-semibold */
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            /* shadow-lg */
+            transition: all 0.3s ease;
+            font-family: 'Sofia-Pro-SemiBold', sans-serif !important;
+            text-decoration: none;
+        }
+
+        .primary-btn:hover {
+            box-shadow: 0 10px 20px rgba(20, 83, 45, 0.2);
+            /* green shadow */
+            transform: scale(1.05);
+        }
+    </style>
 </head>
+
 <body style="margin:0;background:#f5f7fb;font-family:Arial,Helvetica,sans-serif;color:#111827;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#f5f7fb;padding:24px 0;">
         <tr>
@@ -46,7 +72,7 @@
                     </tr>
                     <tr>
                         <td align="center" style="padding:6px 28px 18px;">
-                            <a href="{{ $loginUrl }}" style="display:inline-block;background:#2563eb;color:#ffffff;text-decoration:none;padding:10px 18px;border-radius:6px;font-size:14px;font-weight:600;">
+                            <a href="{{ $loginUrl }}" class="primary-btn">
                                 Sign in
                             </a>
                         </td>
@@ -66,4 +92,5 @@
         </tr>
     </table>
 </body>
+
 </html>
