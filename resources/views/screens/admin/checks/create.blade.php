@@ -132,6 +132,40 @@
                                                 <td><input type="number" step="0.01" class="form-control form-control-sm"
                                                         name="income[overtime_hourly][ytd]" value="" readonly></td>
                                             </tr>
+                                            <tr>
+                                                <td>Yearly salary</td>
+                                                <td><input type="number" step="0.0001" class="form-control form-control-sm"
+                                                        name="income[yearly_salary][rate]" value=""></td>
+                                                <td>
+                                                    <select class="form-control form-control-sm" name="income[yearly_salary][pay_type]">
+                                                        <option value="per_hour">Per hour</option>
+                                                        <option value="per_year" selected>Per year</option>
+                                                    </select>
+                                                </td>
+                                                <td><input type="number" step="0.01" class="form-control form-control-sm"
+                                                        name="income[yearly_salary][quantity]" value=""></td>
+                                                <td><input type="number" step="0.01" class="form-control form-control-sm"
+                                                        name="income[yearly_salary][amount]" value=""></td>
+                                                <td><input type="number" step="0.01" class="form-control form-control-sm"
+                                                        name="income[yearly_salary][ytd]" value="" readonly></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Double-time</td>
+                                                <td><input type="number" step="0.0001" class="form-control form-control-sm"
+                                                        name="income[double_time][rate]" value=""></td>
+                                                <td>
+                                                    <select class="form-control form-control-sm" name="income[double_time][pay_type]">
+                                                        <option value="per_hour" selected>Per hour</option>
+                                                        <option value="per_year">Per year</option>
+                                                    </select>
+                                                </td>
+                                                <td><input type="number" step="0.01" class="form-control form-control-sm"
+                                                        name="income[double_time][quantity]" value=""></td>
+                                                <td><input type="number" step="0.01" class="form-control form-control-sm"
+                                                        name="income[double_time][amount]" value=""></td>
+                                                <td><input type="number" step="0.01" class="form-control form-control-sm"
+                                                        name="income[double_time][ytd]" value="" readonly></td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -471,7 +505,7 @@
 @push('scripts')
     <script>
         (function () {
-            const INCOME_SLOTS = ['regular_hourly', 'overtime_hourly'];
+            const INCOME_SLOTS = ['regular_hourly', 'overtime_hourly', 'yearly_salary', 'double_time'];
             const scaffoldUrl = @json($checkScaffoldUrl ?? '');
             const recalculateUrl = @json($checkRecalculateUrl ?? '');
             const storeUrl = @json($checkStoreUrl ?? '');
@@ -488,6 +522,22 @@
                     incomeRecalcTimer = null;
                     recalculateFetch({ skipDateWarnings: true });
                 }, 350);
+            }
+
+            function syncYearlySalaryQuantityField() {
+                const paySel = document.querySelector('select[name="income[yearly_salary][pay_type]"]');
+                const qty = document.querySelector('input[name="income[yearly_salary][quantity]"]');
+                if (!paySel || !qty) return;
+                const perYear = paySel.value === 'per_year';
+                qty.readOnly = perYear;
+                qty.classList.toggle('text-muted', perYear);
+                qty.tabIndex = perYear ? -1 : 0;
+                if (perYear) {
+                    qty.value = '';
+                    qty.setAttribute('title', 'Yearly: Rate is full annual gross ÷ pay periods (quantity is not used).');
+                } else {
+                    qty.removeAttribute('title');
+                }
             }
 
             function setByName(name, value) {
@@ -521,10 +571,11 @@
                     setByName('income[' + slot + '][amount]', '');
                     setByName('income[' + slot + '][ytd]', '');
                     const sel = document.getElementsByName('income[' + slot + '][pay_type]')[0];
-                    if (sel) sel.value = 'per_hour';
+                    if (sel) sel.value = slot === 'yearly_salary' ? 'per_year' : 'per_hour';
                 });
                 const memo = document.getElementById('check_memo');
                 if (memo) memo.value = '';
+                syncYearlySalaryQuantityField();
             }
 
             function applyIncomeSlot(slot, row) {
@@ -535,6 +586,7 @@
                 setByName('income[' + slot + '][quantity]', row.quantity);
                 setByName('income[' + slot + '][amount]', row.amount);
                 setByName('income[' + slot + '][ytd]', row.ytd);
+                syncYearlySalaryQuantityField();
             }
 
             function hideWarnings() {
@@ -573,6 +625,7 @@
                     setByName('income[' + slot + '][amount]', row.amount);
                     setByName('income[' + slot + '][ytd]', row.ytd);
                 });
+                syncYearlySalaryQuantityField();
                 const te = (data.taxes || {}).employee || {};
                 const keys = [
                     ['federal_income', 'taxes[employee][federal_income]'],
@@ -735,6 +788,9 @@
                 formEl.addEventListener('change', function (e) {
                     const el = e.target;
                     if (!el || !el.name) return;
+                    if (el.name === 'income[yearly_salary][pay_type]') {
+                        syncYearlySalaryQuantityField();
+                    }
                     if (el.tagName === 'SELECT' && el.name.indexOf('income[') === 0) {
                         scheduleRecalcFromIncome();
                         return;
@@ -743,6 +799,7 @@
                         scheduleRecalcFromIncome();
                     }
                 });
+                syncYearlySalaryQuantityField();
             })();
 
             function applyScaffold(data) {
@@ -762,6 +819,8 @@
                 const inc = data.income || {};
                 applyIncomeSlot('regular_hourly', inc.regular_hourly);
                 applyIncomeSlot('overtime_hourly', inc.overtime_hourly);
+                applyIncomeSlot('yearly_salary', inc.yearly_salary);
+                applyIncomeSlot('double_time', inc.double_time);
 
                 const lp = data.leave_policy || {};
                 if (Object.keys(lp).length) {
@@ -837,7 +896,7 @@
                     INCOME_SLOTS.forEach(function (slot) {
                         setByName('income[' + slot + '][rate]', '');
                         const sel = document.getElementsByName('income[' + slot + '][pay_type]')[0];
-                        if (sel) sel.value = 'per_hour';
+                        if (sel) sel.value = slot === 'yearly_salary' ? 'per_year' : 'per_hour';
                     });
                     return;
                 }

@@ -13,6 +13,8 @@ class EmployeeCheckScaffoldService
     private const INCOME_SLOT_BY_TITLE = [
         'regular hourly pay' => 'regular_hourly',
         'overtime hourly pay' => 'overtime_hourly',
+        'yearly salary' => 'yearly_salary',
+        'double-time' => 'double_time',
     ];
 
     /**
@@ -96,6 +98,8 @@ class EmployeeCheckScaffoldService
         return [
             'regular_hourly' => $blank,
             'overtime_hourly' => $blank,
+            'yearly_salary' => array_replace($blank, ['pay_type' => 'per_year']),
+            'double_time' => $blank,
         ];
     }
 

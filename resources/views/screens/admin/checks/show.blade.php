@@ -19,6 +19,8 @@
     $incomeTitles = [
         'regular_hourly' => 'Regular hourly pay',
         'overtime_hourly' => 'Overtime hourly pay',
+        'yearly_salary' => 'Yearly salary',
+        'double_time' => 'Double-time',
     ];
     $payTypeLabel = static function (?string $t): string {
         return $t === 'per_year' ? 'Per year' : 'Per hour';

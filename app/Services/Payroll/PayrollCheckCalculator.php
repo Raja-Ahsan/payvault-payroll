@@ -9,7 +9,7 @@ use Carbon\CarbonInterface;
 
 class PayrollCheckCalculator
 {
-    public const INCOME_SLOTS = ['regular_hourly', 'overtime_hourly'];
+    public const INCOME_SLOTS = ['regular_hourly', 'overtime_hourly', 'yearly_salary', 'double_time'];
 
     /** @var list<string> */
     public const LEAVE_KEYS = ['vacation_hours_earned', 'vacation_hours_used', 'sick_hours_earned', 'sick_hours_used'];
