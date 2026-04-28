@@ -7,21 +7,29 @@ use App\Models\Employee;
 use App\Models\PayrollCheck;
 use App\Services\Payroll\EmployeeCheckScaffoldService;
 use App\Services\Payroll\PayrollCheckCalculator;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class CheckController extends Controller
 {
     public function index(): View
     {
-        $checks = PayrollCheck::query()
-            ->with(['employee'])
-            ->when(! userHasRole('admin'), function ($query) {
-                $query->whereHas('employee.company', fn ($q) => $q->where('user_id', auth()->id()));
-            })
+        $checksQuery = PayrollCheck::query()->with(['employee']);
+
+        if (! userHasRole('admin')) {
+            if (userHasRole('employee')) {
+                $checksQuery->whereHas('employee', fn ($q) => $q->where('user_id', auth()->id()));
+            } else {
+                $checksQuery->whereHas('employee.company', fn ($q) => $q->where('user_id', auth()->id()));
+            }
+        }
+
+        $checks = $checksQuery
             ->orderByDesc('pay_date')
             ->orderByDesc('id')
             ->limit(200)
@@ -103,6 +111,16 @@ class CheckController extends Controller
         $this->ensurePayrollCheckAccessible($payrollCheck);
 
         return view('screens.admin.checks.show', ['check' => $payrollCheck]);
+    }
+
+    public function downloadPdf(PayrollCheck $payrollCheck): Response
+    {
+        $payrollCheck->load(['employee', 'company']);
+        $this->ensurePayrollCheckAccessible($payrollCheck);
+
+        return Pdf::loadView('pdf.payroll-check', ['check' => $payrollCheck])
+            ->setPaper('letter', 'portrait')
+            ->download('Payroll-Check-'.$payrollCheck->check_number.'.pdf');
     }
 
     public function edit(PayrollCheck $payrollCheck): View

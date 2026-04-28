@@ -106,13 +106,14 @@ Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function 
     Route::put('/categories/deduction/{deductionCategory}/update', [DeductionCategoryController::class, 'update'])->name('categories.deduction.update');
     Route::delete('/categories/deduction/{deductionCategory}/delete', [DeductionCategoryController::class, 'delete'])->name('categories.deduction.delete');
 
-    Route::get('/checks', [CheckController::class, 'index'])->name('checks.index');
+    // Route::get('/checks', [CheckController::class, 'index'])->name('checks.index');
     Route::get('/checks/create', [CheckController::class, 'create'])->name('checks.create');
     Route::post('/checks/recalculate', [CheckController::class, 'recalculate'])->name('checks.recalculate');
     Route::post('/checks', [CheckController::class, 'store'])->name('checks.store');
     Route::get('/checks/scaffold', [CheckController::class, 'employeeScaffold'])->name('checks.scaffold');
     Route::get('/checks/employees-for-select', [CheckController::class, 'employeesForSelect'])->name('checks.employees-for-select');
-    Route::get('/checks/{payrollCheck}', [CheckController::class, 'show'])->name('checks.show');
+    
+    
     Route::get('/checks/{payrollCheck}/edit', [CheckController::class, 'edit'])->name('checks.edit');
 
     Route::get('/employees', [EmployeeController::class, 'index'])->name('employees.index');
@@ -136,10 +137,14 @@ Route::prefix('admin')->middleware('auth', 'role:admin|client')->group(function 
     Route::post('/forms/941/schedule-r/pdf', [FormController::class, 'form941ScheduleRPdf'])->name('admin.forms.form-941-schedule-r.pdf');
 });
 
+
 Route::prefix('admin')->middleware('auth', 'role:admin|client|employee')->group(function () {
     Route::get('/employees/{employee}', [EmployeeController::class, 'show'])->name('employees.show');
     Route::get('/employees/{employee}/edit', [EmployeeController::class, 'edit'])->name('employees.edit');
     Route::put('/employees/{employee}/update', [EmployeeController::class, 'update'])->name('employees.update');
+    Route::get('/checks', [CheckController::class, 'index'])->name('checks.index');
+    Route::get('/checks/{payrollCheck}', [CheckController::class, 'show'])->name('checks.show');
+    Route::get('/checks/{payrollCheck}/pdf', [CheckController::class, 'downloadPdf'])->name('checks.pdf');
 });
 // admin dashboard routes
 Route::prefix('admin')->middleware(['auth'])->group(function () {

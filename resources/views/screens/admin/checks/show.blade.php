@@ -61,7 +61,12 @@
                             Check # [{{ $check->check_number }}]
                         </h2>
                         <div class="d-flex gap-2">
+                            <a href="{{ route('checks.pdf', $check) }}" class="btn btn-outline-secondary btn-sm f-w-500">
+                                Download PDF
+                            </a>
+                            @role('client')
                             <a href="{{ route('checks.create') }}" class="btn btn-primary btn-sm f-w-500">New check</a>
+                            @endrole
                             <a href="{{ route('checks.index') }}" class="btn btn-outline-secondary btn-sm f-w-500">All checks</a>
                         </div>
                     </div>

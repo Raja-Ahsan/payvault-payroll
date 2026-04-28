@@ -255,7 +255,6 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <p class="px-3 text-muted small mb-2 mt-3">Employer taxes</p>
                                 <div class="table-responsive custom-scrollbar">
                                     <table class="table mb-0">
                                         <thead>

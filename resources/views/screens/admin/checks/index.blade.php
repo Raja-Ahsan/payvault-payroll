@@ -6,7 +6,9 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header card-no-border text-end">
+                    @role('client')
                         <a class="btn btn-primary f-w-500" href="{{ route('checks.create') }}"><i class="fa-solid fa-plus pe-2"></i>Create check</a>
+                    @endrole
                     </div>
                     <div class="card-body pt-0 px-0">
                         <div class="table-responsive custom-scrollbar">

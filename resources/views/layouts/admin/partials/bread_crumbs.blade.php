@@ -2,7 +2,7 @@
     <div class="page-title">
         <div class="row">
             <div class="row mb-3">
-                <div class="col-12">
+                {{--<div class="col-12">
                     @if (auth()->check() && auth()->user()->hasRole(config('roles.employee')) && ! request()->routeIs('employees.edit'))
                         @php
                             $profileEmployee = \App\Models\Employee::query()->where('user_id', auth()->id())->first();
@@ -16,7 +16,7 @@
                             </div>
                         @endif
                     @endif
-                </div>
+                </div>--}}
                 {{-- <div class="col-12">
                     @if (auth()->user()->hasRole(config('roles.league_contractor')))
                         @if (!$company || !$company->is_profile_completed)
