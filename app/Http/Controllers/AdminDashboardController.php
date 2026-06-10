@@ -14,6 +14,11 @@ class AdminDashboardController extends Controller
     public function index()
     {
         $user = auth()->user();
+        if($user->hasRole(config('roles.admin'))) {
+            $totalCompanies = Company::query()->count();
+            $totalCategories = IncomeCategory::query()->count();
+            return view('screens.admin.dashboard.admin', get_defined_vars());
+        }
         if ($user->hasRole(config('roles.client'))) {
             $totalCompanies = $user->hasRole(config('roles.client'))
                 ? Company::query()->count()
